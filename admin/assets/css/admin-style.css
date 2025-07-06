@@ -1,0 +1,138 @@
+/*admin panel section start*/
+.cmfwc_main_wrap {
+    padding-bottom: 65px;
+    float: left;
+    width: 70%;
+    overflow: visible;
+    background: white;
+    padding: 20px;
+    margin: 20px;
+      margin-left: 20px;
+    border-radius: 9px;
+    margin-left: 5px;
+  }
+
+
+  #setting_title {
+    background: #6033e7;
+    padding: 4px;
+    border-radius: 3px;
+    color: white;
+    margin-bottom: 30px
+  }
+
+  .global-options {
+    font-size: 22px;
+    color: white;
+    padding-left: 8px;
+    margin: 8px;
+  }
+
+
+  #repeater-wrapper .field-wrapper input {
+    padding: 2px;
+    margin-bottom: 13px;
+    border: 1px solid #6033e7;
+  }
+
+  input[type="checkbox"]:focus, input[type="color"]:focus, input[type="date"]:focus, input[type="datetime-local"]:focus, input[type="datetime"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="radio"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus, input[type="week"]:focus, select:focus, textarea:focus {
+    border-color: #6033e7;
+    box-shadow: 0 0 0 1px #6033e7;
+    outline: 2px solid transparent;
+  }
+
+  #add-repeater-field {
+    background: #6033e7;
+    padding: 5px 20px;
+    color: white;
+    border: 1px solid #6033e7;
+  }
+
+  /* select two section*/
+
+  .category_based_cmfw_section {
+    margin: 18px 0px;
+  }
+  .category_based_cmfw_section label {
+    font-size:15px;
+    color: black;
+  }
+
+  .select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid #6033e7 1px;
+    outline: 0;
+  }
+
+   /* select two section end*/
+
+   #cmfwc_style_area_wrap h3 {
+    background: #6033e7;
+    padding: 14px;
+    border-radius: 3px;
+    color: white;
+    margin-bottom: 29px;
+    margin-top: 41px;
+  }
+
+  #cmfwc_style_area_wrap label {
+    color: black;
+    font-size: 14px;
+    
+  }
+
+  #cmfwc_style_area_wrap input {
+    margin-bottom: 12px;
+    display: table;
+  }
+
+  #cmfwc_icon_style_area_wrap h3 {
+  
+    background: #6033e7;
+    padding: 14px;
+    border-radius: 3px;
+    color: white;
+    margin-bottom: 29px;
+    margin-top: 41px;
+  }
+
+
+  #cmfwc_icon_style_area_wrap label {
+    color: black;
+    font-size: 14px;
+  }
+
+  #cmfwc_icon_style_area_wrap input {
+    display: table;
+    margin-bottom: 12px;
+  }  
+
+  #save_change {
+    background: #6033e7;
+    padding: 5px 20px;
+    color: white;
+    border: 1px solid #6033e7;
+    margin: 13px 0px auto;
+    margin-top: 26px;
+    margin-bottom: 49px;
+  }
+
+
+/*admin panel section end*/
+
+
+
+.global_options_group{
+    margin-top: 20px;
+}
+
+#loader_signle_img{
+    display: none;
+    height: 20px;
+    width: 20px;
+}
+
+.custom-svg-class {
+    height: 50px;
+    width: 50px;
+}
+
