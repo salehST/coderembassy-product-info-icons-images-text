@@ -3,31 +3,41 @@
 if( !function_exists("cmfwc_save_ajax_data")){
     function cmfwc_save_ajax_data(){
 
-        $cmfwc_img_height = sanitize_text_field($_POST["img_height"]);
-        $cmfwc_img_width = sanitize_text_field($_POST["img_width"]);
-        $cmfwc_font_size = sanitize_text_field($_POST["font_size"]);
-        $cmfwc_font_color = sanitize_text_field($_POST["font_color"]);
-        $cmfwc_bg_color = sanitize_text_field($_POST["bg_color"]);
+        // Verify nonce for security
+        if ( !isset($_POST['cmfwc_nonce']) || !wp_verify_nonce($_POST['cmfwc_nonce'], 'cmfwc_save_global_settings') ) {
+            wp_die('Security check failed');
+        }
 
-        $cmfwc_margin = sanitize_text_field($_POST["margin"]);
-        $cmfwc_padding = sanitize_text_field($_POST["padding"]);
-        $cmfwc_border_radius = sanitize_text_field($_POST["border_radius"]);
+        // Check user capabilities
+        if ( !current_user_can('manage_options') ) {
+            wp_die('Insufficient permissions');
+        }
+
+        $cmfwc_img_height = sanitize_text_field(wp_unslash($_POST["img_height"]));
+        $cmfwc_img_width = sanitize_text_field(wp_unslash($_POST["img_width"]));
+        $cmfwc_font_size = sanitize_text_field(wp_unslash($_POST["font_size"]));
+        $cmfwc_font_color = sanitize_text_field(wp_unslash($_POST["font_color"]));
+        $cmfwc_bg_color = sanitize_text_field(wp_unslash($_POST["bg_color"]));
+
+        $cmfwc_margin = sanitize_text_field(wp_unslash($_POST["margin"]));
+        $cmfwc_padding = sanitize_text_field(wp_unslash($_POST["padding"]));
+        $cmfwc_border_radius = sanitize_text_field(wp_unslash($_POST["border_radius"]));
 
 
-        $cmfwc_icon_size = sanitize_text_field($_POST["icon_size"]);
-        $cmfwc_icon_color = sanitize_text_field($_POST["icon_front_color"]);
-        $cmfwc_icon_margin = sanitize_text_field($_POST["icon_margin"]);
-        $cmfwc_icon_padding = sanitize_text_field($_POST["icon_padding"]);
+        $cmfwc_icon_size = sanitize_text_field(wp_unslash($_POST["icon_size"]));
+        $cmfwc_icon_color = sanitize_text_field(wp_unslash($_POST["icon_front_color"]));
+        $cmfwc_icon_margin = sanitize_text_field(wp_unslash($_POST["icon_margin"]));
+        $cmfwc_icon_padding = sanitize_text_field(wp_unslash($_POST["icon_padding"]));
 
         
        
         if ( isset($_POST['repeaterFields']) && is_array($_POST['repeaterFields']) ) {
-            update_option('cmfwc_global_repeater_fields', $_POST['repeaterFields']);
+            update_option('cmfwc_global_repeater_fields', wp_unslash($_POST['repeaterFields']));
         }
 
 
         if ( isset($_POST['category_list']) && is_array($_POST['category_list']) ) {
-            update_option('cmfwc_global_category_list', $_POST['category_list']);
+            update_option('cmfwc_global_category_list', wp_unslash($_POST['category_list']));
         }
 
         if(isset($cmfwc_bg_color)){

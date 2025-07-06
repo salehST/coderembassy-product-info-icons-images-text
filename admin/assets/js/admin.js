@@ -176,6 +176,7 @@ $('#add-repeater-field').on('click', function () {
         url: ajax_object.ajax_url,
         data: {
             action:'cffw_save_global_data',
+            cmfwc_nonce: ajax_object.cmfwc_nonce,
             repeaterFields: repeaterFields,
             category_list: cmfw_category_list,
             img_height: cmfw_img_height,
