@@ -105,9 +105,9 @@ add_action("product_cat_edit_form_fields","customfo_repeater_field_display_categ
 /*display global field in category edit end*/
 
 // Save the custom repeater fields
-add_action('edited_product_cat', 'save_custom_repeater_field_as_meta', 10, 2);
+add_action('edited_product_cat', 'customfo_save_custom_repeater_field_as_meta', 10, 2);
 
-function save_custom_repeater_field_as_meta($term_id, $tt_id) {
+function customfo_save_custom_repeater_field_as_meta($term_id, $tt_id) {
     if (isset($_POST['custom_repeater_field'])) {
         $sanitized_data = array();
 
