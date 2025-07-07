@@ -1,7 +1,7 @@
 <?php
 // display global custom fields on single product page
-if( !function_exists("cmfwc_display_global_custom_fields")){
-    function cmfwc_display_global_custom_fields(){
+if( !function_exists("customfo_display_global_custom_fields")){
+    function customfo_display_global_custom_fields(){
         if ( !is_singular() && !is_product() ) {
             return false;
         }
@@ -44,6 +44,6 @@ if( !function_exists("cmfwc_display_global_custom_fields")){
 }
 
 $category_list = get_option("cmfwc_global_category_list");
-add_action("woocommerce_after_add_to_cart_form","cmfwc_display_global_custom_fields");
+add_action("woocommerce_after_add_to_cart_form","customfo_display_global_custom_fields");
 
 

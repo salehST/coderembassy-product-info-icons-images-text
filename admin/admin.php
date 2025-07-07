@@ -1,6 +1,6 @@
 <?php
- if(!function_exists("cmfwc_add_custom_fields_tab")){
-    function cmfwc_add_custom_fields_tab($tabs){
+ if(!function_exists("customfo_add_custom_fields_tab")){
+    function customfo_add_custom_fields_tab($tabs){
         $tabs['custom_fields'] = array(
             'label'    => __(' Add Custom Meta Field', 'woocommerce'),
             'target'   => 'custom_fields_product_data',
@@ -9,10 +9,10 @@
         return $tabs;
     }
 }
-add_action("woocommerce_product_data_tabs","cmfwc_add_custom_fields_tab",100,1);
+add_action("woocommerce_product_data_tabs","customfo_add_custom_fields_tab",100,1);
 
-add_action('woocommerce_product_data_panels', 'cmfwc_custom_fields_product_data_panels');
-function cmfwc_custom_fields_product_data_panels() {
+add_action('woocommerce_product_data_panels', 'customfo_custom_fields_product_data_panels');
+function customfo_custom_fields_product_data_panels() {
     global $post;
     $hooks = array(
         'display_content_after_add_to_cart',
@@ -117,8 +117,8 @@ function cmfwc_custom_fields_product_data_panels() {
 
     // save product meta data
 
-    add_action('woocommerce_process_product_meta', 'cmfwc_save_custom_fields');
-    function cmfwc_save_custom_fields($post_id) {
+    add_action('woocommerce_process_product_meta', 'customfo_save_custom_fields');
+    function customfo_save_custom_fields($post_id) {
             
         if (isset($_POST['custom_repeater_field'])) {
 

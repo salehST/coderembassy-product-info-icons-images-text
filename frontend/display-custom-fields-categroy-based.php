@@ -1,9 +1,9 @@
 <?php 
 
-add_action("wp","cmfwc_display_custom_fields_categroy_based");
+add_action("wp","customfo_display_custom_fields_categroy_based");
 
-if( !function_exists("cmfwc_display_custom_fields_categroy_based")){
-    function cmfwc_display_custom_fields_categroy_based(){
+if( !function_exists("customfo_display_custom_fields_categroy_based")){
+    function customfo_display_custom_fields_categroy_based(){
         if(is_admin()){
             return;
         }
@@ -15,7 +15,7 @@ if( !function_exists("cmfwc_display_custom_fields_categroy_based")){
        if( is_product() && isset($category_list) && is_array($category_list)){
         $product_cats = wp_get_post_terms($post->ID, 'product_cat', array('fields' => 'ids'));
             if( array_intersect( $product_cats, $category_list)){
-                add_action("woocommerce_after_add_to_cart_form","cmfwc_display_custom_fileds");
+                add_action("woocommerce_after_add_to_cart_form","customfo_display_custom_fileds");
             }
        }
         
@@ -24,7 +24,7 @@ if( !function_exists("cmfwc_display_custom_fields_categroy_based")){
 
 // display custom fields function
 
-function cmfwc_display_custom_fileds(){
+function customfo_display_custom_fileds(){
     $global_custom_fields = get_option("cmfwc_global_repeater_fields");
     if(isset($global_custom_fields) && is_array($global_custom_fields) ){
         foreach( $global_custom_fields as $field):

@@ -1,7 +1,7 @@
 <?php
 
-if( !function_exists("cmfwc_save_ajax_data")){
-    function cmfwc_save_ajax_data(){
+if( !function_exists("customfo_save_ajax_data")){
+    function customfo_save_ajax_data(){
 
         // Verify nonce for security
         if ( !isset($_POST['cmfwc_nonce']) || !wp_verify_nonce($_POST['cmfwc_nonce'], 'cmfwc_save_global_settings') ) {
@@ -13,21 +13,21 @@ if( !function_exists("cmfwc_save_ajax_data")){
             wp_die('Insufficient permissions');
         }
 
-        $cmfwc_img_height = sanitize_text_field(wp_unslash($_POST["img_height"]));
-        $cmfwc_img_width = sanitize_text_field(wp_unslash($_POST["img_width"]));
-        $cmfwc_font_size = sanitize_text_field(wp_unslash($_POST["font_size"]));
-        $cmfwc_font_color = sanitize_text_field(wp_unslash($_POST["font_color"]));
-        $cmfwc_bg_color = sanitize_text_field(wp_unslash($_POST["bg_color"]));
+        $customfo_img_height = sanitize_text_field(wp_unslash($_POST["img_height"]));
+        $customfo_img_width = sanitize_text_field(wp_unslash($_POST["img_width"]));
+        $customfo_font_size = sanitize_text_field(wp_unslash($_POST["font_size"]));
+        $customfo_font_color = sanitize_text_field(wp_unslash($_POST["font_color"]));
+        $customfo_bg_color = sanitize_text_field(wp_unslash($_POST["bg_color"]));
 
-        $cmfwc_margin = sanitize_text_field(wp_unslash($_POST["margin"]));
-        $cmfwc_padding = sanitize_text_field(wp_unslash($_POST["padding"]));
-        $cmfwc_border_radius = sanitize_text_field(wp_unslash($_POST["border_radius"]));
+        $customfo_margin = sanitize_text_field(wp_unslash($_POST["margin"]));
+        $customfo_padding = sanitize_text_field(wp_unslash($_POST["padding"]));
+        $customfo_border_radius = sanitize_text_field(wp_unslash($_POST["border_radius"]));
 
 
-        $cmfwc_icon_size = sanitize_text_field(wp_unslash($_POST["icon_size"]));
-        $cmfwc_icon_color = sanitize_text_field(wp_unslash($_POST["icon_front_color"]));
-        $cmfwc_icon_margin = sanitize_text_field(wp_unslash($_POST["icon_margin"]));
-        $cmfwc_icon_padding = sanitize_text_field(wp_unslash($_POST["icon_padding"]));
+        $customfo_icon_size = sanitize_text_field(wp_unslash($_POST["icon_size"]));
+        $customfo_icon_color = sanitize_text_field(wp_unslash($_POST["icon_front_color"]));
+        $customfo_icon_margin = sanitize_text_field(wp_unslash($_POST["icon_margin"]));
+        $customfo_icon_padding = sanitize_text_field(wp_unslash($_POST["icon_padding"]));
 
         
        
@@ -40,52 +40,52 @@ if( !function_exists("cmfwc_save_ajax_data")){
             update_option('cmfwc_global_category_list', wp_unslash($_POST['category_list']));
         }
 
-        if(isset($cmfwc_bg_color)){
-            update_option("cmfwc_bg_color", $cmfwc_bg_color);
+        if(isset($customfo_bg_color)){
+            update_option("cmfwc_bg_color", $customfo_bg_color);
         }
 
-        if(isset($cmfwc_font_color)){
-            update_option("cmfwc_font_color", $cmfwc_font_color);
+        if(isset($customfo_font_color)){
+            update_option("cmfwc_font_color", $customfo_font_color);
         }
 
-        if(isset($cmfwc_img_height)){
-            update_option("cmfwc_img_height", $cmfwc_img_height);
+        if(isset($customfo_img_height)){
+            update_option("cmfwc_img_height", $customfo_img_height);
         }
 
-        if(isset($cmfwc_img_width)){
-            update_option("cmfwc_img_width", $cmfwc_img_width);
+        if(isset($customfo_img_width)){
+            update_option("cmfwc_img_width", $customfo_img_width);
         }
 
-        if(isset($cmfwc_font_size)){
-            update_option("cmfwc_font_size", $cmfwc_font_size);
+        if(isset($customfo_font_size)){
+            update_option("cmfwc_font_size", $customfo_font_size);
         }
 
-        if(isset($cmfwc_margin)){
-            update_option("cmfwc_margin", $cmfwc_margin);
+        if(isset($customfo_margin)){
+            update_option("cmfwc_margin", $customfo_margin);
         }
        
-        if(isset($cmfwc_padding)){
-            update_option("cmfwc_padding", $cmfwc_padding);
+        if(isset($customfo_padding)){
+            update_option("cmfwc_padding", $customfo_padding);
         }
 
-        if(isset($cmfwc_border_radius)){
-            update_option("cmfwc_border_radius", $cmfwc_border_radius);
+        if(isset($customfo_border_radius)){
+            update_option("cmfwc_border_radius", $customfo_border_radius);
         }
 
-        if(isset($cmfwc_icon_size)){
-            update_option("cmfwc_icon_size", $cmfwc_icon_size);
+        if(isset($customfo_icon_size)){
+            update_option("cmfwc_icon_size", $customfo_icon_size);
         }
 
-        if(isset($cmfwc_icon_color)){
-            update_option("cmfwc_icon_color", $cmfwc_icon_color);
+        if(isset($customfo_icon_color)){
+            update_option("cmfwc_icon_color", $customfo_icon_color);
         }
 
-        if(isset($cmfwc_icon_margin)){
-            update_option("cmfwc_icon_margin", $cmfwc_icon_margin);
+        if(isset($customfo_icon_margin)){
+            update_option("cmfwc_icon_margin", $customfo_icon_margin);
         }
 
-        if(isset($cmfwc_icon_padding)){
-            update_option("cmfwc_icon_padding", $cmfwc_icon_padding);
+        if(isset($customfo_icon_padding)){
+            update_option("cmfwc_icon_padding", $customfo_icon_padding);
         }
         
         
@@ -93,5 +93,5 @@ if( !function_exists("cmfwc_save_ajax_data")){
     }
 }
 
-add_action("wp_ajax_cffw_save_global_data","cmfwc_save_ajax_data");
-add_action("wp_ajax_nopriv_cffw_save_global_data","cmfwc_save_ajax_data");
+add_action("wp_ajax_cffw_save_global_data","customfo_save_ajax_data");
+add_action("wp_ajax_nopriv_cffw_save_global_data","customfo_save_ajax_data");

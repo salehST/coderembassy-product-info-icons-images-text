@@ -1,6 +1,6 @@
 <?php
 
-function cmfwc_repeater_field_edit_category($term){
+function customfo_repeater_field_edit_category($term){
     // Get the term ID
     $term_id = $term->term_id;
     
@@ -62,10 +62,10 @@ function cmfwc_repeater_field_edit_category($term){
     <?php
 }
 // Hook into the product category edit form
-add_action("product_cat_edit_form_fields","cmfwc_repeater_field_edit_category");
+add_action("product_cat_edit_form_fields","customfo_repeater_field_edit_category");
 
 /*display global field in category edit*/
-function cmfwc_repeater_field_display_category_page($taxonomy){
+function customfo_repeater_field_display_category_page($taxonomy){
     $global_custom_fields = get_option("cmfwc_global_repeater_fields");
     
     if(isset($global_custom_fields) && is_array($global_custom_fields) ){
@@ -101,7 +101,7 @@ function cmfwc_repeater_field_display_category_page($taxonomy){
         <?php
     }
 }
-add_action("product_cat_edit_form_fields","cmfwc_repeater_field_display_category_page",100,1);
+add_action("product_cat_edit_form_fields","customfo_repeater_field_display_category_page",100,1);
 /*display global field in category edit end*/
 
 // Save the custom repeater fields
@@ -125,7 +125,7 @@ function save_custom_repeater_field_as_meta($term_id, $tt_id) {
 
 // display custom fields on products in the specified category
 
-function cmfwc_get_category_custom_fields($product_id) {
+function customfo_get_category_custom_fields($product_id) {
     // Get the categories of the product
     $categories = wp_get_post_terms($product_id, 'product_cat');
 
@@ -140,11 +140,11 @@ function cmfwc_get_category_custom_fields($product_id) {
 }
 
 
-function cmfwc_display_custom_category_fields() {
+function customfo_display_custom_category_fields() {
 
     global $product;
     $product_id = $product->get_id();
-    $custom_fields = cmfwc_get_category_custom_fields($product_id);
+    $custom_fields = customfo_get_category_custom_fields($product_id);
 
     if ($custom_fields) {
      ?>
@@ -182,7 +182,7 @@ function cmfwc_display_custom_category_fields() {
 
 }
 
-add_action('woocommerce_after_add_to_cart_form', 'cmfwc_display_custom_category_fields', 20);
+add_action('woocommerce_after_add_to_cart_form', 'customfo_display_custom_category_fields', 20);
 
 
 

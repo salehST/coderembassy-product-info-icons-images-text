@@ -2,13 +2,13 @@
 
 /*
 * Plugin Name: Custom Meta for WooCommerce
-* Description: Add custom Meta data to WooCommerce Single product.
+* Description: Add Additional information to WooCommerce Single product.
 * Plugin URI: https://coderembassy.com/
 * Author: codersaleh
 * Version: 1.0.0
 * License: GPLv2 or later
 * Author URI: https://github.com/coderembassy
-* Text Domain: cmfwc
+* Text Domain: customfo
 */
 
 
@@ -18,11 +18,11 @@ if( !defined('ABSPATH')){
 
 /*make a constant for plugin directory*/
 
-define('CMFWC_DIR',  plugin_dir_url(__FILE__) );
+define('CUSTOMFO_DIR',  plugin_dir_url(__FILE__) );
 
 /*checking if plugin is not active*/
-if( !function_exists('cmfwc_admin_notice')){
-    function cmfwc_admin_notice(){
+if( !function_exists('customfo_admin_notice')){
+    function customfo_admin_notice(){
         $current_screen = get_current_screen();
         if ($current_screen->id === 'plugins') {
             if ( !is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
@@ -33,19 +33,19 @@ if( !function_exists('cmfwc_admin_notice')){
         }
     }
 }
-add_action("admin_notices","cmfwc_admin_notice");
+add_action("admin_notices","customfo_admin_notice");
 
 /*load text domain*/
-function cmfwc_load_textdomain() {
+function customfo_load_textdomain() {
     load_plugin_textdomain( 'cmfwc', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
-add_action( 'init', 'cmfwc_load_textdomain' );
+add_action( 'init', 'customfo_load_textdomain' );
 
 /*load text domain end*/
 
 /*enqueue admin assets file section*/
-if(!function_exists('cmfwc_enqueue_admin_assets')){
-    function cmfwc_enqueue_admin_assets(){
+if(!function_exists('customfo_enqueue_admin_assets')){
+    function customfo_enqueue_admin_assets(){
           //add font Font-Awesome
          wp_enqueue_style("custom-meta-admin-font-awesome-css",'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
         
@@ -57,11 +57,11 @@ if(!function_exists('cmfwc_enqueue_admin_assets')){
         wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), null, true);
          
           // admin section 
-          wp_enqueue_style("cmfwc-admin-css", CMFWC_DIR.'/admin/assets/css/admin-style.css',null,'1.0.0','all');
+          wp_enqueue_style("cmfwc-admin-css", CUSTOMFO_DIR.'/admin/assets/css/admin-style.css',null,'1.0.0','all');
          
           // color picker
-          wp_enqueue_script("cmfwc-jscolor-js",CMFWC_DIR.'/admin/assets/js/jscolor/jscolor.js',null,'1.0.0',true);
-          wp_enqueue_script("cmfwc-admin-js",CMFWC_DIR.'/admin/assets/js/admin.js',array('jquery'),'1.0.0',true);
+          wp_enqueue_script("cmfwc-jscolor-js",CUSTOMFO_DIR.'/admin/assets/js/jscolor/jscolor.js',null,'1.0.0',true);
+          wp_enqueue_script("cmfwc-admin-js",CUSTOMFO_DIR.'/admin/assets/js/admin.js',array('jquery'),'1.0.0',true);
           
   
 
@@ -73,12 +73,12 @@ if(!function_exists('cmfwc_enqueue_admin_assets')){
          }
         }
 }
-add_action("admin_enqueue_scripts","cmfwc_enqueue_admin_assets");
+add_action("admin_enqueue_scripts","customfo_enqueue_admin_assets");
 /*enqueue admin assets file section end*/
 
 /*enqueue frontend assets file section*/
-if(!function_exists("cmfwc_enqueue_frontend_assets")){
-    function cmfwc_enqueue_frontend_assets(){
+if(!function_exists("customfo_enqueue_frontend_assets")){
+    function customfo_enqueue_frontend_assets(){
 
         //add font Font-Awesome
         wp_enqueue_style("cmfwc-font-awesome-css",'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
@@ -88,13 +88,13 @@ if(!function_exists("cmfwc_enqueue_frontend_assets")){
         //  wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), null, true);
         
        
-        wp_enqueue_style("cmfwc-frontend-css", CMFWC_DIR.'/frontend/assets/css/frontend-style.css',null,'1.0.0','all');
-        wp_enqueue_script("cmfwc-frontend-js",CMFWC_DIR."/frontend/assets/js/frontend.js",array('jquery'),'1.0.0',true);
+        wp_enqueue_style("cmfwc-frontend-css", CUSTOMFO_DIR.'/frontend/assets/css/frontend-style.css',null,'1.0.0','all');
+        wp_enqueue_script("cmfwc-frontend-js",CUSTOMFO_DIR."/frontend/assets/js/frontend.js",array('jquery'),'1.0.0',true);
 
 
     }
 }
-add_action("wp_enqueue_scripts","cmfwc_enqueue_frontend_assets");
+add_action("wp_enqueue_scripts","customfo_enqueue_frontend_assets");
 /*enqueue frontend assets file section end*/
 
 /*Support svg image*/
@@ -108,8 +108,8 @@ add_filter( 'upload_mimes', 'add_svg_to_upload_mimes' );
 
 
 /* ==================Admin menu section=============*/
-if( ! function_exists( 'cmfwc_add_menu_under_woocommerce ')){
-    function cmfwc_add_menu_under_woocommerce(){
+if( ! function_exists( 'customfo_add_menu_under_woocommerce ')){
+    function customfo_add_menu_under_woocommerce(){
        add_submenu_page(
            'woocommerce',
            'CFFW',
@@ -120,8 +120,8 @@ if( ! function_exists( 'cmfwc_add_menu_under_woocommerce ')){
        ); 
     }
 }
-register_activation_hook(__FILE__, 'cmfwc_add_menu_under_woocommerce');
-add_action( 'admin_menu', 'cmfwc_add_menu_under_woocommerce' );
+register_activation_hook(__FILE__, 'customfo_add_menu_under_woocommerce');
+add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
 
 
  function cffw_add_submenu_page(){
@@ -330,7 +330,7 @@ add_action( 'admin_menu', 'cmfwc_add_menu_under_woocommerce' );
 /* ==================Admin menu section end=============*/
 
 /* =====================Style area==================*/
-function cmfwc_custom_style() {
+function customfo_custom_style() {
         
     // Get options with defaults if necessary
     $cmfwc_bg_color      = get_option( "cmfwc_bg_color", "#ffffff" );
@@ -377,7 +377,7 @@ function cmfwc_custom_style() {
     </style>";
 
 }
-add_action( "wp_head", "cmfwc_custom_style");
+add_action( "wp_head", "customfo_custom_style");
 /* =====================Style area end==================*/
 
 
