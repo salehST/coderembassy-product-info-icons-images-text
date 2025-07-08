@@ -10,7 +10,7 @@ if( !function_exists("customfo_display_custom_fields_categroy_based")){
 
         global $post;
 
-        $category_list = get_option("cmfwc_global_category_list");
+        $category_list = get_option("customfo_global_category_list");
 
        if( is_product() && isset($category_list) && is_array($category_list)){
         $product_cats = wp_get_post_terms($post->ID, 'product_cat', array('fields' => 'ids'));
@@ -25,7 +25,7 @@ if( !function_exists("customfo_display_custom_fields_categroy_based")){
 // display custom fields function
 
 function customfo_display_custom_fileds(){
-    $global_custom_fields = get_option("cmfwc_global_repeater_fields");
+    $global_custom_fields = get_option("customfo_global_repeater_fields");
     if(isset($global_custom_fields) && is_array($global_custom_fields) ){
         foreach( $global_custom_fields as $field):
             ?>
