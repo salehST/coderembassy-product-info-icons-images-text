@@ -7,7 +7,7 @@ if( !function_exists("customfo_display_global_custom_fields")){
         }
 
         $global_custom_fields = get_option("cmfwc_global_repeater_fields");
-        // var_dump($global_custom_fields);
+        
 
         if(isset($global_custom_fields) && is_array($global_custom_fields) ){
 

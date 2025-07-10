@@ -9,10 +9,10 @@ if( !function_exists("customfo_save_ajax_data")){
             wp_die('Security check failed');
         }
 
-        // Check user capabilities
-        if ( !current_user_can('manage_options') ) {
-            wp_die('Insufficient permissions');
-        }
+        // // Check user capabilities
+        // if ( !current_user_can('manage_options') ) {
+        //     wp_die('Insufficient permissions');
+        // }
 
         $customfo_img_height = sanitize_text_field(wp_unslash($_POST["img_height"]));
         $customfo_img_width = sanitize_text_field(wp_unslash($_POST["img_width"]));

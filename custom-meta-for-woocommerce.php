@@ -237,6 +237,10 @@ add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
             $cmfwc_margin        = get_option( "cmfwc_margin");
             $cmfwc_padding       = get_option( "cmfwc_padding");
             $cmfwc_border_radius = get_option( "cmfwc_border_radius");
+            $cmfwc_icon_size     = get_option( "cmfwc_icon_size");
+            $cmfwc_icon_color    = get_option( "cmfwc_icon_color");
+            $cmfwc_icon_margin   = get_option( "cmfwc_icon_margin");
+            $cmfwc_icon_padding  = get_option( "cmfwc_icon_padding");
             ?>
 
             <!---Style area start --->
@@ -290,22 +294,22 @@ add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
                         <div class="icon_setup">
                             <div class="icon_size">
                                 <label for="cmfwc_icon_size"> <?php echo esc_html_e('Icon Font Size', 'customfo'); ?></label>
-                                <input type="number" name="cmfwc_icon_size" id="cmfwc_icon_size" value="">
+                                <input type="number" name="cmfwc_icon_size" id="cmfwc_icon_size" value="<?php echo esc_attr($cmfwc_icon_size);?>">
                             </div>
 
                             <div class="icon_color">
                                 <label for="cmfwc_icon_color"> <?php echo esc_html_e('Icon Font Color', 'customfo'); ?></label>
-                                <input type="text" name="cmfwc_icon_color" id="cmfwc_icon_color" value="">
+                                <input type="text" name="cmfwc_icon_color" id="cmfwc_icon_color" value="<?php echo esc_attr($cmfwc_icon_color);?>">
                             </div>
 
                             <div class="icon_margin">
                                 <label for="cmfwc_icon_margin"> <?php echo esc_html_e('Icon Margin', 'customfo'); ?></label>
-                                <input type="number" name="cmfwc_icon_margin" id="cmfwc_icon_margin" value="">
+                                <input type="number" name="cmfwc_icon_margin" id="cmfwc_icon_margin" value="<?php echo esc_attr($cmfwc_icon_margin);?>">
                             </div>
 
                             <div class="icon_padding">
                                 <label for="cmfwc_icon_padding"> <?php echo esc_html_e('Icon Padding', 'customfo'); ?></label>
-                                <input type="number" name="cmfwc_icon_padding" id="cmfwc_icon_padding" value="">
+                                <input type="number" name="cmfwc_icon_padding" id="cmfwc_icon_padding" value="<?php echo esc_attr($cmfwc_icon_padding);?>">
                             </div>
                         </div>
 
