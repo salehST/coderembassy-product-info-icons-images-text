@@ -112,11 +112,11 @@ if( ! function_exists( 'customfo_add_menu_under_woocommerce ')){
     function customfo_add_menu_under_woocommerce(){
        add_submenu_page(
            'woocommerce',
-           'CFFW',
-           'WC Custom Fields',
+           'Custom Meta for WooCommerce',
+           'Custom Meta for WooCommerce',
            'manage_options',
-           'cffw-settings',
-           'cffw_add_submenu_page'
+           'customfo-settings',
+           'customfo_add_submenu_page'
        ); 
     }
 }
@@ -124,7 +124,7 @@ register_activation_hook(__FILE__, 'customfo_add_menu_under_woocommerce');
 add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
 
 
- function cffw_add_submenu_page(){
+ function customfo_add_submenu_page(){
     ?>
 
     <div class="cmfwc_main_wrap">
