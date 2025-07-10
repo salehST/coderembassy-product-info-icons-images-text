@@ -3,6 +3,7 @@
 if( !function_exists("customfo_save_ajax_data")){
     function customfo_save_ajax_data(){
 
+    
         // Verify nonce for security
         if ( !isset($_POST['cmfwc_nonce']) || !wp_verify_nonce($_POST['cmfwc_nonce'], 'cmfwc_save_global_settings') ) {
             wp_die('Security check failed');

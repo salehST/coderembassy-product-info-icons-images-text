@@ -65,7 +65,10 @@ if(!function_exists('customfo_enqueue_admin_assets')){
           
   
 
-          wp_localize_script("cmfwc-admin-js","ajax_object",array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ));
+          wp_localize_script("cmfwc-admin-js","ajax_object",array( 
+              'ajax_url' => admin_url( 'admin-ajax.php' ),
+              'cmfwc_nonce' => wp_create_nonce( 'cmfwc_save_global_settings' )
+          ));
          
           wp_enqueue_script('jquery');
           if (is_admin()) {
