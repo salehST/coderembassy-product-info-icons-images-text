@@ -2,7 +2,7 @@
  if(!function_exists("customfo_add_custom_fields_tab")){
     function customfo_add_custom_fields_tab($tabs){
         $tabs['custom_fields'] = array(
-            'label'    => __(' Add Custom Meta Field', 'customfo'),
+            'label'    => __('Custom Meta For WooCommerce', 'customfo'),
             'target'   => 'custom_fields_product_data',
             'class'    => array('show_if_simple'),
         );
