@@ -38,12 +38,12 @@ function customfo_display_custom_fileds(){
                                 <div class="meta_box">
                                     <?php
                                         if (!empty($field['image'])) {
-                                            echo wp_get_attachment_image($field['image'], 'full');
+                                            echo wp_get_attachment_image(esc_attr($field['image']), 'full');
                                         }else {
-                                        echo '<i class="'. $field['icon_class'] .'"></i>';
+                                        echo '<i class="'. esc_attr($field['icon_class']) .'"></i>';
                                         }
             
-                                        echo '<span class="title">'. $field['title'] .'</span>'; 
+                                        echo '<span class="title">'. esc_html($field['title']) .'</span>'; 
                                     ?>
                                 </div>
                                     

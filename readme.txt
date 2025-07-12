@@ -2,7 +2,7 @@
 Contributors: codersaleh, phpcoderhannan
 Tags: Custom Meta, Additional Information, Extra Info, custom meta for wooCommerc, signle product
 Requires at least: 5.2
-Tested up to: 6.8.1
+Tested up to: 6.8
 Requires PHP: 7.0.0
 Stable tag: 1.0.0
 License: GPL v2 or later
