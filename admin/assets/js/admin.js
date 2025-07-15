@@ -40,62 +40,7 @@ $('#add-repeater-field').on('click', function () {
     // Run on page load
     toggleAddButton();
 
-    /*
-
-    // Run after adding a new field
-    $('#add-repeater-field').on('click', function() {
-        // Clone the last field
-        var lastField = $('.field-wrapper').last();
-        var newField = lastField.clone();
-
-        // Update name attributes with new index
-        var count = $('.field-wrapper').length;
-        newField.find('input, select, textarea').each(function() {
-            var name = $(this).attr('name');
-            if (name) {
-                var newName = name.replace(/\[\d+\]/, '[' + count + ']');
-                $(this).attr('name', newName).val('');
-            }
-        });
-
-        newField.find('.image_preview').empty(); // Clear preview
-        lastField.after(newField);
-
-        toggleAddButton();
-    });
-
-    // Remove field
-    $(document).on('click', '.remove_field_button', function() {
-        $(this).closest('.field-wrapper').remove();
-        toggleAddButton();
-    });
-    */
-
-
-/*Hide repeter field section end*/
-
-
-
-    // let counter = 0;
-    // // Add new repeater field
-    // $('#add-repeater-field').on('click', function () {
-    //     counter++;
-    //     $('#repeater-wrapper').append(`<div class="field-wrapper">
-    //     <label for="icon_class">Icon Class</label>
-    //     <input type="text" class="icon-picker" name="custom_repeater_field[${counter}][icon_class]" value=""  placeholder="Click to Select Icon" />
-    //     <label for="icon_class">Title</label>
-    //     <input type="text" name="custom_repeater_field[${counter}][title]" id="title" class="title" placeholder="give title text"/>
-         
-          
-    //     <input type="hidden" name="custom_repeater_field[${counter}][image]" class="image" />
-    //     <button type="button" class="upload_image_button button">Upload/Add image</button>
-    //     <button type="button" class="remove_field_button button">Remove</button><div class="image_preview"></div></div><br/>`);
-    // });
-
-
-
-
-
+   
      // Uploading files
      jQuery(document).on('click', '.upload_image_button', function(event) {
         event.preventDefault();
@@ -176,6 +121,7 @@ $('#add-repeater-field').on('click', function () {
         url: ajax_object.ajax_url,
         data: {
             action:'cffw_save_global_data',
+            cmfwc_nonce: ajax_object.cmfwc_nonce,
             repeaterFields: repeaterFields,
             category_list: cmfw_category_list,
             img_height: cmfw_img_height,
@@ -221,9 +167,6 @@ $(".select2-category-dropdown").select2({
 });  
 
  
-
-
-
 
 /*Gobal section end */
 

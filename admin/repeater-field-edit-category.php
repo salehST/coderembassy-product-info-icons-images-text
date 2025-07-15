@@ -1,6 +1,6 @@
 <?php
 
-function cmfwc_repeater_field_edit_category($term){
+function customfo_repeater_field_edit_category($term){
     // Get the term ID
     $term_id = $term->term_id;
     
@@ -22,8 +22,8 @@ function cmfwc_repeater_field_edit_category($term){
                         <input type="text" name="custom_repeater_field[<?php echo esc_attr($count);?>][title]" value="<?php echo esc_attr($field['title']) ? esc_attr($field['title']) : ''; ?>" placeholder="give title text" />
                         <input type="hidden" name="custom_repeater_field[<?php echo esc_attr($count);?>][image]" value="<?php echo isset($field['image']) ? esc_attr($field['image']) : ''; ?>" />
                        
-                        <button type="button" class="upload_image_button button"><?php echo esc_html('Upload/Add image', 'cmfwc'); ?></button>
-                        <button type="button" class="remove_field_button button"><?php echo esc_html('Remove', 'cmfwc'); ?></button>
+                        <button type="button" class="upload_image_button button"><?php echo esc_html('Upload/Add image', 'customfo'); ?></button>
+                        <button type="button" class="remove_field_button button"><?php echo esc_html('Remove', 'customfo'); ?></button>
                         <div class="image_preview">
                             <?php
                             if (isset($field['image']) && !empty($field['image'])) {
@@ -49,23 +49,23 @@ function cmfwc_repeater_field_edit_category($term){
                     <input type="text" name="custom_repeater_field[0][icon_class]" class="icon_class" placeholder="give icon class" />
                     <input type="text" name="custom_repeater_field[0][title]" class="title" placeholder="give title text" />
                     <input type="hidden" name="custom_repeater_field[0][image]" class="image" />
-                    <button type="button" class="upload_image_button button"><?php echo esc_html_e('Upload/Add image', 'cmfwc'); ?></button>
-                    <button type="button" class="remove_field_button button"><?php echo esc_html_e('Remove', 'cmfwc'); ?></button>
+                    <button type="button" class="upload_image_button button"><?php echo esc_html_e('Upload/Add image', 'customfo'); ?></button>
+                    <button type="button" class="remove_field_button button"><?php echo esc_html_e('Remove', 'customfo'); ?></button>
                     <div class="image_preview"></div>
                 </div>
                 <?php
             }
             ?>
         </div>
-        <button type="button" id="add-repeater-field" class="button"><?php esc_html_e('Add Field', 'cmfwc'); ?></button>
+        <button type="button" id="add-repeater-field" class="button"><?php esc_html_e('Add Field', 'customfo'); ?></button>
     </div>
     <?php
 }
 // Hook into the product category edit form
-add_action("product_cat_edit_form_fields","cmfwc_repeater_field_edit_category");
+add_action("product_cat_edit_form_fields","customfo_repeater_field_edit_category");
 
 /*display global field in category edit*/
-function cmfwc_repeater_field_display_category_page($taxonomy){
+function customfo_repeater_field_display_category_page($taxonomy){
     $global_custom_fields = get_option("cmfwc_global_repeater_fields");
     
     if(isset($global_custom_fields) && is_array($global_custom_fields) ){
@@ -82,10 +82,10 @@ function cmfwc_repeater_field_display_category_page($taxonomy){
                                     if (!empty($field['image'])) {
                                         echo wp_get_attachment_image($field['image'], 'full');
                                     }else {
-                                        echo '<i class="'. $field['icon_class'] .'"></i>';
+                                        echo '<i class="'. esc_attr($field['icon_class']) .'"></i>';
                                     }
         
-                                        echo '<span class="title">'. $field['title'] .'</span>'; 
+                                        echo '<span class="title">'. esc_html($field['title']) .'</span>'; 
                                 ?>
                             </div>
                                 
@@ -101,13 +101,13 @@ function cmfwc_repeater_field_display_category_page($taxonomy){
         <?php
     }
 }
-add_action("product_cat_edit_form_fields","cmfwc_repeater_field_display_category_page",100,1);
+add_action("product_cat_edit_form_fields","customfo_repeater_field_display_category_page",100,1);
 /*display global field in category edit end*/
 
 // Save the custom repeater fields
-add_action('edited_product_cat', 'save_custom_repeater_field_as_meta', 10, 2);
+add_action('edited_product_cat', 'customfo_save_custom_repeater_field_as_meta', 10, 2);
 
-function save_custom_repeater_field_as_meta($term_id, $tt_id) {
+function customfo_save_custom_repeater_field_as_meta($term_id, $tt_id) {
     if (isset($_POST['custom_repeater_field'])) {
         $sanitized_data = array();
 
@@ -125,7 +125,7 @@ function save_custom_repeater_field_as_meta($term_id, $tt_id) {
 
 // display custom fields on products in the specified category
 
-function cmfwc_get_category_custom_fields($product_id) {
+function customfo_get_category_custom_fields($product_id) {
     // Get the categories of the product
     $categories = wp_get_post_terms($product_id, 'product_cat');
 
@@ -140,11 +140,11 @@ function cmfwc_get_category_custom_fields($product_id) {
 }
 
 
-function cmfwc_display_custom_category_fields() {
+function customfo_display_custom_category_fields() {
 
     global $product;
     $product_id = $product->get_id();
-    $custom_fields = cmfwc_get_category_custom_fields($product_id);
+    $custom_fields = customfo_get_category_custom_fields($product_id);
 
     if ($custom_fields) {
      ?>
@@ -182,7 +182,7 @@ function cmfwc_display_custom_category_fields() {
 
 }
 
-add_action('woocommerce_after_add_to_cart_form', 'cmfwc_display_custom_category_fields', 20);
+add_action('woocommerce_after_add_to_cart_form', 'customfo_display_custom_category_fields', 20);
 
 
 

@@ -1,13 +1,13 @@
 <?php
 // display global custom fields on single product page
-if( !function_exists("cmfwc_display_global_custom_fields")){
-    function cmfwc_display_global_custom_fields(){
+if( !function_exists("customfo_display_global_custom_fields")){
+    function customfo_display_global_custom_fields(){
         if ( !is_singular() && !is_product() ) {
             return false;
         }
 
         $global_custom_fields = get_option("cmfwc_global_repeater_fields");
-        // var_dump($global_custom_fields);
+        
 
         if(isset($global_custom_fields) && is_array($global_custom_fields) ){
 
@@ -22,10 +22,10 @@ if( !function_exists("cmfwc_display_global_custom_fields")){
                                         if (!empty($field['image'])) {
                                             echo wp_get_attachment_image($field['image'], 'full');
                                         }else {
-                                            echo '<i class="'. $field['icon_class'] .'"></i>';
+                                            echo '<i class="'. esc_attr($field['icon_class']) .'"></i>';
                                         }
             
-                                            echo '<span class="title">'. $field['title'] .'</span>'; 
+                                            echo '<span class="title">'. esc_html($field['title']) .'</span>'; 
                                     ?>
                                 </div>
                                     
@@ -44,6 +44,6 @@ if( !function_exists("cmfwc_display_global_custom_fields")){
 }
 
 $category_list = get_option("cmfwc_global_category_list");
-add_action("woocommerce_after_add_to_cart_form","cmfwc_display_global_custom_fields");
+add_action("woocommerce_after_add_to_cart_form","customfo_display_global_custom_fields");
 
 

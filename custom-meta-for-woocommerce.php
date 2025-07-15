@@ -2,13 +2,13 @@
 
 /*
 * Plugin Name: Custom Meta for WooCommerce
-* Description: Add custom Meta data to WooCommerce Single product.
+* Description: Add Additional information to WooCommerce Single product.
 * Plugin URI: https://coderembassy.com/
 * Author: codersaleh
 * Version: 1.0.0
 * License: GPLv2 or later
 * Author URI: https://github.com/coderembassy
-* Text Domain: cmfwc
+* Text Domain: customfo
 */
 
 
@@ -18,11 +18,11 @@ if( !defined('ABSPATH')){
 
 /*make a constant for plugin directory*/
 
-define('CMFWC_DIR',  plugin_dir_url(__FILE__) );
+define('CUSTOMFO_DIR',  plugin_dir_url(__FILE__) );
 
 /*checking if plugin is not active*/
-if( !function_exists('cmfwc_admin_notice')){
-    function cmfwc_admin_notice(){
+if( !function_exists('customfo_admin_notice')){
+    function customfo_admin_notice(){
         $current_screen = get_current_screen();
         if ($current_screen->id === 'plugins') {
             if ( !is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
@@ -33,19 +33,19 @@ if( !function_exists('cmfwc_admin_notice')){
         }
     }
 }
-add_action("admin_notices","cmfwc_admin_notice");
+add_action("admin_notices","customfo_admin_notice");
 
 /*load text domain*/
-function cmfwc_load_textdomain() {
-    load_plugin_textdomain( 'cmfwc', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+function customfo_load_textdomain() {
+    load_plugin_textdomain( 'customfo', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
-add_action( 'init', 'cmfwc_load_textdomain' );
+add_action( 'init', 'customfo_load_textdomain' );
 
 /*load text domain end*/
 
 /*enqueue admin assets file section*/
-if(!function_exists('cmfwc_enqueue_admin_assets')){
-    function cmfwc_enqueue_admin_assets(){
+if(!function_exists('customfo_enqueue_admin_assets')){
+    function customfo_enqueue_admin_assets(){
           //add font Font-Awesome
          wp_enqueue_style("custom-meta-admin-font-awesome-css",'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
         
@@ -57,15 +57,18 @@ if(!function_exists('cmfwc_enqueue_admin_assets')){
         wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), null, true);
          
           // admin section 
-          wp_enqueue_style("cmfwc-admin-css", CMFWC_DIR.'/admin/assets/css/admin-style.css',null,'1.0.0','all');
+          wp_enqueue_style("cmfwc-admin-css", CUSTOMFO_DIR.'/admin/assets/css/admin-style.css',null,'1.0.0','all');
          
           // color picker
-          wp_enqueue_script("cmfwc-jscolor-js",CMFWC_DIR.'/admin/assets/js/jscolor/jscolor.js',null,'1.0.0',true);
-          wp_enqueue_script("cmfwc-admin-js",CMFWC_DIR.'/admin/assets/js/admin.js',array('jquery'),'1.0.0',true);
+          wp_enqueue_script("cmfwc-jscolor-js",CUSTOMFO_DIR.'/admin/assets/js/jscolor/jscolor.js',null,'1.0.0',true);
+          wp_enqueue_script("cmfwc-admin-js",CUSTOMFO_DIR.'/admin/assets/js/admin.js',array('jquery'),'1.0.0',true);
           
   
 
-          wp_localize_script("cmfwc-admin-js","ajax_object",array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ));
+          wp_localize_script("cmfwc-admin-js","ajax_object",array( 
+              'ajax_url' => admin_url( 'admin-ajax.php' ),
+              'cmfwc_nonce' => wp_create_nonce( 'cmfwc_save_global_settings' )
+          ));
          
           wp_enqueue_script('jquery');
           if (is_admin()) {
@@ -73,12 +76,12 @@ if(!function_exists('cmfwc_enqueue_admin_assets')){
          }
         }
 }
-add_action("admin_enqueue_scripts","cmfwc_enqueue_admin_assets");
+add_action("admin_enqueue_scripts","customfo_enqueue_admin_assets");
 /*enqueue admin assets file section end*/
 
 /*enqueue frontend assets file section*/
-if(!function_exists("cmfwc_enqueue_frontend_assets")){
-    function cmfwc_enqueue_frontend_assets(){
+if(!function_exists("customfo_enqueue_frontend_assets")){
+    function customfo_enqueue_frontend_assets(){
 
         //add font Font-Awesome
         wp_enqueue_style("cmfwc-font-awesome-css",'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
@@ -88,13 +91,13 @@ if(!function_exists("cmfwc_enqueue_frontend_assets")){
         //  wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), null, true);
         
        
-        wp_enqueue_style("cmfwc-frontend-css", CMFWC_DIR.'/frontend/assets/css/frontend-style.css',null,'1.0.0','all');
-        wp_enqueue_script("cmfwc-frontend-js",CMFWC_DIR."/frontend/assets/js/frontend.js",array('jquery'),'1.0.0',true);
+        wp_enqueue_style("cmfwc-frontend-css", CUSTOMFO_DIR.'/frontend/assets/css/frontend-style.css',null,'1.0.0','all');
+        wp_enqueue_script("cmfwc-frontend-js",CUSTOMFO_DIR."/frontend/assets/js/frontend.js",array('jquery'),'1.0.0',true);
 
 
     }
 }
-add_action("wp_enqueue_scripts","cmfwc_enqueue_frontend_assets");
+add_action("wp_enqueue_scripts","customfo_enqueue_frontend_assets");
 /*enqueue frontend assets file section end*/
 
 /*Support svg image*/
@@ -108,29 +111,29 @@ add_filter( 'upload_mimes', 'add_svg_to_upload_mimes' );
 
 
 /* ==================Admin menu section=============*/
-if( ! function_exists( 'cmfwc_add_menu_under_woocommerce ')){
-    function cmfwc_add_menu_under_woocommerce(){
+if( ! function_exists( 'customfo_add_menu_under_woocommerce ')){
+    function customfo_add_menu_under_woocommerce(){
        add_submenu_page(
            'woocommerce',
-           'CFFW',
-           'WC Custom Fields',
+           'Custom Meta for WooCommerce',
+           'Custom Meta for WooCommerce',
            'manage_options',
-           'cffw-settings',
-           'cffw_add_submenu_page'
+           'customfo-settings',
+           'customfo_add_submenu_page'
        ); 
     }
 }
-register_activation_hook(__FILE__, 'cmfwc_add_menu_under_woocommerce');
-add_action( 'admin_menu', 'cmfwc_add_menu_under_woocommerce' );
+register_activation_hook(__FILE__, 'customfo_add_menu_under_woocommerce');
+add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
 
 
- function cffw_add_submenu_page(){
+ function customfo_add_submenu_page(){
     ?>
 
     <div class="cmfwc_main_wrap">
           <div class='global_options_group'>
             <div id="setting_title">
-                <h3 class="global-options"><?php esc_html_e( 'Global Options', 'cmfwc' ); ?></h3>
+                <h3 class="global-options"><?php esc_html_e( 'Global Options', 'customfo' ); ?></h3>
             </div>
              <div id="repeater-wrapper">
 
@@ -148,8 +151,8 @@ add_action( 'admin_menu', 'cmfwc_add_menu_under_woocommerce' );
                                 <input type="text" class="title" name="custom_repeater_field[<?php echo esc_attr($count);?>][title]" value="<?php echo esc_attr($field['title']) ?  esc_attr($field['title']) : '' ?>" placeholder="give title text" />
                                 <input type="hidden" name="custom_repeater_field[<?php echo esc_attr($count);?>][image]" value=" <?php echo isset($field['image']) ?  esc_attr($field['image']) : '' ?>" />
                                
-                                <button type="button" class="upload_image_button button"><?php  echo esc_html('Upload/Add image', 'cmfwc') ?></button>
-                                <button type="button" class="remove_field_button button"><?php  echo esc_html('Remove', 'cmfwc')  ?> </button>
+                                <button type="button" class="upload_image_button button"><?php  echo esc_html('Upload/Add image', 'customfo') ?></button>
+                                <button type="button" class="remove_field_button button"><?php  echo esc_html('Remove', 'customfo')  ?> </button>
                                 <div class="image_preview">
                                     <?php
                                     if (isset($field['image']) && !empty($field['image'])) {
@@ -175,12 +178,12 @@ add_action( 'admin_menu', 'cmfwc_add_menu_under_woocommerce' );
                         ?>
                          <div class="field-wrapper">
                             <input type="text" class="icon-picker" name="custom_repeater_field[0][icon_class]" value=""  placeholder="Click to Select Icon" />
-                            <label for="icon_title"><?php esc_html_e('Title','cmfwc');?></label>
+                            <label for="icon_title"><?php esc_html_e('Title','customfo');?></label>
                             <input type="text" name="custom_repeater_field[0][title]"  class="title" placeholder="give title text" />
                             
                             <input type="hidden" name="custom_repeater_field[0][image]" class="image" />
-                            <button type="button" class="upload_image_button button"><?php  echo esc_html_e('Upload/Add image', 'cmfwc') ?> </button>
-                            <button type="button" class="remove_field_button button"><?php echo esc_html_e('Remove', 'cmfwc') ?> </button>  
+                            <button type="button" class="upload_image_button button"><?php  echo esc_html_e('Upload/Add image', 'customfo') ?> </button>
+                            <button type="button" class="remove_field_button button"><?php echo esc_html_e('Remove', 'customfo') ?> </button>  
                             <div class="image_preview"></div>
                         </div>
                         <?php
@@ -188,14 +191,14 @@ add_action( 'admin_menu', 'cmfwc_add_menu_under_woocommerce' );
                     ?>
 
                 </div>
-                <button type="button" id="add-repeater-field" class="button"><?php esc_html_e('Add Field', 'cmfwc'); ?></button>
+                <button type="button" id="add-repeater-field" class="button"><?php esc_html_e('Add Field', 'customfo'); ?></button>
                 
              </div>
 
              <!--- Category based hide price section --->
              <?php if ( false ) : ?>
             <div class="category_based_cmfw_section">
-                <label for="cmfw_category_based_hide_price"> <?php echo esc_html_e('Display custom fields on Category Based ','cmfwc');?> </label>
+                <label for="cmfw_category_based_hide_price"> <?php echo esc_html_e('Display custom fields on Category Based ','customfo');?> </label>
     
                 <?php 
                     $categories = get_terms(array(
@@ -234,48 +237,52 @@ add_action( 'admin_menu', 'cmfwc_add_menu_under_woocommerce' );
             $cmfwc_margin        = get_option( "cmfwc_margin");
             $cmfwc_padding       = get_option( "cmfwc_padding");
             $cmfwc_border_radius = get_option( "cmfwc_border_radius");
+            $cmfwc_icon_size     = get_option( "cmfwc_icon_size");
+            $cmfwc_icon_color    = get_option( "cmfwc_icon_color");
+            $cmfwc_icon_margin   = get_option( "cmfwc_icon_margin");
+            $cmfwc_icon_padding  = get_option( "cmfwc_icon_padding");
             ?>
 
             <!---Style area start --->
                     <div id="cmfwc_style_area_wrap">
-                            <h3><?php echo esc_html_e('Style Area', 'cmfwc'); ?></h3>
+                            <h3><?php echo esc_html_e('Style Area', 'customfo'); ?></h3>
 
                         <div class="cmfwc_img_size_setup">
                             <div class="img_height">
-                                <label for="cmfwc_img_height"> <?php echo esc_html_e('Image Height', 'cmfwc'); ?></label>
+                                <label for="cmfwc_img_height"> <?php echo esc_html_e('Image Height', 'customfo'); ?></label>
                                 <input type="number" name="cmfwc_img_height" id="cmfwc_img_height" value="<?php echo esc_attr($cmfwc_img_height);?>">
                             </div>
                             <div class="img_width">
-                                <label for="cmfwc_img_height"> <?php echo esc_html_e('Image Width', 'cmfwc'); ?></label>
+                                <label for="cmfwc_img_height"> <?php echo esc_html_e('Image Width', 'customfo'); ?></label>
                                 <input type="number" name="cmfwc_img_width" id="cmfwc_img_width" value="<?php echo esc_attr($cmfwc_img_width); ?>">
                             </div>
                         </div>
                 
                         <div class="cmfwc_font_size_setup">
-                            <label for="cmfwc_font_size"> <?php echo esc_html_e('Font Size', 'cmfwc'); ?></label>
+                            <label for="cmfwc_font_size"> <?php echo esc_html_e('Font Size', 'customfo'); ?></label>
                             <input type="number" name="cmfwc_font_size" id="cmfwc_font_size" value="<?php echo esc_attr($cmfwc_font_size); ?>">
                         </div>
 
                         <div class="cmfwc_bg_color_setup">
-                            <label for="cmfwc_style_area_color"> <?php echo esc_html_e('Background Color', 'cmfwc'); ?></label>
+                            <label for="cmfwc_style_area_color"> <?php echo esc_html_e('Background Color', 'customfo'); ?></label>
                             <input  name="cmfwc_style_area_color" id="cmfwc_bg_color"  value="<?php echo esc_attr($cmfwc_bg_color);?>">
                         </div>
                         <div class="cmfwc_font_color_setup">
-                            <label for="cmfwc_font_color"> <?php echo esc_html_e('Font Color', 'cmfwc'); ?></label>
+                            <label for="cmfwc_font_color"> <?php echo esc_html_e('Font Color', 'customfo'); ?></label>
                             <input name="cmfwc_font_color"  id="cmfwc_font_color" value="<?php echo esc_attr($cmfwc_font_color);?>">
                         </div>
 
                         <div class="cmfwc_margin_setup">
-                            <label for="cmfwc_margin"> <?php echo esc_html_e('Set Margin', 'cmfwc'); ?></label>
+                            <label for="cmfwc_margin"> <?php echo esc_html_e('Set Margin', 'customfo'); ?></label>
                             <input type="number" name="cmfwc_margin" id="cmfwc_margin" value="<?php echo esc_attr($cmfwc_margin);?>">
                         </div>
 
                         <div class="cmfwc_padding_setup">
-                            <label for="cmfwc_padding"> <?php echo esc_html_e('Set Padding', 'cmfwc'); ?></label>
+                            <label for="cmfwc_padding"> <?php echo esc_html_e('Set Padding', 'customfo'); ?></label>
                             <input type="number" name="cmfwc_padding" id="cmfwc_padding" value="<?php echo esc_attr($cmfwc_padding);?>">
                         </div>
                         <div class="cmfwc_border_radius_setup">
-                            <label for="cmfwc_border_radius"> <?php echo esc_html_e('Set Border Radius', 'cmfwc'); ?></label>
+                            <label for="cmfwc_border_radius"> <?php echo esc_html_e('Set Border Radius', 'customfo'); ?></label>
                             <input type="number" name="cmfwc_border_radius" id="cmfwc_border_radius" value="<?php echo esc_attr($cmfwc_border_radius);?>">
                         </div>
                     </div>
@@ -283,26 +290,26 @@ add_action( 'admin_menu', 'cmfwc_add_menu_under_woocommerce' );
             
             <!---Icon Style area --->
                     <div id="cmfwc_icon_style_area_wrap">
-                                <h3><?php echo esc_html_e('Icon Design', 'cmfwc'); ?></h3>
+                                <h3><?php echo esc_html_e('Icon Design', 'customfo'); ?></h3>
                         <div class="icon_setup">
                             <div class="icon_size">
-                                <label for="cmfwc_icon_size"> <?php echo esc_html_e('Icon Font Size', 'cmfwc'); ?></label>
-                                <input type="number" name="cmfwc_icon_size" id="cmfwc_icon_size" value="">
+                                <label for="cmfwc_icon_size"> <?php echo esc_html_e('Icon Font Size', 'customfo'); ?></label>
+                                <input type="number" name="cmfwc_icon_size" id="cmfwc_icon_size" value="<?php echo esc_attr($cmfwc_icon_size);?>">
                             </div>
 
                             <div class="icon_color">
-                                <label for="cmfwc_icon_color"> <?php echo esc_html_e('Icon Font Color', 'cmfwc'); ?></label>
-                                <input type="text" name="cmfwc_icon_color" id="cmfwc_icon_color" value="">
+                                <label for="cmfwc_icon_color"> <?php echo esc_html_e('Icon Font Color', 'customfo'); ?></label>
+                                <input type="text" name="cmfwc_icon_color" id="cmfwc_icon_color" value="<?php echo esc_attr($cmfwc_icon_color);?>">
                             </div>
 
                             <div class="icon_margin">
-                                <label for="cmfwc_icon_margin"> <?php echo esc_html_e('Icon Margin', 'cmfwc'); ?></label>
-                                <input type="number" name="cmfwc_icon_margin" id="cmfwc_icon_margin" value="">
+                                <label for="cmfwc_icon_margin"> <?php echo esc_html_e('Icon Margin', 'customfo'); ?></label>
+                                <input type="number" name="cmfwc_icon_margin" id="cmfwc_icon_margin" value="<?php echo esc_attr($cmfwc_icon_margin);?>">
                             </div>
 
                             <div class="icon_padding">
-                                <label for="cmfwc_icon_padding"> <?php echo esc_html_e('Icon Padding', 'cmfwc'); ?></label>
-                                <input type="number" name="cmfwc_icon_padding" id="cmfwc_icon_padding" value="">
+                                <label for="cmfwc_icon_padding"> <?php echo esc_html_e('Icon Padding', 'customfo'); ?></label>
+                                <input type="number" name="cmfwc_icon_padding" id="cmfwc_icon_padding" value="<?php echo esc_attr($cmfwc_icon_padding);?>">
                             </div>
                         </div>
 
@@ -317,7 +324,7 @@ add_action( 'admin_menu', 'cmfwc_add_menu_under_woocommerce' );
                 ?>
             </div>                  
 
-            <button type="button" id="save_change" class="button"><?php esc_html_e('Save Change', 'cmfwc'); ?></button>
+            <button type="button" id="save_change" class="button"><?php esc_html_e('Save Change', 'customfo'); ?></button>
 
 
         </div>
@@ -330,7 +337,7 @@ add_action( 'admin_menu', 'cmfwc_add_menu_under_woocommerce' );
 /* ==================Admin menu section end=============*/
 
 /* =====================Style area==================*/
-function cmfwc_custom_style() {
+function customfo_custom_style() {
         
     // Get options with defaults if necessary
     $cmfwc_bg_color      = get_option( "cmfwc_bg_color", "#ffffff" );
@@ -377,7 +384,7 @@ function cmfwc_custom_style() {
     </style>";
 
 }
-add_action( "wp_head", "cmfwc_custom_style");
+add_action( "wp_head", "customfo_custom_style");
 /* =====================Style area end==================*/
 
 
