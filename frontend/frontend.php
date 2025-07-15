@@ -20,7 +20,7 @@ if( !function_exists("customfo_display_global_custom_fields")){
                                 <div class="meta_box">
                                     <?php
                                         if (!empty($field['image'])) {
-                                            echo wp_get_attachment_image($field['image'], 'full');
+                                            echo wp_get_attachment_image(intval($field['image']), 'full');
                                         }else {
                                             echo '<i class="'. esc_attr($field['icon_class']) .'"></i>';
                                         }
