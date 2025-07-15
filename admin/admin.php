@@ -2,7 +2,7 @@
  if(!function_exists("customfo_add_custom_fields_tab")){
     function customfo_add_custom_fields_tab($tabs){
         $tabs['custom_fields'] = array(
-            'label'    => __('Custom Meta For WooCommerce', 'customfo'),
+            'label'    => __('Custom Meta For WooCommerce', 'custom-meta-for-woocommerce'),
             'target'   => 'custom_fields_product_data',
             'class'    => array('show_if_simple'),
         );
@@ -49,7 +49,7 @@ function customfo_custom_fields_product_data_panels() {
 
                                 
                                 <select name="custom_repeater_field[<?php echo esc_attr($count);?>][hook_name]" id="custom_field_hook_list">
-                                    <option value=""><?php echo esc_html("Where you want to display:", "customfo"); ?></option>
+                                    <option value=""><?php echo esc_html("Where you want to display:", "custom-meta-for-woocommerce"); ?></option>
                                     <?php
                                     foreach ($hooks as $hook) {
                                     ?>
@@ -62,8 +62,8 @@ function customfo_custom_fields_product_data_panels() {
 
                                 <input type="hidden" name="custom_repeater_field[<?php echo esc_attr($count);?>][image]" value=" <?php echo isset($field['image']) ?  esc_attr($field['image']) : '' ?>" />
                                
-                                <button type="button" class="upload_image_button button"><?php  echo esc_html('Upload/Add image', 'customfo') ?></button>
-                                <button type="button" class="remove_field_button button"><?php  echo esc_html('Remove', 'customfo')  ?> </button>
+                                <button type="button" class="upload_image_button button"><?php  echo esc_html('Upload/Add image', 'custom-meta-for-woocommerce') ?></button>
+                                <button type="button" class="remove_field_button button"><?php  echo esc_html('Remove', 'custom-meta-for-woocommerce')  ?> </button>
                                 <div class="image_preview">
                                     <?php
                                     if (isset($field['image']) && !empty($field['image'])) {
@@ -86,19 +86,19 @@ function customfo_custom_fields_product_data_panels() {
 
                             <select name="custom_repeater_field[0][hook_name]" id="custom_field_hook_list">
                                 <option value="">Where you want to display:</option>
-                                <option value="woocommerce_after_add_to_cart_form"><?php echo esc_html("woocommerce_after_add_to_cart_form","customfo");?></option>
-                                <option value="woocommerce_after_single_product_summary"><?php echo esc_html("woocommerce_after_single_product_summary","customfo");?></option>
-                                <option value="woocommerce_single_product_summary"><?php echo esc_html("woocommerce_single_product_summary","customfo");?></option>
-                                <option value="woocommerce_before_single_product_summary"><?php echo esc_html("woocommerce_before_single_product_summary","customfo");?></option>
-                                <option value="display_overview_tab_content"><?php echo esc_html("display_overview_tab_content","customfo");?></option>
-                                <option value="display_custom_field_before_price"><?php echo esc_html("display_custom_field_before_price","customfo");?></option>
-                                <option value="display_content_after_price"><?php echo esc_html("display_content_after_price","customfo");?></option>
-                                <option value="display_content_after_add_to_cart"><?php echo esc_html("display_content_after_add_to_cart","customfo");?></option>
+                                <option value="woocommerce_after_add_to_cart_form"><?php echo esc_html("woocommerce_after_add_to_cart_form","custom-meta-for-woocommerce");?></option>
+                                <option value="woocommerce_after_single_product_summary"><?php echo esc_html("woocommerce_after_single_product_summary","custom-meta-for-woocommerce");?></option>
+                                <option value="woocommerce_single_product_summary"><?php echo esc_html("woocommerce_single_product_summary","custom-meta-for-woocommerce");?></option>
+                                <option value="woocommerce_before_single_product_summary"><?php echo esc_html("woocommerce_before_single_product_summary","custom-meta-for-woocommerce");?></option>
+                                <option value="display_overview_tab_content"><?php echo esc_html("display_overview_tab_content","custom-meta-for-woocommerce");?></option>
+                                <option value="display_custom_field_before_price"><?php echo esc_html("display_custom_field_before_price","custom-meta-for-woocommerce");?></option>
+                                <option value="display_content_after_price"><?php echo esc_html("display_content_after_price","custom-meta-for-woocommerce");?></option>
+                                <option value="display_content_after_add_to_cart"><?php echo esc_html("display_content_after_add_to_cart","custom-meta-for-woocommerce");?></option>
                             </select>
 
                             <input type="hidden" name="custom_repeater_field[0][image]" />
-                            <button type="button" class="upload_image_button button"><?php  echo esc_html('Upload/Add image', 'customfo') ?> </button>
-                            <button type="button" class="remove_field_button button"><?php echo esc_html('Remove', 'customfo') ?> </button>  
+                            <button type="button" class="upload_image_button button"><?php  echo esc_html_e('Upload/Add image', 'custom-meta-for-woocommerce') ?> </button>
+                            <button type="button" class="remove_field_button button"><?php echo esc_html_e('Remove', 'custom-meta-for-woocommerce') ?> </button>  
                             <div class="image_preview"></div>
                         </div>
 
@@ -108,7 +108,7 @@ function customfo_custom_fields_product_data_panels() {
                     }
                     ?>
                 </div>
-                <button type="button" id="add-repeater-field" class="button"><?php echo esc_html_e('Add Field', 'customfo'); ?></button>
+                <button type="button" id="add-repeater-field" class="button"><?php echo esc_html_e('Add Field', 'custom-meta-for-woocommerce'); ?></button>
                 
             </div>
         </div>

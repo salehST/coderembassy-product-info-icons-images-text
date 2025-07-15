@@ -8,7 +8,7 @@
 * Version: 1.0.0
 * License: GPLv2 or later
 * Author URI: https://github.com/coderembassy
-* Text Domain: customfo
+* Text Domain: custom-meta-for-woocommerce
 */
 
 
@@ -37,7 +37,7 @@ add_action("admin_notices","customfo_admin_notice");
 
 /*load text domain*/
 function customfo_load_textdomain() {
-    load_plugin_textdomain( 'customfo', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+    load_plugin_textdomain( 'custom-meta-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 add_action( 'init', 'customfo_load_textdomain' );
 
@@ -133,7 +133,7 @@ add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
     <div class="cmfwc_main_wrap">
           <div class='global_options_group'>
             <div id="setting_title">
-                <h3 class="global-options"><?php esc_html_e( 'Global Options', 'customfo' ); ?></h3>
+                <h3 class="global-options"><?php esc_html_e( 'Global Options', 'custom-meta-for-woocommerce' ); ?></h3>
             </div>
              <div id="repeater-wrapper">
 
@@ -151,8 +151,8 @@ add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
                                 <input type="text" class="title" name="custom_repeater_field[<?php echo esc_attr($count);?>][title]" value="<?php echo esc_attr($field['title']) ?  esc_attr($field['title']) : '' ?>" placeholder="give title text" />
                                 <input type="hidden" name="custom_repeater_field[<?php echo esc_attr($count);?>][image]" value=" <?php echo isset($field['image']) ?  esc_attr($field['image']) : '' ?>" />
                                
-                                <button type="button" class="upload_image_button button"><?php  echo esc_html('Upload/Add image', 'customfo') ?></button>
-                                <button type="button" class="remove_field_button button"><?php  echo esc_html('Remove', 'customfo')  ?> </button>
+                                <button type="button" class="upload_image_button button"><?php  echo esc_html('Upload/Add image', 'custom-meta-for-woocommerce') ?></button>
+                                <button type="button" class="remove_field_button button"><?php  echo esc_html('Remove', 'custom-meta-for-woocommerce')  ?> </button>
                                 <div class="image_preview">
                                     <?php
                                     if (isset($field['image']) && !empty($field['image'])) {
@@ -178,12 +178,12 @@ add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
                         ?>
                          <div class="field-wrapper">
                             <input type="text" class="icon-picker" name="custom_repeater_field[0][icon_class]" value=""  placeholder="Click to Select Icon" />
-                            <label for="icon_title"><?php esc_html_e('Title','customfo');?></label>
+                            <label for="icon_title"><?php esc_html_e('Title','custom-meta-for-woocommerce');?></label>
                             <input type="text" name="custom_repeater_field[0][title]"  class="title" placeholder="give title text" />
                             
                             <input type="hidden" name="custom_repeater_field[0][image]" class="image" />
-                            <button type="button" class="upload_image_button button"><?php  echo esc_html_e('Upload/Add image', 'customfo') ?> </button>
-                            <button type="button" class="remove_field_button button"><?php echo esc_html_e('Remove', 'customfo') ?> </button>  
+                            <button type="button" class="upload_image_button button"><?php  echo esc_html_e('Upload/Add image', 'custom-meta-for-woocommerce') ?> </button>
+                            <button type="button" class="remove_field_button button"><?php echo esc_html_e('Remove', 'custom-meta-for-woocommerce') ?> </button>  
                             <div class="image_preview"></div>
                         </div>
                         <?php
@@ -191,14 +191,14 @@ add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
                     ?>
 
                 </div>
-                <button type="button" id="add-repeater-field" class="button"><?php esc_html_e('Add Field', 'customfo'); ?></button>
+                <button type="button" id="add-repeater-field" class="button"><?php esc_html_e('Add Field', 'custom-meta-for-woocommerce'); ?></button>
                 
              </div>
 
              <!--- Category based hide price section --->
              <?php if ( false ) : ?>
             <div class="category_based_cmfw_section">
-                <label for="cmfw_category_based_hide_price"> <?php echo esc_html_e('Display custom fields on Category Based ','customfo');?> </label>
+                <label for="cmfw_category_based_hide_price"> <?php echo esc_html_e('Display custom fields on Category Based ','custom-meta-for-woocommerce');?> </label>
     
                 <?php 
                     $categories = get_terms(array(
@@ -245,44 +245,44 @@ add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
 
             <!---Style area start --->
                     <div id="cmfwc_style_area_wrap">
-                            <h3><?php echo esc_html_e('Style Area', 'customfo'); ?></h3>
+                            <h3><?php echo esc_html_e('Style Area', 'custom-meta-for-woocommerce'); ?></h3>
 
                         <div class="cmfwc_img_size_setup">
                             <div class="img_height">
-                                <label for="cmfwc_img_height"> <?php echo esc_html_e('Image Height', 'customfo'); ?></label>
+                                <label for="cmfwc_img_height"> <?php echo esc_html_e('Image Height', 'custom-meta-for-woocommerce'); ?></label>
                                 <input type="number" name="cmfwc_img_height" id="cmfwc_img_height" value="<?php echo esc_attr($cmfwc_img_height);?>">
                             </div>
                             <div class="img_width">
-                                <label for="cmfwc_img_height"> <?php echo esc_html_e('Image Width', 'customfo'); ?></label>
+                                <label for="cmfwc_img_height"> <?php echo esc_html_e('Image Width', 'custom-meta-for-woocommerce'); ?></label>
                                 <input type="number" name="cmfwc_img_width" id="cmfwc_img_width" value="<?php echo esc_attr($cmfwc_img_width); ?>">
                             </div>
                         </div>
                 
                         <div class="cmfwc_font_size_setup">
-                            <label for="cmfwc_font_size"> <?php echo esc_html_e('Font Size', 'customfo'); ?></label>
+                            <label for="cmfwc_font_size"> <?php echo esc_html_e('Font Size', 'custom-meta-for-woocommerce'); ?></label>
                             <input type="number" name="cmfwc_font_size" id="cmfwc_font_size" value="<?php echo esc_attr($cmfwc_font_size); ?>">
                         </div>
 
                         <div class="cmfwc_bg_color_setup">
-                            <label for="cmfwc_style_area_color"> <?php echo esc_html_e('Background Color', 'customfo'); ?></label>
+                            <label for="cmfwc_style_area_color"> <?php echo esc_html_e('Background Color', 'custom-meta-for-woocommerce'); ?></label>
                             <input  name="cmfwc_style_area_color" id="cmfwc_bg_color"  value="<?php echo esc_attr($cmfwc_bg_color);?>">
                         </div>
                         <div class="cmfwc_font_color_setup">
-                            <label for="cmfwc_font_color"> <?php echo esc_html_e('Font Color', 'customfo'); ?></label>
+                            <label for="cmfwc_font_color"> <?php echo esc_html_e('Font Color', 'custom-meta-for-woocommerce'); ?></label>
                             <input name="cmfwc_font_color"  id="cmfwc_font_color" value="<?php echo esc_attr($cmfwc_font_color);?>">
                         </div>
 
                         <div class="cmfwc_margin_setup">
-                            <label for="cmfwc_margin"> <?php echo esc_html_e('Set Margin', 'customfo'); ?></label>
+                            <label for="cmfwc_margin"> <?php echo esc_html_e('Set Margin', 'custom-meta-for-woocommerce'); ?></label>
                             <input type="number" name="cmfwc_margin" id="cmfwc_margin" value="<?php echo esc_attr($cmfwc_margin);?>">
                         </div>
 
                         <div class="cmfwc_padding_setup">
-                            <label for="cmfwc_padding"> <?php echo esc_html_e('Set Padding', 'customfo'); ?></label>
+                            <label for="cmfwc_padding"> <?php echo esc_html_e('Set Padding', 'custom-meta-for-woocommerce'); ?></label>
                             <input type="number" name="cmfwc_padding" id="cmfwc_padding" value="<?php echo esc_attr($cmfwc_padding);?>">
                         </div>
                         <div class="cmfwc_border_radius_setup">
-                            <label for="cmfwc_border_radius"> <?php echo esc_html_e('Set Border Radius', 'customfo'); ?></label>
+                            <label for="cmfwc_border_radius"> <?php echo esc_html_e('Set Border Radius', 'custom-meta-for-woocommerce'); ?></label>
                             <input type="number" name="cmfwc_border_radius" id="cmfwc_border_radius" value="<?php echo esc_attr($cmfwc_border_radius);?>">
                         </div>
                     </div>
@@ -290,25 +290,25 @@ add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
             
             <!---Icon Style area --->
                     <div id="cmfwc_icon_style_area_wrap">
-                                <h3><?php echo esc_html_e('Icon Design', 'customfo'); ?></h3>
+                                <h3><?php echo esc_html_e('Icon Design', 'custom-meta-for-woocommerce'); ?></h3>
                         <div class="icon_setup">
                             <div class="icon_size">
-                                <label for="cmfwc_icon_size"> <?php echo esc_html_e('Icon Font Size', 'customfo'); ?></label>
+                                <label for="cmfwc_icon_size"> <?php echo esc_html_e('Icon Font Size', 'custom-meta-for-woocommerce'); ?></label>
                                 <input type="number" name="cmfwc_icon_size" id="cmfwc_icon_size" value="<?php echo esc_attr($cmfwc_icon_size);?>">
                             </div>
 
                             <div class="icon_color">
-                                <label for="cmfwc_icon_color"> <?php echo esc_html_e('Icon Font Color', 'customfo'); ?></label>
+                                <label for="cmfwc_icon_color"> <?php echo esc_html_e('Icon Font Color', 'custom-meta-for-woocommerce'); ?></label>
                                 <input type="text" name="cmfwc_icon_color" id="cmfwc_icon_color" value="<?php echo esc_attr($cmfwc_icon_color);?>">
                             </div>
 
                             <div class="icon_margin">
-                                <label for="cmfwc_icon_margin"> <?php echo esc_html_e('Icon Margin', 'customfo'); ?></label>
+                                <label for="cmfwc_icon_margin"> <?php echo esc_html_e('Icon Margin', 'custom-meta-for-woocommerce'); ?></label>
                                 <input type="number" name="cmfwc_icon_margin" id="cmfwc_icon_margin" value="<?php echo esc_attr($cmfwc_icon_margin);?>">
                             </div>
 
                             <div class="icon_padding">
-                                <label for="cmfwc_icon_padding"> <?php echo esc_html_e('Icon Padding', 'customfo'); ?></label>
+                                <label for="cmfwc_icon_padding"> <?php echo esc_html_e('Icon Padding', 'custom-meta-for-woocommerce'); ?></label>
                                 <input type="number" name="cmfwc_icon_padding" id="cmfwc_icon_padding" value="<?php echo esc_attr($cmfwc_icon_padding);?>">
                             </div>
                         </div>
@@ -324,7 +324,7 @@ add_action( 'admin_menu', 'customfo_add_menu_under_woocommerce' );
                 ?>
             </div>                  
 
-            <button type="button" id="save_change" class="button"><?php esc_html_e('Save Change', 'customfo'); ?></button>
+            <button type="button" id="save_change" class="button"><?php esc_html_e('Save Change', 'custom-meta-for-woocommerce'); ?></button>
 
 
         </div>

@@ -22,8 +22,8 @@ function customfo_repeater_field_edit_category($term){
                         <input type="text" name="custom_repeater_field[<?php echo esc_attr($count);?>][title]" value="<?php echo esc_attr($field['title']) ? esc_attr($field['title']) : ''; ?>" placeholder="give title text" />
                         <input type="hidden" name="custom_repeater_field[<?php echo esc_attr($count);?>][image]" value="<?php echo isset($field['image']) ? esc_attr($field['image']) : ''; ?>" />
                        
-                        <button type="button" class="upload_image_button button"><?php echo esc_html('Upload/Add image', 'customfo'); ?></button>
-                        <button type="button" class="remove_field_button button"><?php echo esc_html('Remove', 'customfo'); ?></button>
+                        <button type="button" class="upload_image_button button"><?php echo esc_html_e('Upload/Add image', 'custom-meta-for-woocommerce'); ?></button>
+                        <button type="button" class="remove_field_button button"><?php echo esc_html_e('Remove', 'custom-meta-for-woocommerce'); ?></button>
                         <div class="image_preview">
                             <?php
                             if (isset($field['image']) && !empty($field['image'])) {
@@ -49,15 +49,15 @@ function customfo_repeater_field_edit_category($term){
                     <input type="text" name="custom_repeater_field[0][icon_class]" class="icon_class" placeholder="give icon class" />
                     <input type="text" name="custom_repeater_field[0][title]" class="title" placeholder="give title text" />
                     <input type="hidden" name="custom_repeater_field[0][image]" class="image" />
-                    <button type="button" class="upload_image_button button"><?php echo esc_html_e('Upload/Add image', 'customfo'); ?></button>
-                    <button type="button" class="remove_field_button button"><?php echo esc_html_e('Remove', 'customfo'); ?></button>
+                    <button type="button" class="upload_image_button button"><?php echo esc_html_e('Upload/Add image', 'custom-meta-for-woocommerce'); ?></button>
+                    <button type="button" class="remove_field_button button"><?php echo esc_html_e('Remove', 'custom-meta-for-woocommerce'); ?></button>
                     <div class="image_preview"></div>
                 </div>
                 <?php
             }
             ?>
         </div>
-        <button type="button" id="add-repeater-field" class="button"><?php esc_html_e('Add Field', 'customfo'); ?></button>
+        <button type="button" id="add-repeater-field" class="button"><?php esc_html_e('Add Field', 'custom-meta-for-woocommerce'); ?></button>
     </div>
     <?php
 }
