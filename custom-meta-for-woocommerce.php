@@ -35,13 +35,7 @@ if( !function_exists('customfo_admin_notice')){
 }
 add_action("admin_notices","customfo_admin_notice");
 
-/*load text domain*/
-function customfo_load_textdomain() {
-    load_plugin_textdomain( 'custom-meta-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-}
-add_action( 'init', 'customfo_load_textdomain' );
 
-/*load text domain end*/
 
 /*enqueue admin assets file section*/
 if(!function_exists('customfo_enqueue_admin_assets')){
