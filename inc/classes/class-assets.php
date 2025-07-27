@@ -70,5 +70,8 @@ class Assets {
 
 		// Enqueue Style
 		wp_enqueue_style('cmfw-admin-settings');
+
+		// Enqueue js
+		wp_enqueue_script('cmfw-admin-settings-js', CMFW_URL . '/assets/js/cmfw-admin-settings.js', ['jquery'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin-settings.js'), true);
 	}
 }
