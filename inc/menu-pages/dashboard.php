@@ -31,20 +31,20 @@ if (isset($_POST['save_woo_afaq']) && check_admin_referer('save_woo_afaq_data', 
 
     update_option('woo_afaq_global_groups', $faq_groups);
 
-    echo '<div class="notice notice-success is-dismissible"><p>Custom Meta groups saved successfully!</p></div>';
+    echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Custom Meta groups saved successfully!', 'custom-meta-for-woocommerce') . '</p></div>';
 }
 
 ?>
 
 <div class="wrap">
     <div class="cmfw-product-archive">
-        <h1>Settings for Product Archive CMFW</h1>
+        <h1><?php echo esc_html__('Settings for Product Archive CMFW', 'custom-meta-for-woocommerce'); ?></h1>
         <form method="post" action="">
             <?php wp_nonce_field('save_woo_afaq_data', 'woo_afaq_nonce'); ?>
             <div id="cmfw-groups-container"></div>
-            <p><button type="button" class="button cmfw-add-cm-group">Add New Custom Meta Group</button></p>
+            <p><button type="button" class="button cmfw-add-cm-group"><?php echo esc_html__('Add New Custom Meta Group', 'custom-meta-for-woocommerce'); ?></button></p>
             <hr>
-            <input type="submit" name="save_woo_afaq" class="button button-primary" value="Save FAQs">
+            <input type="submit" name="save_woo_afaq" class="button button-primary" value="<?php echo esc_attr__('Save', 'custom-meta-for-woocommerce'); ?>">
         </form>
     </div>
 </div>
@@ -53,22 +53,22 @@ if (isset($_POST['save_woo_afaq']) && check_admin_referer('save_woo_afaq_data', 
 <script type="text/html" id="cmfw-cm-group-template">
     <div class="cmfw-cm-archive-group">
         <button type="button" class="button cmfw-archive-remove-cm-group"><span class="dashicons dashicons-no-alt"></span></button>
-        <h2>Custom Meta Group</h2>
+        <h2><?php echo esc_html__('Custom Meta Group', 'custom-meta-for-woocommerce'); ?></h2>
         <table class="form-table">
             <tr>
-                <th scope="row"><label>Archive Type</label></th>
+                <th scope="row"><label><?php echo esc_html__('Archive Type', 'custom-meta-for-woocommerce'); ?></label></th>
                 <td>
                     <select class="archive-type" name="faq_groups[_INDEX_][archive_type]">
-                        <option value="">Select Archive Type</option>
-                        <option value="product_cat">Category</option>
-                        <option value="product_tag">Tag</option>
+                        <option value=""><?php echo esc_html__('Select Archive Type', 'custom-meta-for-woocommerce'); ?></option>
+                        <option value="product_cat"><?php echo esc_html__('Category', 'custom-meta-for-woocommerce'); ?></option>
+                        <option value="product_tag"><?php echo esc_html__('Tag', 'custom-meta-for-woocommerce'); ?></option>
                     </select>
                 </td>
             </tr>
             <tr class="archive-term-row" style="display:none;">
-                <th scope="row"><label>Term</label></th>
+                <th scope="row"><label><?php echo esc_html__('Term', 'custom-meta-for-woocommerce'); ?></label></th>
                 <td>
-                    <input type="text" class="archive-term regular-text" name="" placeholder="Search..." />
+                    <input type="text" class="archive-term regular-text" name="" placeholder="<?php echo esc_attr__('Search...', 'custom-meta-for-woocommerce'); ?>" />
                     <div class="term-suggestions"></div>
                     <div class="selected-terms"></div>
                 </td>
@@ -76,7 +76,7 @@ if (isset($_POST['save_woo_afaq']) && check_admin_referer('save_woo_afaq_data', 
         </table>
 
         <div class="cmfw-archive-cm-items"></div>
-        <p><button type="button" class="button cmfw-archive-add-cm-item">Add New Custom Meta</button></p>
+        <p><button type="button" class="button cmfw-archive-add-cm-item"><?php echo esc_html__('Add New Custom Meta', 'custom-meta-for-woocommerce'); ?></button></p>
     </div>
 </script>
 
@@ -84,12 +84,12 @@ if (isset($_POST['save_woo_afaq']) && check_admin_referer('save_woo_afaq_data', 
     <div class="cmfw-archive-cm-item">
         <button type="button" class="button cmfw-archive-remove-cm-item"><span class="dashicons dashicons-no-alt"></span></button>
         <p>
-            <label>Question<br>
+            <label><?php echo esc_html__('Question', 'custom-meta-for-woocommerce'); ?><br>
                 <input type="text" name="faq_groups[_GROUP_INDEX_][faqs][_FAQ_INDEX_][question]" class="regular-text" />
             </label>
         </p>
         <p>
-            <label>Answer<br>
+            <label><?php echo esc_html__('Answer', 'custom-meta-for-woocommerce'); ?><br>
                 <textarea name="faq_groups[_GROUP_INDEX_][faqs][_FAQ_INDEX_][answer]" rows="3" class="large-text"></textarea>
             </label>
         </p>
@@ -109,7 +109,7 @@ if (!empty($saved_data)) {
             foreach ($group['archive_terms'] as $term_id) {
                 $term = get_term($term_id, $archive_type);
                 if ($term && !is_wp_error($term)) {
-                    $term_names[$term_id] = $term->name;
+                    $term_names[$term_id] = esc_html($term->name);
                 }
             }
         }
@@ -124,7 +124,7 @@ if (!empty($saved_data)) {
             const groupTemplate = $('#cmfw-cm-group-template').html();
             const faqTemplate = $('#cmfw-archive-cm-item-template').html();
 
-            const savedGroups = <?php echo json_encode($saved_data); ?>;
+            const savedGroups = <?php echo wp_json_encode($saved_data); ?>;
 
             $.each(savedGroups, function (gIndex, group) {
                 let groupHtml = groupTemplate.replace(/_INDEX_/g, gIndex);
@@ -139,9 +139,9 @@ if (!empty($saved_data)) {
                 const termNames = group.term_names || {};
                 if (Array.isArray(group.archive_terms)) {
                     group.archive_terms.forEach(function (termId) {
-                        const termName = termNames[termId] || 'Term #' + termId;
+                        const termName = termNames[termId] || <?php echo wp_json_encode(__('Term #', 'custom-meta-for-woocommerce')); ?> + termId;
                         const termHtml = `<span class="term-pill" style="display:inline-block; margin:3px; padding:3px 8px; background:#f1f1f1; border:1px solid #ccc; border-radius:20px;" data-id="${termId}">
-                            ${termName}
+                            ${$('<div>').text(termName).html()}
                             <a href="#" class="remove-term" style="margin-left:5px; color:red; text-decoration:none;">×</a>
                             <input type="hidden" name="faq_groups[${gIndex}][archive_terms][]" value="${termId}">
                         </span>`;
@@ -181,7 +181,7 @@ if (!empty($saved_data)) {
                     hasError = true;
                     // Show error message (only once per group)
                     if ($group.find('.fbs-term-error').length === 0) {
-                        $group.find('.selected-terms').after('<div class="fbs-term-error">Please select at least one term.</div>');
+                        $group.find('.selected-terms').after('<div class="fbs-term-error">' + <?php echo wp_json_encode(__('Please select at least one term.', 'custom-meta-for-woocommerce')); ?> + '</div>');
                     }
                 } else {
                     $group.find('.fbs-term-error').remove();
