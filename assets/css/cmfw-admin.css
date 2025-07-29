@@ -8,9 +8,9 @@ button.faq-add-question.button.button-primary {
     color: red;
   }
   
-  /* button.button.fsb-archive-add-faq-item.fbs-upgrade-button */
-  .fbs-product-archive-faq form button.button.fbs-upgrade-button,
-  #faq-groups-container button.button.fsb-archive-add-faq-item.fbs-upgrade-button{
+  /* button.button.cmfw-archive-add-cm-item.fbs-upgrade-button */
+  .cmfw-product-archive form button.button.fbs-upgrade-button,
+  #cmfw-groups-container button.button.cmfw-archive-add-cm-item.fbs-upgrade-button{
     background-color: #ff6a00 !important;
     color: white !important;
     border: none;
@@ -228,18 +228,18 @@ button.faq-add-question.button.button-primary {
     margin-bottom: 5px;
   }
   
-  .fbs-product-archive-faq h1 {
+  .cmfw-product-archive h1 {
     font-size: 2rem;
     margin-bottom: 30px;
     color: #222;
   }
   
-  #faq-groups-container {
+  #cmfw-groups-container {
     display: block;
     overflow: hidden;
   }
   
-  .fbs-faq-archive-group {
+  .cmfw-cm-archive-group {
     width: 100%;
     background: #fff;
     border-radius: 12px;
@@ -250,7 +250,7 @@ button.faq-add-question.button.button-primary {
     position: relative;
   }
   
-  .fbs-faq-archive-group .fbs-archive-remove-faq-group {
+  .cmfw-cm-archive-group .cmfw-archive-remove-cm-group {
     position: absolute;
     top: 16px;
     right: 16px;
@@ -270,19 +270,19 @@ button.faq-add-question.button.button-primary {
     transition: background 0.2s, color 0.2s, box-shadow 0.2s;
     z-index: 2;
   }
-  .fbs-faq-archive-group .fbs-archive-remove-faq-group:hover {
+  .cmfw-cm-archive-group .cmfw-archive-remove-cm-group:hover {
     background: #b32d2e;
     color: #fff;
     box-shadow: 0 2px 8px rgba(179,45,46,0.13);
   }
   
-  .fbs-archive-faq-items {
+  .cmfw-archive-cm-items {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
   }
   
-  .fbs-archive-faq-item {
+  .cmfw-archive-cm-item {
     background: #f8fafc;
     border: 1.5px solid #e3e8ee;
     border-radius: 8px;
@@ -297,7 +297,7 @@ button.faq-add-question.button.button-primary {
     flex-direction: column;
     justify-content: flex-start;
   }
-  .fbs-archive-faq-item button.fbs-archive-remove-faq-item {
+  .cmfw-archive-cm-item button.cmfw-archive-remove-cm-item {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -317,14 +317,14 @@ button.faq-add-question.button.button-primary {
     transition: background 0.2s, color 0.2s, box-shadow 0.2s;
     z-index: 2;
   }
-  .fbs-archive-faq-item button.fbs-archive-remove-faq-item:hover {
+  .cmfw-archive-cm-item button.cmfw-archive-remove-cm-item:hover {
     background: #b32d2e;
     color: #fff;
     box-shadow: 0 2px 8px rgba(179,45,46,0.13);
   }
   
   @media (max-width: 900px) {
-    .fbs-archive-faq-item {
+    .cmfw-archive-cm-item {
       width: 100%;
       min-width: 0;
     }

@@ -78,9 +78,9 @@
 
     // Archive FAQ code start here
 
-    $(document.body).on("click", ".fbs-add-faq-group", function () {
+    $(document.body).on("click", ".cmfw-add-cm-group", function () {
       const currentGroups = $(
-        "#faq-groups-container .fbs-faq-archive-group"
+        "#cmfw-groups-container .cmfw-cm-archive-group"
       ).length;
 
       if (currentGroups >= MAX_GROUPS_FREE) {
@@ -89,34 +89,34 @@
       }
 
       const groupIndex = currentGroups;
-      let groupHtml = $("#fbs-faq-group-template")
+      let groupHtml = $("#cmfw-cm-group-template")
         .html()
         .replace(/_INDEX_/g, groupIndex);
-      $("#faq-groups-container").append(groupHtml);
+      $("#cmfw-groups-container").append(groupHtml);
 
       // Disable the add group button if max reached
       if (groupIndex + 1 >= MAX_GROUPS_FREE) {
-        const $btn = $(".fbs-add-faq-group");
+        const $btn = $(".cmfw-add-cm-group");
         const $newBtn = $('<a href="https://wpbay.com/product/product-faq-for-woocommerce-pro/" target="_blank" class="button fbs-upgrade-button" style="background-color: #ff9800; border-color: #ff9800; color: #fff;">Upgrade</a>');
         $btn.replaceWith($newBtn);
       }
     });
 
     // Remove FAQ Group
-    $("#faq-groups-container").on(
+    $("#cmfw-groups-container").on(
       "click",
-      ".fbs-archive-remove-faq-group",
+      ".cmfw-archive-remove-cm-group",
       function () {
-        $(this).closest(".fbs-faq-archive-group").remove();
+        $(this).closest(".cmfw-cm-archive-group").remove();
 
         const currentGroups = $(
-          "#faq-groups-container .fbs-faq-archive-group"
+          "#cmfw-groups-container .cmfw-cm-archive-group"
         ).length;
 
         if (currentGroups < MAX_GROUPS_FREE) {
           const $upgradeBtn = $(".fbs-upgrade-button");
           if ($upgradeBtn.length) {
-            const $newBtn = $('<button type="button" class="button fbs-add-faq-group">Add FAQ Group</button>');
+            const $newBtn = $('<button type="button" class="button cmfw-add-cm-group">Add FAQ Group</button>');
             $upgradeBtn.replaceWith($newBtn);
           }
         }
@@ -124,12 +124,12 @@
     );
 
     // Add FAQ Item
-    $("#faq-groups-container").on(
+    $("#cmfw-groups-container").on(
       "click",
-      ".fsb-archive-add-faq-item",
+      ".cmfw-archive-add-cm-item",
       function () {
-        const groupEl = $(this).closest(".fbs-faq-archive-group");
-        const currentFaqs = groupEl.find(".fbs-archive-faq-item").length;
+        const groupEl = $(this).closest(".cmfw-cm-archive-group");
+        const currentFaqs = groupEl.find(".cmfw-archive-cm-item").length;
 
         if (currentFaqs >= MAX_FAQS_FREE) {
           alert(
@@ -140,16 +140,16 @@
 
         const groupIndex = groupEl.index();
         const faqIndex = currentFaqs;
-        let faqTemplate = $("#fbs-archive-faq-item-template").html();
+        let faqTemplate = $("#cmfw-archive-cm-item-template").html();
         faqTemplate = faqTemplate
           .replace(/_GROUP_INDEX_/g, groupIndex)
           .replace(/_FAQ_INDEX_/g, faqIndex);
 
-        groupEl.find(".fbs-archive-faq-items").append(faqTemplate);
+        groupEl.find(".cmfw-archive-cm-items").append(faqTemplate);
 
         // Disable the button if max reached
         if (faqIndex + 1 >= MAX_FAQS_FREE) {
-          const $btn = groupEl.find(".fsb-archive-add-faq-item");
+          const $btn = groupEl.find(".cmfw-archive-add-cm-item");
           const $newBtn = $('<a href="https://wpbay.com/product/product-faq-for-woocommerce-pro/" target="_blank" class="button fbs-upgrade-button" style="background-color: #ff9800; border-color: #ff9800; color: #fff;">Upgrade</a>');
           $btn.replaceWith($newBtn);
         }
@@ -157,19 +157,19 @@
     );
 
     // Remove FAQ Item
-    $("#faq-groups-container").on(
+    $("#cmfw-groups-container").on(
       "click",
-      ".fbs-archive-remove-faq-item",
+      ".cmfw-archive-remove-cm-item",
       function () {
-        const groupEl = $(this).closest(".fbs-faq-archive-group");
-        $(this).closest(".fbs-archive-faq-item").remove();
+        const groupEl = $(this).closest(".cmfw-cm-archive-group");
+        $(this).closest(".cmfw-archive-cm-item").remove();
 
-        const currentFaqs = groupEl.find(".fbs-archive-faq-item").length;
+        const currentFaqs = groupEl.find(".cmfw-archive-cm-item").length;
 
         if (currentFaqs < MAX_FAQS_FREE) {
           const $upgradeBtn = groupEl.find(".fbs-upgrade-button");
           if ($upgradeBtn.length) {
-            const $newBtn = $('<button type="button" class="button fsb-archive-add-faq-item">Add New FAQ</button>');
+            const $newBtn = $('<button type="button" class="button cmfw-archive-add-cm-item">Add New FAQ</button>');
             $upgradeBtn.replaceWith($newBtn);
           }
         }
@@ -183,7 +183,7 @@
     });
 
     // Show/hide archive term row
-    $("#faq-groups-container").on("change", "select.archive-type", function () {
+    $("#cmfw-groups-container").on("change", "select.archive-type", function () {
       const selected = $(this).val();
       const $termRow = $(this).closest("table").find(".archive-term-row");
       if (selected === "product_cat" || selected === "product_tag") {
@@ -194,9 +194,9 @@
     });
 
     // Delegate input event on term field
-    $("#faq-groups-container").on("focus", ".archive-term", function () {
+    $("#cmfw-groups-container").on("focus", ".archive-term", function () {
       const $input = $(this);
-      const $group = $input.closest(".fbs-faq-archive-group");
+      const $group = $input.closest(".cmfw-cm-archive-group");
       const $select = $group.find(".archive-type");
       const taxonomy = $select.val();
 
@@ -247,14 +247,14 @@
     });
 
     // Remove selected term
-    $("#faq-groups-container").on("click", ".remove-term", function (e) {
+    $("#cmfw-groups-container").on("click", ".remove-term", function (e) {
       e.preventDefault();
       $(this).closest(".term-pill").remove();
     });
 
     // Show/hide archive term row + reset inputs
-    $("#faq-groups-container").on("change", "select.archive-type", function () {
-      const $group = $(this).closest(".fbs-faq-archive-group");
+    $("#cmfw-groups-container").on("change", "select.archive-type", function () {
+      const $group = $(this).closest(".cmfw-cm-archive-group");
       const selected = $(this).val();
       const $termRow = $group.find(".archive-term-row");
 
