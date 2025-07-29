@@ -31,42 +31,42 @@ if (isset($_POST['save_woo_afaq']) && check_admin_referer('save_woo_afaq_data', 
 
     update_option('woo_afaq_global_groups', $faq_groups);
 
-    echo '<div class="notice notice-success is-dismissible"><p>FAQ groups saved successfully!</p></div>';
+    echo '<div class="notice notice-success is-dismissible"><p>Custom Meta groups saved successfully!</p></div>';
 }
 
 ?>
 
 <div class="wrap">
-    <div class="fbs-product-archive-faq">
-        <h1>Settings for Product Archive FAQ</h1>
+    <div class="cmfw-product-archive">
+        <h1><?php echo esc_html('Settings for Product Archive CMFW','custom-meta-for-woocommerce'); ?></h1>
         <form method="post" action="">
-            <?php wp_nonce_field('save_woo_afaq_data', 'woo_afaq_nonce'); ?>
-            <div id="faq-groups-container"></div>
-            <p><button type="button" class="button fbs-add-faq-group">Add FAQ Group</button></p>
+            <?php wp_nonce_field('save_woo_acmfw_data', 'woo_acmfw_nonce'); ?>
+            <div id="cmfw-groups-container"></div>
+            <p><button type="button" class="button cmfw-add-group"><?php echo esc_html('Add Custom Meta Group','custom-meta-for-woocommerce');?></button></p>
             <hr>
-            <input type="submit" name="save_woo_afaq" class="button button-primary" value="Save FAQs">
+            <input type="submit" name="save_woo_acmfw" class="button button-primary" value="Save Cusmtom Meta Groups" />
         </form>
     </div>
 </div>
 
 <!-- Templates -->
-<script type="text/html" id="fbs-faq-group-template">
-    <div class="fbs-faq-archive-group">
-        <button type="button" class="button fbs-archive-remove-faq-group"><span class="dashicons dashicons-no-alt"></span></button>
-        <h2>FAQ Group</h2>
+<script type="text/html" id="cmfw-group-template">
+    <div class="cmfw-archive-group">
+        <button type="button" class="button cmfw-archive-remove-group"><span class="dashicons dashicons-no-alt"></span></button>
+        <h2><?php echo esc_html('Custom Meta Group','custom-meta-for-woocommerce');?></h2>
         <table class="form-table">
             <tr>
-                <th scope="row"><label>Archive Type</label></th>
+                <th scope="row"><label><?php echo esc_html('Archive Type','custom-meta-for-woocommerce');?></label></th>
                 <td>
-                    <select class="archive-type" name="faq_groups[_INDEX_][archive_type]">
-                        <option value="">Select Archive Type</option>
-                        <option value="product_cat">Category</option>
-                        <option value="product_tag">Tag</option>
+                    <select class="archive-type" name="cmfw_groups[_INDEX_][archive_type]">
+                        <option value=""><?php echo esc_html('— No change —','custom-meta-for-woocommerce');?></option>
+                        <option value="product_cat"><?php echo esc_html('Category','custom-meta-for-woocommerce');?></option>
+                        <option value="product_tag"><?php echo esc_html('Tag','custom-meta-for-woocommerce');?></option>
                     </select>
                 </td>
             </tr>
             <tr class="archive-term-row" style="display:none;">
-                <th scope="row"><label>Term</label></th>
+                <th scope="row"><label><?php echo esc_html('Term','custom-meta-for-woocommerce');?></label></th>
                 <td>
                     <input type="text" class="archive-term regular-text" name="" placeholder="Search..." />
                     <div class="term-suggestions"></div>
@@ -75,14 +75,14 @@ if (isset($_POST['save_woo_afaq']) && check_admin_referer('save_woo_afaq_data', 
             </tr>
         </table>
 
-        <div class="fbs-archive-faq-items"></div>
-        <p><button type="button" class="button fsb-archive-add-faq-item">Add New FAQ</button></p>
+        <div class="cmfw-archive-cm-items"></div>
+        <p><button type="button" class="button cmfw-archive-add-item"><?php echo esc_html('Add Custom Meta Item','custom-meta-for-woocommerce');?></button></p>
     </div>
 </script>
 
-<script type="text/html" id="fbs-archive-faq-item-template">
-    <div class="fbs-archive-faq-item">
-        <button type="button" class="button fbs-archive-remove-faq-item"><span class="dashicons dashicons-no-alt"></span></button>
+<script type="text/html" id="cmfw-archive-item-template">
+    <div class="cmfw-archive-item">
+        <button type="button" class="button cmfw-archive-remove-item"><span class="dashicons dashicons-no-alt"></span></button>
         <p>
             <label>Question<br>
                 <input type="text" name="faq_groups[_GROUP_INDEX_][faqs][_FAQ_INDEX_][question]" class="regular-text" />
@@ -121,8 +121,8 @@ if (!empty($saved_data)) {
 
     <script>
         jQuery(document).ready(function ($) {
-            const groupTemplate = $('#fbs-faq-group-template').html();
-            const faqTemplate = $('#fbs-archive-faq-item-template').html();
+            const groupTemplate = $('#cmfw-group-template').html();
+            const faqTemplate = $('#cmfw-archive-item-template').html();
 
             const savedGroups = <?php echo json_encode($saved_data); ?>;
 
