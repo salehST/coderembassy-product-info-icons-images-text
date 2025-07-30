@@ -66,12 +66,19 @@ class Assets {
 	 */
 	public function adminStyle(){
 		// Register Syle
-		wp_register_style('cmfw-admin-settings', CMFW_URL . '/assets/css/cmfw-admin-settings.css', [], filemtime( CMFW_DIR_PATH . '/assets/css/cmfw-admin.css'), 'all');
+		wp_register_style('cmfw-admin-settings', CMFW_URL . '/assets/css/cmfw-admin-settings.css', [], filemtime( CMFW_DIR_PATH . '/assets/css/cmfw-admin-settings.css'), 'all');
+		wp_register_style('cmfw-admin-css', CMFW_URL . '/assets/css/cmfw-admin.css', [], filemtime( CMFW_DIR_PATH . '/assets/css/cmfw-admin.css'), 'all');
+		wp_register_style('cmfw-css', CMFW_URL . '/assets/css/cmfw.css', [], filemtime( CMFW_DIR_PATH . '/assets/css/cmfw.css'), 'all');
 
 		// Enqueue Style
 		wp_enqueue_style('cmfw-admin-settings');
+		wp_enqueue_style('cmfw-admin-css');
+		wp_enqueue_style('cmfw-css');
+
 
 		// Enqueue js
 		wp_enqueue_script('cmfw-admin-settings-js', CMFW_URL . '/assets/js/cmfw-admin-settings.js', ['jquery'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin-settings.js'), true);
+		wp_enqueue_script('cmfw-admin-js', CMFW_URL . '/assets/js/cmfw-admin.js', ['jquery'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin.js'), true);
+		wp_enqueue_script('cmfw-js', CMFW_URL . '/assets/js/cmfw-admin-settings.js', ['jquery'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw.js'), true);
 	}
 }
