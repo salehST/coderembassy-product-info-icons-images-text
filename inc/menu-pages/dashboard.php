@@ -15,9 +15,10 @@ if (isset($_POST['save_woo_afaq']) && check_admin_referer('save_woo_afaq_data', 
             foreach ($group['faqs'] as $faq) {
                 $question = sanitize_text_field($faq['question'] ?? '');
                 $answer = sanitize_textarea_field($faq['answer'] ?? '');
+                $icon = sanitize_text_field($faq['icon'] ?? '');
 
                 if ($question && $answer) {
-                    $faqs[] = compact('question', 'answer');
+                    $faqs[] = compact('question', 'answer', 'icon');
                 }
             }
         }
@@ -84,14 +85,25 @@ if (isset($_POST['save_woo_afaq']) && check_admin_referer('save_woo_afaq_data', 
     <div class="cmfw-archive-cm-item">
         <button type="button" class="button cmfw-archive-remove-cm-item"><span class="dashicons dashicons-no-alt"></span></button>
         <p>
-            <label><?php echo esc_html__('Question', 'custom-meta-for-woocommerce'); ?><br>
+            <label><?php echo esc_html__('Custom meta title', 'custom-meta-for-woocommerce'); ?><br>
                 <input type="text" name="faq_groups[_GROUP_INDEX_][faqs][_FAQ_INDEX_][question]" class="regular-text" />
             </label>
         </p>
         <p>
-            <label><?php echo esc_html__('Answer', 'custom-meta-for-woocommerce'); ?><br>
-                <textarea name="faq_groups[_GROUP_INDEX_][faqs][_FAQ_INDEX_][answer]" rows="3" class="large-text"></textarea>
+            <label><?php echo esc_html__('Custom meta icons', 'custom-meta-for-woocommerce'); ?> <br>
+                <div class="cmfw-icon-picker-container">
+                    <input type="hidden" name="faq_groups[_GROUP_INDEX_][faqs][_FAQ_INDEX_][icon]" class="cmfw-icon-value" />
+                    <div class="cmfw-icon-preview" style="display: inline-block; margin-right: 10px;">
+                        <span class="dashicons dashicons-admin-generic" style="font-size: 24px; width: 24px; height: 24px;"></span>
+                    </div>
+                    <button type="button" class="button cmfw-open-icon-picker"><?php echo esc_html__('Select Icon', 'custom-meta-for-woocommerce'); ?></button>
+                </div>
             </label>
+        </p>
+        <p>
+            <!-- <label><?php echo esc_html__('Answer', 'custom-meta-for-woocommerce'); ?><br>
+                <textarea name="faq_groups[_GROUP_INDEX_][faqs][_FAQ_INDEX_][answer]" rows="3" class="large-text"></textarea>
+            </label> -->
         </p>
     </div>
 </script>
@@ -161,6 +173,13 @@ if (!empty($saved_data)) {
                     const $faq = $(faqHtml);
                     $faq.find('input[name$="[question]"]').val(faq.question);
                     $faq.find('textarea[name$="[answer]"]').val(faq.answer);
+                    
+                    // Handle icon field
+                    if (faq.icon) {
+                        $faq.find('.cmfw-icon-value').val(faq.icon);
+                        $faq.find('.cmfw-icon-preview .dashicons').attr('class', 'dashicons dashicons-' + faq.icon);
+                    }
+                    
                     $faqContainer.append($faq);
                 });
 

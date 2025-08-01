@@ -266,5 +266,138 @@
         $termRow.find(".selected-terms").empty();
       }
     });
+
+    // Dashicon picker functionality
+    $("#cmfw-groups-container").on("click", ".cmfw-open-icon-picker", function(e) {
+      e.preventDefault();
+      const $button = $(this);
+      const $container = $button.closest('.cmfw-icon-picker-container');
+      const $preview = $container.find('.cmfw-icon-preview');
+      const $input = $container.find('.cmfw-icon-value');
+      
+      // Create or show the icon picker modal
+      showDashiconPicker($preview, $input);
+    });
+
+    // Function to show the Dashicon picker modal
+    function showDashiconPicker($preview, $input) {
+      // Check if modal already exists
+      let $modal = $('#cmfw-dashicon-picker-modal');
+      if ($modal.length === 0) {
+        // Create the modal HTML
+        const modalHtml = `
+          <div id="cmfw-dashicon-picker-modal" class="cmfw-modal" style="display: none;">
+            <div class="cmfw-modal-overlay"></div>
+            <div class="cmfw-modal-content">
+              <div class="cmfw-modal-header">
+                <h2>Select Dashicon</h2>
+                <button type="button" class="cmfw-modal-close">&times;</button>
+              </div>
+              <div class="cmfw-modal-body">
+                <div class="cmfw-icon-search">
+                  <input type="text" id="cmfw-icon-search-input" placeholder="Search icons..." />
+                </div>
+                <div class="cmfw-icon-grid"></div>
+              </div>
+            </div>
+          </div>
+        `;
+        $('body').append(modalHtml);
+        $modal = $('#cmfw-dashicon-picker-modal');
+      }
+
+      // Populate the icon grid
+      populateIconGrid($modal, $preview, $input);
+
+      // Show the modal
+      $modal.show();
+
+      // Close modal handler
+      $modal.find('.cmfw-modal-close, .cmfw-modal-overlay').on('click', function() {
+        $modal.hide();
+      });
+
+      // Search functionality
+      $modal.find('#cmfw-icon-search-input').on('input', function() {
+        const searchTerm = $(this).val().toLowerCase();
+        $modal.find('.cmfw-icon-item').each(function() {
+          const iconName = $(this).data('icon-name');
+          if (iconName.includes(searchTerm)) {
+            $(this).show();
+          } else {
+            $(this).hide();
+          }
+        });
+      });
+    }
+
+    // Function to populate the icon grid with Dashicons
+    function populateIconGrid($modal, $preview, $input) {
+      // List of common Dashicons (this is not exhaustive but includes many commonly used ones)
+      const dashicons = [
+        'admin-appearance', 'admin-collapse', 'admin-comments', 'admin-customizer', 'admin-dashboard',
+        'admin-generic', 'admin-home', 'admin-links', 'admin-media', 'admin-multisite', 'admin-network',
+        'admin-page', 'admin-plugins', 'admin-post', 'admin-settings', 'admin-site', 'admin-site-alt',
+        'admin-site-alt2', 'admin-site-alt3', 'admin-tools', 'admin-users', 'airplane', 'album', 'align-center',
+        'align-full-width', 'align-left', 'align-none', 'align-pull-left', 'align-pull-right', 'align-right',
+        'align-wide', 'amazon', 'analytics', 'archive', 'arrow-down', 'arrow-down-alt', 'arrow-down-alt2',
+        'arrow-left', 'arrow-left-alt', 'arrow-left-alt2', 'arrow-right', 'arrow-right-alt', 'arrow-right-alt2',
+        'arrow-up', 'arrow-up-alt', 'arrow-up-alt2', 'art', 'awards', 'backup', 'beer', 'bell', 'block-default',
+        'book', 'book-alt', 'buddicons-activity', 'buddicons-bbpress-logo', 'buddicons-buddypress-logo',
+        'buddicons-community', 'buddicons-forums', 'buddicons-friends', 'buddicons-groups', 'buddicons-pm',
+        'buddicons-replies', 'buddicons-topics', 'buddicons-tracking', 'building', 'building-42', 'businessman',
+        'businessperson', 'businesswoman', 'button', 'calculator', 'calendar', 'calendar-alt', 'camera', 'camera-alt',
+        'car', 'category', 'chart-area', 'chart-bar', 'chart-line', 'chart-pie', 'clipboard', 'clock', 'cloud',
+        'controls-back', 'controls-forward', 'controls-pause', 'controls-play', 'controls-repeat', 'controls-skipback',
+        'controls-skipforward', 'controls-volumeoff', 'controls-volumeon', 'cover-image', 'dashboard', 'database',
+        'database-add', 'database-export', 'database-import', 'database-remove', 'database-view', 'desktop',
+        'dismiss', 'download', 'drumstick', 'edit', 'edit-large', 'edit-page', 'editor-aligncenter', 'editor-alignleft',
+        'editor-alignright', 'editor-bold', 'editor-break', 'editor-code', 'editor-code-duplicate', 'editor-contract',
+        'editor-customchar', 'editor-expand', 'editor-help', 'editor-indent', 'editor-insertmore', 'editor-italic',
+        'editor-justify', 'editor-kitchensink', 'editor-ltr', 'editor-ol', 'editor-ol-rtl', 'editor-outdent',
+        'editor-paragraph', 'editor-paste-text', 'editor-paste-word', 'editor-quote', 'editor-removeformatting',
+        'editor-rtl', 'editor-spellcheck', 'editor-strikethrough', 'editor-table', 'editor-textcolor', 'editor-underline',
+        'editor-unlink', 'editor-ul', 'email', 'email-alt', 'email-alt2', 'excerpt-view', 'external', 'facebook',
+        'facebook-alt', 'feedback', 'filter', 'flag', 'food', 'format-aside', 'format-audio', 'format-chat', 'format-gallery',
+        'format-image', 'format-quote', 'format-status', 'format-video', 'forms', 'fullscreen-alt', 'fullscreen-exit-alt',
+        'games', 'google', 'grid-view', 'groups', 'hammer', 'heading', 'heart', 'hidden', 'hourglass', 'html', 'id',
+        'id-alt', 'image-crop', 'image-filter', 'image-flip', 'image-rotate', 'image-rotate-left', 'image-rotate-right',
+        'images-alt', 'images-alt2', 'index-card', 'info', 'info-outline', 'insert-after', 'insert-before', 'insert',
+        'instagram', 'keyboard-hide', 'laptop', 'layout', 'leftright', 'lightbulb', 'list-view', 'location', 'location-alt',
+        'lock', 'marker', 'media-archive', 'media-audio', 'media-code', 'media-default', 'media-document', 'media-interactive',
+        'media-spreadsheet', 'media-text', 'media-video', 'megaphone', 'menu', 'menu-alt', 'menu-alt2', 'menu-alt3',
+        'microphone', 'migrate', 'minus', 'money', 'move', 'nametag', 'networking', 'no', 'no-alt', 'palmtree', 'paperclip',
+        'pdf', 'performance', 'pets', 'phone', 'pinterest', 'playlist-audio', 'playlist-video', 'plus', 'plus-alt',
+        'plus-alt2', 'portfolio', 'post-status', 'pressthis', 'products', 'publish', 'randomize', 'redo', 'remove',
+        'rest-api', 'rss', 'saved', 'schedule', 'screenoptions', 'search', 'share', 'share-alt', 'share-alt2', 'shield',
+        'shield-alt', 'shortcode', 'slides', 'smartphone', 'smiley', 'sort', 'sos', 'spotify', 'star-empty', 'star-filled',
+        'star-half', 'sticky', 'store', 'tablet', 'tag', 'tagcloud', 'testimonial', 'text', 'text-page', 'thumbs-down',
+        'thumbs-up', 'tickets', 'tickets-alt', 'tide', 'translation', 'trash', 'twitch', 'twitter', 'undo', 'universal-access',
+        'universal-access-alt', 'unlock', 'update', 'update-alt', 'upload', 'vault', 'video-alt', 'video-alt2', 'video-alt3',
+        'visibility', 'warning', 'welcome-add-page', 'welcome-comments', 'welcome-learn-more', 'welcome-view-site',
+        'welcome-widgets-menus', 'wordpress', 'wordpress-alt', 'yes', 'yes-alt'
+      ];
+
+      const $grid = $modal.find('.cmfw-icon-grid');
+      $grid.empty();
+
+      dashicons.forEach(function(iconName) {
+        const iconHtml = `
+          <div class="cmfw-icon-item" data-icon-name="${iconName}">
+            <span class="dashicons dashicons-${iconName}" style="font-size: 24px; width: 24px; height: 24px;"></span>
+            <span class="cmfw-icon-name">${iconName}</span>
+          </div>
+        `;
+        $grid.append(iconHtml);
+      });
+
+      // Handle icon selection
+      $grid.find('.cmfw-icon-item').on('click', function() {
+        const selectedIcon = $(this).data('icon-name');
+        $preview.find('.dashicons').attr('class', `dashicons dashicons-${selectedIcon}`);
+        $input.val(selectedIcon);
+        $modal.hide();
+      });
+    }
   });
 })(jQuery);
