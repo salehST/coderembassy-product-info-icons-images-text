@@ -116,7 +116,7 @@
         if (currentGroups < MAX_GROUPS_FREE) {
           const $upgradeBtn = $(".fbs-upgrade-button");
           if ($upgradeBtn.length) {
-            const $newBtn = $('<button type="button" class="button cmfw-add-cm-group">Add FAQ Group</button>');
+            const $newBtn = $('<button type="button" class="button cmfw-add-cm-group">Add CMFW Group</button>');
             $upgradeBtn.replaceWith($newBtn);
           }
         }
@@ -133,7 +133,7 @@
 
         if (currentFaqs >= MAX_FAQS_FREE) {
           alert(
-            "Upgrade to the Pro version to add more than 3 FAQs per group."
+            "Upgrade to the Pro version to add more than 3 CMFW per group."
           );
           return;
         }
