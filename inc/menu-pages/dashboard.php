@@ -16,9 +16,10 @@ if (isset($_POST['save_woo_afaq']) && check_admin_referer('save_woo_afaq_data', 
                 $question = sanitize_text_field($faq['question'] ?? '');
                 $answer = sanitize_textarea_field($faq['answer'] ?? '');
                 $icon = sanitize_text_field($faq['icon'] ?? '');
+                $image_id = intval($faq['image_id'] ?? 0);
 
                 if ($question && $answer) {
-                    $faqs[] = compact('question', 'answer', 'icon');
+                    $faqs[] = compact('question', 'answer', 'icon', 'image_id');
                 }
             }
         }
@@ -101,6 +102,24 @@ if (isset($_POST['save_woo_afaq']) && check_admin_referer('save_woo_afaq_data', 
             </label>
         </p>
         <p>
+            <label><?php echo esc_html__('Custom meta image', 'custom-meta-for-woocommerce'); ?> <br>
+                <div class="cmfw-image-picker-container">
+                    <input type="hidden" name="faq_groups[_GROUP_INDEX_][faqs][_FAQ_INDEX_][image_id]" class="cmfw-image-value" />
+                    <div class="cmfw-image-preview" style="display: inline-block; margin-right: 10px; vertical-align: top;">
+                        <img src="" alt="Preview" style="max-width: 100px; max-height: 100px; display: none; border: 1px solid #ddd; border-radius: 4px;" />
+                        <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
+                            <?php echo esc_html__('No image selected', 'custom-meta-for-woocommerce'); ?>
+                        </div>
+                    </div>
+                    <div style="display: inline-block; vertical-align: top;">
+                        <button type="button" class="button cmfw-select-image"><?php echo esc_html__('Select Image', 'custom-meta-for-woocommerce'); ?></button>
+                        <button type="button" class="button cmfw-remove-image" style="display: none; margin-left: 5px;"><?php echo esc_html__('Remove', 'custom-meta-for-woocommerce'); ?></button>
+                        <br><small style="color: #666; margin-top: 5px; display: block;"><?php echo esc_html__('Recommended size: 100x100px', 'custom-meta-for-woocommerce'); ?></small>
+                    </div>
+                </div>
+            </label>
+        </p>
+        <p>
             <!-- <label><?php echo esc_html__('Answer', 'custom-meta-for-woocommerce'); ?><br>
                 <textarea name="faq_groups[_GROUP_INDEX_][faqs][_FAQ_INDEX_][answer]" rows="3" class="large-text"></textarea>
             </label> -->
@@ -178,6 +197,14 @@ if (!empty($saved_data)) {
                     if (faq.icon) {
                         $faq.find('.cmfw-icon-value').val(faq.icon);
                         $faq.find('.cmfw-icon-preview .dashicons').attr('class', 'dashicons dashicons-' + faq.icon);
+                    }
+                    
+                    // Handle image field
+                    if (faq.image_id && faq.image_id > 0) {
+                        $faq.find('.cmfw-image-value').val(faq.image_id);
+                        // We'll load the image preview via AJAX or set a placeholder
+                        // For now, we'll trigger the image loading after the DOM is ready
+                        $faq.find('.cmfw-image-picker-container').attr('data-image-id', faq.image_id);
                     }
                     
                     $faqContainer.append($faq);

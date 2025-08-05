@@ -399,5 +399,118 @@
         $modal.hide();
       });
     }
+
+    // WordPress Media Library Integration for Image Upload
+    var cmfwMediaFrame;
+
+    // Handle image selection
+    $("#cmfw-groups-container").on("click", ".cmfw-select-image", function(e) {
+      e.preventDefault();
+      
+      const $button = $(this);
+      const $container = $button.closest('.cmfw-image-picker-container');
+      const $preview = $container.find('.cmfw-image-preview');
+      const $input = $container.find('.cmfw-image-value');
+      const $removeBtn = $container.find('.cmfw-remove-image');
+      const $noImage = $container.find('.cmfw-no-image');
+      const $img = $preview.find('img');
+
+      // If the media frame already exists, reopen it
+      if (cmfwMediaFrame) {
+        cmfwMediaFrame.open();
+        return;
+      }
+
+      // Create the media frame
+      cmfwMediaFrame = wp.media({
+        title: cmfwAjax.media_title,
+        button: {
+          text: cmfwAjax.media_button
+        },
+        multiple: false,
+        library: {
+          type: 'image'
+        }
+      });
+
+      // When an image is selected, run a callback
+      cmfwMediaFrame.on('select', function() {
+        const attachment = cmfwMediaFrame.state().get('selection').first().toJSON();
+        
+        // Set the attachment ID
+        $input.val(attachment.id);
+        
+        // Set the image preview
+        const imageUrl = attachment.sizes && attachment.sizes.thumbnail
+          ? attachment.sizes.thumbnail.url
+          : attachment.url;
+        
+        $img.attr('src', imageUrl).show();
+        $noImage.hide();
+        $removeBtn.show();
+      });
+
+      // Open the media frame
+      cmfwMediaFrame.open();
+    });
+
+    // Handle image removal
+    $("#cmfw-groups-container").on("click", ".cmfw-remove-image", function(e) {
+      e.preventDefault();
+      
+      const $button = $(this);
+      const $container = $button.closest('.cmfw-image-picker-container');
+      const $preview = $container.find('.cmfw-image-preview');
+      const $input = $container.find('.cmfw-image-value');
+      const $noImage = $container.find('.cmfw-no-image');
+      const $img = $preview.find('img');
+
+      // Clear the input value
+      $input.val('');
+      
+      // Hide image preview and show no-image placeholder
+      $img.hide().attr('src', '');
+      $noImage.show();
+      $button.hide();
+    });
+
+    // Load existing images on page load
+    function loadExistingImages() {
+      $('.cmfw-image-picker-container[data-image-id]').each(function() {
+        const $container = $(this);
+        const imageId = $container.attr('data-image-id');
+        
+        if (imageId && imageId > 0) {
+          // Make AJAX call to get image URL
+          $.ajax({
+            url: cmfwAjax.ajax_url,
+            type: 'POST',
+            data: {
+              action: 'cmfw_get_image_url',
+              nonce: cmfwAjax.nonce,
+              image_id: imageId
+            },
+            success: function(response) {
+              if (response.success && response.data.url) {
+                const $preview = $container.find('.cmfw-image-preview');
+                const $img = $preview.find('img');
+                const $noImage = $container.find('.cmfw-no-image');
+                const $removeBtn = $container.find('.cmfw-remove-image');
+                
+                $img.attr('src', response.data.url).show();
+                $noImage.hide();
+                $removeBtn.show();
+              }
+            }
+          });
+        }
+      });
+    }
+
+    // Load existing images when page is ready
+    $(document).ready(function() {
+      setTimeout(loadExistingImages, 500); // Small delay to ensure DOM is fully ready
+    });
+
   });
 })(jQuery);

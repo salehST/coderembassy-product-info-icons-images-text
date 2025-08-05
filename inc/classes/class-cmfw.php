@@ -43,6 +43,9 @@ class CMFW
           }
 
           add_action('before_woocommerce_init', [$this, 'cmfw_hpos']);
+          
+          // AJAX handlers for image functionality
+          add_action('wp_ajax_cmfw_get_image_url', [$this, 'ajax_get_image_url']);
      }
 
      /**
@@ -68,6 +71,41 @@ class CMFW
      {
           if (class_exists('\Automattic\WooCommerce\Utilities\FeaturesUtil')) {
                \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+          }
+     }
+
+     /**
+      * AJAX handler to get image URL from attachment ID
+      * @since 1.0.0
+      */
+     public function ajax_get_image_url()
+     {
+          // Verify nonce
+          if (!wp_verify_nonce($_POST['nonce'] ?? '', 'cmfw_ajax_nonce')) {
+               wp_die(__('Security check failed', 'custom-meta-for-woocommerce'));
+          }
+
+          $image_id = intval($_POST['image_id'] ?? 0);
+          
+          if ($image_id <= 0) {
+               wp_send_json_error(['message' => __('Invalid image ID', 'custom-meta-for-woocommerce')]);
+          }
+
+          // Get image URL
+          $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+          
+          if (!$image_url) {
+               // Try to get full size if thumbnail doesn't exist
+               $image_url = wp_get_attachment_image_url($image_id, 'full');
+          }
+
+          if ($image_url) {
+               wp_send_json_success([
+                    'url' => $image_url,
+                    'id' => $image_id
+               ]);
+          } else {
+               wp_send_json_error(['message' => __('Image not found', 'custom-meta-for-woocommerce')]);
           }
      }
 }

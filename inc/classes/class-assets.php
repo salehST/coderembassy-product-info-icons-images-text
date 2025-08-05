@@ -75,10 +75,22 @@ class Assets {
 		wp_enqueue_style('cmfw-admin-css');
 		wp_enqueue_style('cmfw-css');
 
+		// Enqueue WordPress Media Library for image uploads
+		if (function_exists('wp_enqueue_media')) {
+			wp_enqueue_media();
+		}
 
 		// Enqueue js
 		wp_enqueue_script('cmfw-admin-settings-js', CMFW_URL . '/assets/js/cmfw-admin-settings.js', ['jquery'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin-settings.js'), true);
-		wp_enqueue_script('cmfw-admin-js', CMFW_URL . '/assets/js/cmfw-admin.js', ['jquery'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin.js'), true);
+		wp_enqueue_script('cmfw-admin-js', CMFW_URL . '/assets/js/cmfw-admin.js', ['jquery', 'media-upload', 'media-views'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin.js'), true);
 		wp_enqueue_script('cmfw-js', CMFW_URL . '/assets/js/cmfw-admin-settings.js', ['jquery'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw.js'), true);
+		
+		// Localize script for AJAX
+		wp_localize_script('cmfw-admin-js', 'cmfwAjax', [
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'nonce' => wp_create_nonce('cmfw_ajax_nonce'),
+			'media_title' => __('Select Image', 'custom-meta-for-woocommerce'),
+			'media_button' => __('Use This Image', 'custom-meta-for-woocommerce'),
+		]);
 	}
 }

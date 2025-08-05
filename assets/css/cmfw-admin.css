@@ -460,4 +460,123 @@ button.faq-add-question.button.button-primary {
     width: 24px;
     height: 24px;
   }
+
+  /* Image Upload Styles */
+  .cmfw-image-picker-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-top: 5px;
+  }
+
+  .cmfw-image-preview {
+    position: relative;
+    display: inline-block;
+  }
+
+  .cmfw-image-preview img {
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cmfw-no-image {
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 4px;
+    background: #fafafa;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+
+  .cmfw-no-image:hover {
+    border-color: #999;
+    background-color: #f0f0f0;
+  }
+
+  .cmfw-select-image,
+  .cmfw-remove-image {
+    margin-bottom: 5px;
+  }
+
+  .cmfw-remove-image {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+  }
+
+  .cmfw-remove-image:hover {
+    background: #c82333;
+    border-color: #bd2130;
+  }
+
+  /* Frontend Display Styles */
+  .cmfw-custom-meta-container,
+  .cmfw-product-custom-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .cmfw-custom-meta-item,
+  .cmfw-product-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  .cmfw-custom-meta-item:hover,
+  .cmfw-product-meta-item:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+  }
+
+  .cmfw-meta-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #6c757d;
+  }
+
+  .cmfw-meta-image {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    object-fit: cover;
+  }
+
+  .cmfw-meta-title {
+    font-weight: 500;
+    color: #495057;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .cmfw-image-picker-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .cmfw-custom-meta-container,
+    .cmfw-product-custom-meta {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
   
