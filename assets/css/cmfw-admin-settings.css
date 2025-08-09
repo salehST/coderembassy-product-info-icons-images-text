@@ -82,7 +82,50 @@
 
 .cmfw-admin .woo-cmfw-settings-content .form-table select,
 .cmfw-admin .woo-cmfw-settings-content .form-table input[type="text"],
+.cmfw-admin .woo-cmfw-settings-content .form-table input[type="number"],
 .cmfw-admin .woo-cmfw-settings-content .form-table input[type="color"] {
     width: 100%;
     max-width: 350px;
+}
+
+.cmfw-admin .woo-cmfw-settings-content .form-table input[type="number"] {
+    max-width: 80px;
+}
+
+.cmfw-admin .woo-cmfw-settings-content .form-table tr.highlight {
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease;
+}
+
+.cmfw-admin .woo-cmfw-settings-content .form-table .description {
+    color: #666;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.cmfw-admin .woo-cmfw-settings-content .form-table input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.cmfw-admin .woo-cmfw-settings-content .form-table label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+}
+
+/* Color picker styling */
+.cmfw-admin .wp-picker-container {
+    max-width: 350px;
+}
+
+.cmfw-admin .wp-picker-container .wp-color-result {
+    height: 32px;
+    border-radius: 3px;
+}
+
+/* Submit button styling */
+.cmfw-admin .submit {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
 }
