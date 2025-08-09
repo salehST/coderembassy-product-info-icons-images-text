@@ -1,270 +1,112 @@
 (function ($) {
   $(document).ready(function () {
-    const isProActive = typeof wooFaqPro !== 'undefined' && wooFaqPro.is_pro;
-    const MAX_SINGLE_FAQS = isProActive ? Infinity : 3;
-    const MAX_GROUPS_FREE = isProActive ? Infinity : 2;
-    const MAX_FAQS_FREE = isProActive ? Infinity : 3;
-
-    // Declare a global counter to track the number of FAQs
-    var faqCounter = 1;
-    // Disable the add button on page load if limit is reached
-    if ($("div.option-group-wrapper .options_group").length >= MAX_SINGLE_FAQS) {
-      const $btn = $(".faq-add-question");
-      const $newBtn = $('<a href="https://wpbay.com/product/product-faq-for-woocommerce-pro/" target="_blank" class="button fbs-upgrade-button" style="background-color: #ff9800; border-color: #ff9800; color: #fff;">Upgrade</a>');
-      $btn.replaceWith($newBtn);
+    // Groups UI (dashboard)
+    function reindexAll() {
+      $('#cmfw-groups-container .cmfw-group').each(function (gIdx) {
+        const $group = $(this);
+        $group.attr('data-group-index', gIdx);
+        $group.find('.cmfw-item').each(function (iIdx) {
+          const $item = $(this);
+          $item.find('input[name$="[title]"]').attr('name', `cmfw_groups[${gIdx}][items][${iIdx}][title]`);
+          $item.find('.cmfw-icon-value').attr('name', `cmfw_groups[${gIdx}][items][${iIdx}][icon]`);
+          $item.find('.cmfw-image-value').attr('name', `cmfw_groups[${gIdx}][items][${iIdx}][image_id]`);
+        });
+        // Ensure taxonomy and term hidden inputs are properly named
+        $group.find('select.taxonomy-select').attr('name', `cmfw_groups[${gIdx}][taxonomy]`);
+        $group.find('.selected-terms input[type="hidden"]').each(function(){
+          $(this).attr('name', `cmfw_groups[${gIdx}][terms][]`);
+        });
+      });
     }
 
-    $(document.body).on("click", ".faq-add-question", function () {
-      const $addBtn = $(this);
-      const currentFaqs = $("div.option-group-wrapper .options_group").length;
-      if (currentFaqs >= MAX_SINGLE_FAQS) {
-        const $newBtn = $('<a href="https://wpbay.com/product/product-faq-for-woocommerce-pro/" target="_blank" class="button fbs-upgrade-button" style="background-color: #ff9800; border-color: #ff9800; color: #fff;">Upgrade</a>');
-        $addBtn.replaceWith($newBtn);
-        alert("Upgrade to the Pro version to add more than 3 FAQs per product.");
-        return;
-      }
-
-      var lastFaqNumber = $(
-        "div.option-group-wrapper .options_group .faq-question-box"
-      ).length;
-      // Use the counter value directly and increment it for each new FAQ
-      var faqNumber = faqCounter + lastFaqNumber;
-
-      // Use template literals for better readability
-      var myElement = `
-              <div class="options_group">
-                  <button type="button" class="faq-remove-question" style="float:right; background:#fff; color:#b32d2e; border-color:#b32d2e; margin-top:5px; padding:0; border-radius: 50%;"><span class="dashicons dashicons-no-alt"></span></button>
-                  <p class="form-field faq_${faqNumber}_field">
-                      <label for="faq_${faqNumber}">Question</label>
-                      <input type="text" class="faq_input" name="faq[question][${faqNumber}]" id="faq_${faqNumber}" value="" placeholder="Add Question">
-                  </p>
-                  <p class="form-field faq_ans_${faqNumber}_field">
-                      <label for="faq_ans_${faqNumber}">Answer</label>
-                      <input type="text" class="faq_input" name="faq[answer][${faqNumber}]" id="faq_ans_${faqNumber}" value="" placeholder="Add Answer">
-                  </p>
-                  
-              </div>
-          `;
-
-      // Append the new FAQ input fields
-      $("div.option-group-wrapper").append(myElement);
-
-      // Increment the counter for the next click
-      faqCounter++;
-
-      // Restore the add button if under the limit (in case FAQs are removed)
-      if ($("div.option-group-wrapper .options_group").length < MAX_SINGLE_FAQS) {
-        const $upgradeBtn = $(".fbs-upgrade-button");
-        if ($upgradeBtn.length) {
-          const $newBtn = $('<button type="button" class="button faq-add-question">Add Question</button>');
-          $upgradeBtn.replaceWith($newBtn);
-        }
-      }
+    $(document.body).on('click', '.cmfw-add-group', function () {
+      const groupIndex = $('#cmfw-groups-container .cmfw-group').length;
+      let groupHtml = $('#cmfw-group-template').html().replace(/_INDEX_/g, groupIndex);
+      $('#cmfw-groups-container').append(groupHtml);
+      reindexAll();
     });
 
-    // If you have a remove FAQ handler for single product, add this logic there as well:
-          // After removing an FAQ, restore the add button if under the limit
-      $(document.body).on("click", ".faq-remove-question", function () {
-        $(this).closest(".options_group").remove();
-        // Restore the add button if under the limit
-        if ($("div.option-group-wrapper .options_group").length < MAX_SINGLE_FAQS) {
-          const $upgradeBtn = $(".fbs-upgrade-button");
-          if ($upgradeBtn.length) {
-            const $newBtn = $('<button type="button" class="button faq-add-question">Add Question</button>');
-            $upgradeBtn.replaceWith($newBtn);
-          }
-        }
-      });
-
-    // Archive FAQ code start here
-
-    $(document.body).on("click", ".cmfw-add-cm-group", function () {
-      const currentGroups = $(
-        "#cmfw-groups-container .cmfw-cm-archive-group"
-      ).length;
-
-      if (currentGroups >= MAX_GROUPS_FREE) {
-        alert("Upgrade to the Pro version to add more than 2 FAQ groups.");
-        return;
-      }
-
-      const groupIndex = currentGroups;
-      let groupHtml = $("#cmfw-cm-group-template")
-        .html()
-        .replace(/_INDEX_/g, groupIndex);
-      $("#cmfw-groups-container").append(groupHtml);
-
-      // Disable the add group button if max reached
-      if (groupIndex + 1 >= MAX_GROUPS_FREE) {
-        const $btn = $(".cmfw-add-cm-group");
-        const $newBtn = $('<a href="https://wpbay.com/product/product-faq-for-woocommerce-pro/" target="_blank" class="button fbs-upgrade-button" style="background-color: #ff9800; border-color: #ff9800; color: #fff;">Upgrade</a>');
-        $btn.replaceWith($newBtn);
-      }
+    $('#cmfw-groups-container').on('click', '.cmfw-remove-group', function () {
+      $(this).closest('.cmfw-group').remove();
+      reindexAll();
     });
 
-    // Remove FAQ Group
-    $("#cmfw-groups-container").on(
-      "click",
-      ".cmfw-archive-remove-cm-group",
-      function () {
-        $(this).closest(".cmfw-cm-archive-group").remove();
-
-        const currentGroups = $(
-          "#cmfw-groups-container .cmfw-cm-archive-group"
-        ).length;
-
-        if (currentGroups < MAX_GROUPS_FREE) {
-          const $upgradeBtn = $(".fbs-upgrade-button");
-          if ($upgradeBtn.length) {
-            const $newBtn = $('<button type="button" class="button cmfw-add-cm-group">Add CMFW Group</button>');
-            $upgradeBtn.replaceWith($newBtn);
-          }
-        }
-      }
-    );
-
-    // Add FAQ Item
-    $("#cmfw-groups-container").on(
-      "click",
-      ".cmfw-archive-add-cm-item",
-      function () {
-        const groupEl = $(this).closest(".cmfw-cm-archive-group");
-        const currentFaqs = groupEl.find(".cmfw-archive-cm-item").length;
-
-        if (currentFaqs >= MAX_FAQS_FREE) {
-          alert(
-            "Upgrade to the Pro version to add more than 3 CMFW per group."
-          );
-          return;
-        }
-
-        const groupIndex = groupEl.index();
-        const faqIndex = currentFaqs;
-        let faqTemplate = $("#cmfw-archive-cm-item-template").html();
-        faqTemplate = faqTemplate
-          .replace(/_GROUP_INDEX_/g, groupIndex)
-          .replace(/_FAQ_INDEX_/g, faqIndex);
-
-        groupEl.find(".cmfw-archive-cm-items").append(faqTemplate);
-
-        // Disable the button if max reached
-        if (faqIndex + 1 >= MAX_FAQS_FREE) {
-          const $btn = groupEl.find(".cmfw-archive-add-cm-item");
-          const $newBtn = $('<a href="https://wpbay.com/product/product-faq-for-woocommerce-pro/" target="_blank" class="button fbs-upgrade-button" style="background-color: #ff9800; border-color: #ff9800; color: #fff;">Upgrade</a>');
-          $btn.replaceWith($newBtn);
-        }
-      }
-    );
-
-    // Remove FAQ Item
-    $("#cmfw-groups-container").on(
-      "click",
-      ".cmfw-archive-remove-cm-item",
-      function () {
-        const groupEl = $(this).closest(".cmfw-cm-archive-group");
-        $(this).closest(".cmfw-archive-cm-item").remove();
-
-        const currentFaqs = groupEl.find(".cmfw-archive-cm-item").length;
-
-        if (currentFaqs < MAX_FAQS_FREE) {
-          const $upgradeBtn = groupEl.find(".fbs-upgrade-button");
-          if ($upgradeBtn.length) {
-            const $newBtn = $('<button type="button" class="button cmfw-archive-add-cm-item">Add New FAQ</button>');
-            $upgradeBtn.replaceWith($newBtn);
-          }
-        }
-      }
-    );
-
-    $(document.body).on("click", ".fbs-upgrade-button", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      window.open("https://wpbay.com/product/product-faq-for-woocommerce-pro/", "_blank");
+    $('#cmfw-groups-container').on('click', '.cmfw-add-item', function () {
+      const $group = $(this).closest('.cmfw-group');
+      const groupIndex = $('#cmfw-groups-container .cmfw-group').index($group);
+      const itemIndex = $group.find('.cmfw-item').length;
+      let itemHtml = $('#cmfw-item-template').html()
+        .replace(/_GROUP_INDEX_/g, groupIndex)
+        .replace(/_ITEM_INDEX_/g, itemIndex);
+      $group.find('.cmfw-items').append(itemHtml);
+      reindexAll();
     });
 
-    // Show/hide archive term row
-    $("#cmfw-groups-container").on("change", "select.archive-type", function () {
-      const selected = $(this).val();
-      const $termRow = $(this).closest("table").find(".archive-term-row");
-      if (selected === "product_cat" || selected === "product_tag") {
-        $termRow.show();
+    $('#cmfw-groups-container').on('click', '.cmfw-remove-item', function () {
+      $(this).closest('.cmfw-item').remove();
+      reindexAll();
+    });
+
+    // Taxonomy show/hide terms row
+    $('#cmfw-groups-container').on('change', 'select.taxonomy-select', function(){
+      const $group = $(this).closest('.cmfw-group');
+      const val = $(this).val();
+      const $row = $group.find('.term-row');
+      if (val === 'product_cat' || val === 'product_tag') {
+        $row.show();
       } else {
-        $termRow.hide();
+        $row.hide();
+        $group.find('.term-search').val('');
+        $group.find('.selected-terms').empty();
       }
     });
 
-    // Delegate input event on term field
-    $("#cmfw-groups-container").on("focus", ".archive-term", function () {
+    // Term autocomplete
+    $('#cmfw-groups-container').on('focus', '.term-search', function(){
       const $input = $(this);
-      const $group = $input.closest(".cmfw-cm-archive-group");
-      const $select = $group.find(".archive-type");
-      const taxonomy = $select.val();
-
+      const $group = $input.closest('.cmfw-group');
+      const taxonomy = $group.find('.taxonomy-select').val();
       if (!taxonomy) return;
 
-      $input.autocomplete({
-        source: function (request, response) {
-          if (request.term.length < 3) return;
+      if (typeof $input.autocomplete !== 'function') return; // jQuery UI may not be present
 
+      $input.autocomplete({
+        source: function(request, response){
+          if ((request.term || '').length < 2) return;
           $.getJSON(
-            faqAjax.ajax_url,
+            cmfwAjax.ajax_url,
             {
-              action: "faq_term_search",
-              nonce: faqAjax.nonce,
+              action: 'cmfw_term_search',
+              nonce: cmfwAjax.nonce,
               taxonomy: taxonomy,
-              term: request.term,
+              term: request.term
             },
-            function (data) {
-              response(data);
-            }
+            function(data){ response(data || []); }
           );
         },
-        minLength: 3,
-        select: function (event, ui) {
+        minLength: 2,
+        select: function(event, ui){
           event.preventDefault();
-          $input.val("");
-
-          const $selectedTerms = $group.find(".selected-terms");
-
-          if (
-            $selectedTerms.find('input[value="' + ui.item.value + '"]').length
-          ) {
-            return;
-          }
-
-          const selectedHtml = `
-                      <span class="term-pill" style="display:inline-block; margin:3px; padding:3px 8px; background:#f1f1f1; border:1px solid #ccc; border-radius:20px;">
-                          ${ui.item.label}
-                          <a href="#" class="remove-term" style="margin-left:5px; color:red; text-decoration:none;">&times;</a>
-                          <input type="hidden" name="faq_groups[${$group.index()}][archive_terms][]" value="${
-            ui.item.value
-          }">
-                      </span>
-                  `;
-          $selectedTerms.append(selectedHtml);
-        },
+          $input.val('');
+          const $selected = $group.find('.selected-terms');
+          if ($selected.find('input[value="' + ui.item.value + '"]').length) return;
+          const pill = `
+            <span class="term-pill" style="display:inline-block; margin:3px; padding:3px 8px; background:#f1f1f1; border:1px solid #ccc; border-radius:20px;">
+              ${ui.item.label}
+              <a href="#" class="remove-term" style="margin-left:5px; color:red; text-decoration:none;">&times;</a>
+              <input type="hidden" name="cmfw_groups[${$('#cmfw-groups-container .cmfw-group').index($group)}][terms][]" value="${ui.item.value}">
+            </span>`;
+          $selected.append(pill);
+          reindexAll();
+        }
       });
     });
 
-    // Remove selected term
-    $("#cmfw-groups-container").on("click", ".remove-term", function (e) {
+    // Remove selected term pill
+    $('#cmfw-groups-container').on('click', '.remove-term', function(e){
       e.preventDefault();
-      $(this).closest(".term-pill").remove();
-    });
-
-    // Show/hide archive term row + reset inputs
-    $("#cmfw-groups-container").on("change", "select.archive-type", function () {
-      const $group = $(this).closest(".cmfw-cm-archive-group");
-      const selected = $(this).val();
-      const $termRow = $group.find(".archive-term-row");
-
-      if (selected === "product_cat" || selected === "product_tag") {
-        $termRow.show();
-      } else {
-        $termRow.hide();
-        $termRow.find(".archive-term").val("");
-        $termRow.find(".selected-terms").empty();
-      }
+      $(this).closest('.term-pill').remove();
+      reindexAll();
     });
 
     // Dashicon picker functionality

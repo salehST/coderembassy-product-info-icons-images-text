@@ -46,6 +46,8 @@ class CMFW
           
           // AJAX handlers for image functionality
           add_action('wp_ajax_cmfw_get_image_url', [$this, 'ajax_get_image_url']);
+          // Term search for taxonomy autocomplete
+          add_action('wp_ajax_cmfw_term_search', [$this, 'ajax_term_search']);
      }
 
      /**
@@ -107,5 +109,45 @@ class CMFW
           } else {
                wp_send_json_error(['message' => __('Image not found', 'custom-meta-for-woocommerce')]);
           }
+     }
+
+     /**
+      * AJAX: Search terms by taxonomy and partial name for autocomplete
+      * @since 1.0.0
+      */
+     public function ajax_term_search()
+     {
+          // Verify nonce
+          if (!wp_verify_nonce($_REQUEST['nonce'] ?? '', 'cmfw_ajax_nonce')) {
+               wp_die(__('Security check failed', 'custom-meta-for-woocommerce'));
+          }
+
+          $taxonomy = sanitize_text_field($_REQUEST['taxonomy'] ?? '');
+          $search   = sanitize_text_field($_REQUEST['term'] ?? '');
+
+          if (!$taxonomy || !$search || !taxonomy_exists($taxonomy)) {
+               wp_send_json([]);
+          }
+
+          $args = [
+               'taxonomy'   => $taxonomy,
+               'hide_empty' => false,
+               'name__like' => $search,
+               'number'     => 20,
+          ];
+          $terms = get_terms($args);
+
+          if (is_wp_error($terms)) {
+               wp_send_json([]);
+          }
+
+          $results = array_map(function($t){
+               return [
+                    'label' => $t->name . ' (ID: ' . $t->term_id . ')',
+                    'value' => $t->term_id,
+               ];
+          }, $terms);
+
+          wp_send_json($results);
      }
 }

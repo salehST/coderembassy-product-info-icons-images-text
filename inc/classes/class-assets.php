@@ -80,6 +80,9 @@ class Assets {
 			wp_enqueue_media();
 		}
 
+		// jQuery UI Autocomplete for term search
+		wp_enqueue_script('jquery-ui-autocomplete');
+
 		// Enqueue js
 		wp_enqueue_script('cmfw-admin-settings-js', CMFW_URL . '/assets/js/cmfw-admin-settings.js', ['jquery'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin-settings.js'), true);
 		wp_enqueue_script('cmfw-admin-js', CMFW_URL . '/assets/js/cmfw-admin.js', ['jquery', 'media-upload', 'media-views'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin.js'), true);
