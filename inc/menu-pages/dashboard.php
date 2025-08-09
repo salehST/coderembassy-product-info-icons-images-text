@@ -64,84 +64,88 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
             <hr>
             <input type="submit" name="save_cmfw" class="button button-primary" value="<?php echo esc_attr__('Save', 'custom-meta-for-woocommerce'); ?>">
         </form>
-    </div>
-    
-    <!-- Templates -->
+</div>
+
+<!-- Templates -->
     <script type="text/html" id="cmfw-group-template">
         <div class="cmfw-group cmfw-cm-archive-group" data-group-index="_INDEX_">
             <button type="button" class="button cmfw-remove-group cmfw-archive-remove-cm-group" title="<?php echo esc_attr__('Remove Group', 'custom-meta-for-woocommerce'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
-            <h2><?php echo esc_html__('Custom Meta Group', 'custom-meta-for-woocommerce'); ?></h2>
-            <table class="form-table">
-                <tr>
+        <h2><?php echo esc_html__('Custom Meta Group', 'custom-meta-for-woocommerce'); ?></h2>
+        <table class="form-table">
+            <tr>
                     <th scope="row"><label><?php echo esc_html__('Taxonomy', 'custom-meta-for-woocommerce'); ?></label></th>
-                    <td>
+                <td>
                         <select class="taxonomy-select" name="cmfw_groups[_INDEX_][taxonomy]">
                             <option value=""><?php echo esc_html__('Select taxonomy', 'custom-meta-for-woocommerce'); ?></option>
-                            <option value="product_cat"><?php echo esc_html__('Category', 'custom-meta-for-woocommerce'); ?></option>
-                            <option value="product_tag"><?php echo esc_html__('Tag', 'custom-meta-for-woocommerce'); ?></option>
-                        </select>
-                    </td>
-                </tr>
+                        <option value="product_cat"><?php echo esc_html__('Category', 'custom-meta-for-woocommerce'); ?></option>
+                        <option value="product_tag"><?php echo esc_html__('Tag', 'custom-meta-for-woocommerce'); ?></option>
+                    </select>
+                </td>
+            </tr>
                 <tr class="term-row" style="display:none;">
                     <th scope="row"><label><?php echo esc_html__('Terms', 'custom-meta-for-woocommerce'); ?></label></th>
-                    <td>
+                <td>
                         <input type="text" class="term-search regular-text" name="" placeholder="<?php echo esc_attr__('Search terms...', 'custom-meta-for-woocommerce'); ?>" />
-                        <div class="selected-terms"></div>
-                    </td>
-                </tr>
-            </table>
+                    <div class="selected-terms"></div>
+                </td>
+            </tr>
+        </table>
             <div class="cmfw-items cmfw-archive-cm-items"></div>
             <p><button type="button" class="button cmfw-add-item"><?php echo esc_html__('Add Custom Meta', 'custom-meta-for-woocommerce'); ?></button></p>
-        </div>
-    </script>
+    </div>
+</script>
 
     <script type="text/html" id="cmfw-item-template">
         <div class="cmfw-item cmfw-archive-cm-item">
             <button type="button" class="button cmfw-remove-item cmfw-archive-remove-cm-item" title="<?php echo esc_attr__('Remove Item', 'custom-meta-for-woocommerce'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
+            <div class="cmfw-excl-note"><?php echo esc_html__('Tip: Choose either an icon or an image (not both).', 'custom-meta-for-woocommerce'); ?></div>
             <p>
                 <label><?php echo esc_html__('Title', 'custom-meta-for-woocommerce'); ?><br>
                     <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][title]" class="regular-text" />
-                </label>
-            </p>
-            <p>
-                <label><?php echo esc_html__('Icon', 'custom-meta-for-woocommerce'); ?><br>
-                    <div class="cmfw-icon-picker-container">
-                        <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][icon]" class="cmfw-icon-value" />
-                        <div class="cmfw-icon-preview" style="display: inline-block; margin-right: 10px;">
-                            <span class="dashicons dashicons-admin-generic" style="font-size: 24px; width: 24px; height: 24px;"></span>
-                        </div>
-                        <button type="button" class="button cmfw-open-icon-picker"><?php echo esc_html__('Select Icon', 'custom-meta-for-woocommerce'); ?></button>
+            </label>
+        </p>
+            <div class="cmfw-fields">
+                <div class="cmfw-field">
+                    <label><?php echo esc_html__('Icon', 'custom-meta-for-woocommerce'); ?><br>
+                <div class="cmfw-icon-picker-container">
+                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][icon]" class="cmfw-icon-value" />
+                    <div class="cmfw-icon-preview" style="display: inline-block; margin-right: 10px;">
+                        <span class="dashicons dashicons-admin-generic" style="font-size: 24px; width: 24px; height: 24px;"></span>
                     </div>
-                </label>
-            </p>
-            <p>
-                <label><?php echo esc_html__('Image', 'custom-meta-for-woocommerce'); ?><br>
-                    <div class="cmfw-image-picker-container">
-                        <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][image_id]" class="cmfw-image-value" />
-                        <div class="cmfw-image-preview" style="display: inline-block; margin-right: 10px; vertical-align: top;">
-                            <img src="" alt="Preview" style="max-width: 100px; max-height: 100px; display: none; border: 1px solid #ddd; border-radius: 4px;" />
-                            <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
-                                <?php echo esc_html__('No image selected', 'custom-meta-for-woocommerce'); ?>
-                            </div>
+                    <button type="button" class="button cmfw-open-icon-picker"><?php echo esc_html__('Select Icon', 'custom-meta-for-woocommerce'); ?></button>
+                            <button type="button" class="button cmfw-remove-icon" style="display:none; margin-left:5px;">&times;</button>
                         </div>
-                        <div style="display: inline-block; vertical-align: top;">
-                            <button type="button" class="button cmfw-select-image"><?php echo esc_html__('Select Image', 'custom-meta-for-woocommerce'); ?></button>
-                            <button type="button" class="button cmfw-remove-image" style="display: none; margin-left: 5px;"><?php echo esc_html__('Remove', 'custom-meta-for-woocommerce'); ?></button>
-                            <br><small style="color: #666; margin-top: 5px; display: block;"><?php echo esc_html__('Recommended size: 100x100px', 'custom-meta-for-woocommerce'); ?></small>
+                    </label>
+                </div>
+                <div class="cmfw-field">
+                    <label><?php echo esc_html__('Image', 'custom-meta-for-woocommerce'); ?><br>
+                <div class="cmfw-image-picker-container">
+                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][image_id]" class="cmfw-image-value" />
+                    <div class="cmfw-image-preview" style="display: inline-block; margin-right: 10px; vertical-align: top;">
+                        <img src="" alt="Preview" style="max-width: 100px; max-height: 100px; display: none; border: 1px solid #ddd; border-radius: 4px;" />
+                        <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
+                            <?php echo esc_html__('No image selected', 'custom-meta-for-woocommerce'); ?>
                         </div>
                     </div>
-                </label>
-            </p>
-        </div>
-    </script>
+                    <div style="display: inline-block; vertical-align: top;">
+                        <button type="button" class="button cmfw-select-image"><?php echo esc_html__('Select Image', 'custom-meta-for-woocommerce'); ?></button>
+                                <button type="button" class="button cmfw-remove-image" style="display: none; margin-left: 5px;">&times;</button>
+                                <br><small style="color: #666; margin-top: 5px; display: block;">&nbsp;</small>
+                    </div>
+                </div>
+            </label>
+                </div>
+            </div>
+    </div>
+</script>
 
-    <?php
+<?php
     $saved_groups = get_option('cmfw_groups', []);
     // Attach term names for pills
     if (!empty($saved_groups)) {
         foreach ($saved_groups as &$group) {
             $taxonomy = $group['taxonomy'] ?? '';
-            $term_names = [];
+        $term_names = [];
             if (!empty($group['terms']) && taxonomy_exists($taxonomy)) {
                 foreach ((array) $group['terms'] as $term_id) {
                     $term_obj = get_term((int) $term_id, $taxonomy);
@@ -182,7 +186,7 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
                                 ${$('<div>').text(name).html()}
                                 <a href="#" class="remove-term" style="margin-left:5px; color:red; text-decoration:none;">&times;</a>
                                 <input type="hidden" name="cmfw_groups[${gIndex}][terms][]" value="${termId}">
-                            </span>`;
+                        </span>`;
                         $selected.append(pill);
                     });
                 }

@@ -322,6 +322,31 @@ button.faq-add-question.button.button-primary {
     color: #fff;
     box-shadow: 0 2px 8px rgba(179,45,46,0.13);
   }
+
+  /* Improved layout for item fields */
+  .cmfw-archive-cm-item .cmfw-excl-note {
+    margin: 6px 0 10px;
+    font-size: 12px;
+    color: #6b7280;
+  }
+  .cmfw-archive-cm-item .cmfw-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    gap: 16px;
+    align-items: start;
+  }
+  .cmfw-archive-cm-item .cmfw-field {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .cmfw-archive-cm-item .cmfw-field label { display:block; }
+  .cmfw-archive-cm-item .cmfw-open-icon-picker.is-disabled,
+  .cmfw-archive-cm-item .cmfw-select-image.is-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
   
   @media (max-width: 900px) {
     .cmfw-archive-cm-item {

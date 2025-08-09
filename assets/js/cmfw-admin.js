@@ -91,9 +91,9 @@
           const $selected = $group.find('.selected-terms');
           if ($selected.find('input[value="' + ui.item.value + '"]').length) return;
           const pill = `
-            <span class="term-pill" style="display:inline-block; margin:3px; padding:3px 8px; background:#f1f1f1; border:1px solid #ccc; border-radius:20px;">
-              ${ui.item.label}
-              <a href="#" class="remove-term" style="margin-left:5px; color:red; text-decoration:none;">&times;</a>
+                      <span class="term-pill" style="display:inline-block; margin:3px; padding:3px 8px; background:#f1f1f1; border:1px solid #ccc; border-radius:20px;">
+                          ${ui.item.label}
+                          <a href="#" class="remove-term" style="margin-left:5px; color:red; text-decoration:none;">&times;</a>
               <input type="hidden" name="cmfw_groups[${$('#cmfw-groups-container .cmfw-group').index($group)}][terms][]" value="${ui.item.value}">
             </span>`;
           $selected.append(pill);
@@ -107,6 +107,52 @@
       e.preventDefault();
       $(this).closest('.term-pill').remove();
       reindexAll();
+    });
+
+    // Enforce exclusivity: selecting an icon clears image and disables image picker; selecting an image clears icon and disables icon picker
+    function updateExclusivity($item){
+      const hasIcon = ($item.find('.cmfw-icon-value').val() || '').trim() !== '';
+      const hasImage = ($item.find('.cmfw-image-value').val() || '').trim() !== '';
+
+      // Icon section controls
+      const $iconPickerBtn = $item.find('.cmfw-open-icon-picker');
+      const $iconRemoveBtn = $item.find('.cmfw-remove-icon');
+      // Image section controls
+      const $imgSelectBtn = $item.find('.cmfw-select-image');
+      const $imgRemoveBtn = $item.find('.cmfw-remove-image');
+      const $noImage = $item.find('.cmfw-no-image');
+      const $img = $item.find('.cmfw-image-preview img');
+
+      if (hasIcon) {
+        // Disable image controls
+        $imgSelectBtn.prop('disabled', true).addClass('is-disabled');
+        if (!$img.is(':visible')) { $noImage.show(); }
+        $iconRemoveBtn.show();
+      } else {
+        $imgSelectBtn.prop('disabled', false).removeClass('is-disabled');
+        $iconRemoveBtn.hide();
+      }
+
+      if (hasImage) {
+        // Disable icon controls
+        $iconPickerBtn.prop('disabled', true).addClass('is-disabled');
+      } else {
+        $iconPickerBtn.prop('disabled', false).removeClass('is-disabled');
+      }
+    }
+
+    // After adding item, ensure exclusivity state
+    $('#cmfw-groups-container').on('click', '.cmfw-add-item', function(){
+      const $item = $(this).closest('.cmfw-group').find('.cmfw-item').last();
+      updateExclusivity($item);
+    });
+
+    // When icon selected
+    $("#cmfw-groups-container").on('click', '.cmfw-open-icon-picker', function(){
+      const $item = $(this).closest('.cmfw-item');
+      // After modal selection, handler already sets input value; hook after selection to enforce exclusivity
+      // We'll intercept by listening to a delegated event once icon is set
+      // see populateIconGrid click handler below where we trigger a custom event
     });
 
     // Dashicon picker functionality
@@ -238,6 +284,19 @@
         const selectedIcon = $(this).data('icon-name');
         $preview.find('.dashicons').attr('class', `dashicons dashicons-${selectedIcon}`);
         $input.val(selectedIcon);
+        // Clear image if any and update exclusivity in the parent item
+        const $item = $input.closest('.cmfw-item');
+        const $img = $item.find('.cmfw-image-preview img');
+        const $noImage = $item.find('.cmfw-no-image');
+        const $imgRemoveBtn = $item.find('.cmfw-remove-image');
+        const $imgInp = $item.find('.cmfw-image-value');
+        if ($imgInp.val()) {
+          $imgInp.val('');
+          $img.hide().attr('src', '');
+          $noImage.show();
+          $imgRemoveBtn.hide();
+        }
+        updateExclusivity($item);
         $modal.hide();
       });
     }
@@ -290,6 +349,11 @@
         $img.attr('src', imageUrl).show();
         $noImage.hide();
         $removeBtn.show();
+        // Clear icon and update exclusivity
+        const $item = $button.closest('.cmfw-item');
+        $item.find('.cmfw-icon-value').val('');
+        $item.find('.cmfw-icon-preview .dashicons').attr('class', 'dashicons dashicons-admin-generic');
+        updateExclusivity($item);
       });
 
       // Open the media frame
@@ -314,6 +378,19 @@
       $img.hide().attr('src', '');
       $noImage.show();
       $button.hide();
+      const $item = $button.closest('.cmfw-item');
+      updateExclusivity($item);
+    });
+
+    // Handle icon removal
+    $("#cmfw-groups-container").on('click', '.cmfw-remove-icon', function(e){
+      e.preventDefault();
+      const $btn = $(this);
+      const $item = $btn.closest('.cmfw-item');
+      $item.find('.cmfw-icon-value').val('');
+      $item.find('.cmfw-icon-preview .dashicons').attr('class', 'dashicons dashicons-admin-generic');
+      $btn.hide();
+      updateExclusivity($item);
     });
 
     // Load existing images on page load
@@ -352,6 +429,8 @@
     // Load existing images when page is ready
     $(document).ready(function() {
       setTimeout(loadExistingImages, 500); // Small delay to ensure DOM is fully ready
+      // Initialize exclusivity for existing items
+      $('#cmfw-groups-container .cmfw-item').each(function(){ updateExclusivity($(this)); });
     });
 
   });
