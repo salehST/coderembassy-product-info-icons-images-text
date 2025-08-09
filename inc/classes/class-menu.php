@@ -167,6 +167,16 @@ class Menu
         $meta_font_size = isset($input['meta_font_size']) ? intval($input['meta_font_size']) : 14;
         $sanitized['meta_font_size'] = ($meta_font_size >= 10 && $meta_font_size <= 24) ? $meta_font_size : 14;
 
+        // Sanitize meta_text_color
+        $sanitized['meta_text_color'] = isset($input['meta_text_color']) 
+            ? sanitize_hex_color($input['meta_text_color']) 
+            : '#666666';
+
+        // Sanitize meta_bg_color
+        $sanitized['meta_bg_color'] = isset($input['meta_bg_color']) 
+            ? sanitize_hex_color($input['meta_bg_color']) 
+            : '#ffffff';
+
         return $sanitized;
     }
 

@@ -29,15 +29,22 @@ jQuery(document).ready(function($) {
     // Initialize WordPress color picker
     if ($.fn.wpColorPicker) {
         $('.cmfw-color-picker').wpColorPicker({
-            defaultColor: false,
+            defaultColor: '#333333',
             change: function(event, ui){
-                // Color picker change event
+                // Color picker change event - you can add custom logic here
+                console.log('Color changed to: ' + ui.color.toString());
             },
             clear: function() {
-                // Color picker clear event
+                // Color picker clear event - reset to default
+                $(this).val('#333333').trigger('change');
             },
             hide: true,
-            palettes: true
+            palettes: [
+                '#333333', '#000000', '#ffffff', '#f44336', '#e91e63', '#9c27b0',
+                '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688',
+                '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800',
+                '#ff5722', '#795548', '#9e9e9e', '#607d8b'
+            ]
         });
     }
 

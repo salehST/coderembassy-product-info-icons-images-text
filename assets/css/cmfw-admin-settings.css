@@ -6,7 +6,7 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     height: 600px;
     min-height: 400px;
-    max-height: 80vh;
+    /* max-height: 80vh; */
 }
 
 .cmfw-admin .woo-cmfw-settings-nav {

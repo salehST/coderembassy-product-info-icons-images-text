@@ -64,36 +64,47 @@ class Assets {
 	 * @since 1.0.0
 	 * @author Fazle Bari <fazlebarisn@gmail.com>
 	 */
-	public function adminStyle(){
+	public function adminStyle($hook){
 		// Register Syle
 		wp_register_style('cmfw-admin-settings', CMFW_URL . '/assets/css/cmfw-admin-settings.css', [], filemtime( CMFW_DIR_PATH . '/assets/css/cmfw-admin-settings.css'), 'all');
 		wp_register_style('cmfw-admin-css', CMFW_URL . '/assets/css/cmfw-admin.css', [], filemtime( CMFW_DIR_PATH . '/assets/css/cmfw-admin.css'), 'all');
 		wp_register_style('cmfw-css', CMFW_URL . '/assets/css/cmfw.css', [], filemtime( CMFW_DIR_PATH . '/assets/css/cmfw.css'), 'all');
 
-		// Enqueue Style
-		wp_enqueue_style('cmfw-admin-settings');
-		wp_enqueue_style('cmfw-admin-css');
-		wp_enqueue_style('cmfw-css');
+		// Only load assets on plugin pages
+		$plugin_pages = array(
+			'toplevel_page_custom-meta-for-woocommerce',
+			'cmfw_page_custom-meta-settings'
+		);
 
-		// Enqueue WordPress Media Library for image uploads
-		if (function_exists('wp_enqueue_media')) {
-			wp_enqueue_media();
+		if (in_array($hook, $plugin_pages)) {
+			// Enqueue Style
+			wp_enqueue_style('cmfw-admin-settings');
+			wp_enqueue_style('cmfw-admin-css');
+			wp_enqueue_style('cmfw-css');
+
+			// Enqueue WordPress Media Library for image uploads
+			if (function_exists('wp_enqueue_media')) {
+				wp_enqueue_media();
+			}
+
+			// Enqueue WordPress Color Picker
+			wp_enqueue_style('wp-color-picker');
+			wp_enqueue_script('wp-color-picker');
+
+			// jQuery UI Autocomplete for term search
+			wp_enqueue_script('jquery-ui-autocomplete');
+
+			// Enqueue js
+			wp_enqueue_script('cmfw-admin-settings-js', CMFW_URL . '/assets/js/cmfw-admin-settings.js', ['jquery', 'wp-color-picker'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin-settings.js'), true);
+			wp_enqueue_script('cmfw-admin-js', CMFW_URL . '/assets/js/cmfw-admin.js', ['jquery', 'media-upload', 'media-views'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin.js'), true);
+			
+			// Localize script for AJAX
+			wp_localize_script('cmfw-admin-js', 'cmfwAjax', [
+				'ajax_url' => admin_url('admin-ajax.php'),
+				'nonce' => wp_create_nonce('cmfw_ajax_nonce'),
+				'media_title' => __('Select Image', 'custom-meta-for-woocommerce'),
+				'media_button' => __('Use This Image', 'custom-meta-for-woocommerce'),
+			]);
 		}
-
-		// jQuery UI Autocomplete for term search
-		wp_enqueue_script('jquery-ui-autocomplete');
-
-		// Enqueue js
-		wp_enqueue_script('cmfw-admin-settings-js', CMFW_URL . '/assets/js/cmfw-admin-settings.js', ['jquery'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin-settings.js'), true);
-		wp_enqueue_script('cmfw-admin-js', CMFW_URL . '/assets/js/cmfw-admin.js', ['jquery', 'media-upload', 'media-views'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw-admin.js'), true);
-		wp_enqueue_script('cmfw-js', CMFW_URL . '/assets/js/cmfw-admin-settings.js', ['jquery'], filemtime( CMFW_DIR_PATH . '/assets/js/cmfw.js'), true);
-		
-		// Localize script for AJAX
-		wp_localize_script('cmfw-admin-js', 'cmfwAjax', [
-			'ajax_url' => admin_url('admin-ajax.php'),
-			'nonce' => wp_create_nonce('cmfw_ajax_nonce'),
-			'media_title' => __('Select Image', 'custom-meta-for-woocommerce'),
-			'media_button' => __('Use This Image', 'custom-meta-for-woocommerce'),
-		]);
 	}
 }

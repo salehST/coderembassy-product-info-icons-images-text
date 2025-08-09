@@ -7,6 +7,8 @@ $cmfw_meta_heading = isset($cmfw_settings['meta_heading']) ? $cmfw_settings['met
 $cmfw_heading_color = isset($cmfw_settings['heading_color']) ? $cmfw_settings['heading_color'] : '#333333';
 $cmfw_heading_size = isset($cmfw_settings['heading_size']) ? $cmfw_settings['heading_size'] : '18';
 $cmfw_meta_font_size = isset($cmfw_settings['meta_font_size']) ? $cmfw_settings['meta_font_size'] : '14';
+$cmfw_meta_text_color = isset($cmfw_settings['meta_text_color']) ? $cmfw_settings['meta_text_color'] : '#666666';
+$cmfw_meta_bg_color = isset($cmfw_settings['meta_bg_color']) ? $cmfw_settings['meta_bg_color'] : '#ffffff';
 ?>
 
 <div class="wrap cmfw-admin">
@@ -72,17 +74,31 @@ $cmfw_meta_font_size = isset($cmfw_settings['meta_font_size']) ? $cmfw_settings[
                         <tr valign="top">
                             <th scope="row"><?php echo esc_html(__('Heading Font Size', 'custom-meta-for-woocommerce')); ?></th>
                             <td>
-                                <input type="number" name="cmfw_settings[heading_size]" value="<?php echo esc_attr($cmfw_heading_size); ?>" min="10" max="48" step="1" class="small-text" />
+                                <input type="number" name="cmfw_settings[heading_size]" value="<?php echo esc_attr($cmfw_heading_size); ?>" class="small-text" />
                                 <span><?php echo esc_html(__('px', 'custom-meta-for-woocommerce')); ?></span>
                                 <p class="description"><?php echo esc_html(__('Set the font size for the meta heading (10-48px).', 'custom-meta-for-woocommerce')); ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Meta Font Size', 'custom-meta-for-woocommerce')); ?></th>
+                            <th scope="row"><?php echo esc_html(__('Meta Title Font Size', 'custom-meta-for-woocommerce')); ?></th>
                             <td>
-                                <input type="number" name="cmfw_settings[meta_font_size]" value="<?php echo esc_attr($cmfw_meta_font_size); ?>" min="10" max="24" step="1" class="small-text" />
+                                <input type="number" name="cmfw_settings[meta_font_size]" value="<?php echo esc_attr($cmfw_meta_font_size); ?>" class="small-text" />
                                 <span><?php echo esc_html(__('px', 'custom-meta-for-woocommerce')); ?></span>
                                 <p class="description"><?php echo esc_html(__('Set the font size for the meta content (10-24px).', 'custom-meta-for-woocommerce')); ?></p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><?php echo esc_html(__('Meta Text Color', 'custom-meta-for-woocommerce')); ?></th>
+                            <td>
+                                <input type="text" name="cmfw_settings[meta_text_color]" value="<?php echo esc_attr($cmfw_meta_text_color); ?>" class="cmfw-color-picker" />
+                                <p class="description"><?php echo esc_html(__('Choose the color for the meta text content.', 'custom-meta-for-woocommerce')); ?></p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><?php echo esc_html(__('Meta Background Color', 'custom-meta-for-woocommerce')); ?></th>
+                            <td>
+                                <input type="text" name="cmfw_settings[meta_bg_color]" value="<?php echo esc_attr($cmfw_meta_bg_color); ?>" class="cmfw-color-picker" />
+                                <p class="description"><?php echo esc_html(__('Choose the background color for the meta section.', 'custom-meta-for-woocommerce')); ?></p>
                             </td>
                         </tr>
                     </table>
