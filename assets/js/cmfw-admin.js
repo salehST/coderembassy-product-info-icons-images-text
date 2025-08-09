@@ -127,10 +127,14 @@
         // Disable image controls
         $imgSelectBtn.prop('disabled', true).addClass('is-disabled');
         if (!$img.is(':visible')) { $noImage.show(); }
+        $item.find('.cmfw-no-icon').hide();
+        $item.find('.cmfw-icon-preview .dashicons').show();
         $iconRemoveBtn.show();
       } else {
         $imgSelectBtn.prop('disabled', false).removeClass('is-disabled');
         $iconRemoveBtn.hide();
+        $item.find('.cmfw-icon-preview .dashicons').hide();
+        $item.find('.cmfw-no-icon').show();
       }
 
       if (hasImage) {
@@ -147,12 +151,13 @@
       updateExclusivity($item);
     });
 
-    // When icon selected
-    $("#cmfw-groups-container").on('click', '.cmfw-open-icon-picker', function(){
-      const $item = $(this).closest('.cmfw-item');
-      // After modal selection, handler already sets input value; hook after selection to enforce exclusivity
-      // We'll intercept by listening to a delegated event once icon is set
-      // see populateIconGrid click handler below where we trigger a custom event
+    // Click icon area to open picker
+    $("#cmfw-groups-container").on('click', '.cmfw-icon-preview.cmfw-clickable', function(e){
+      e.preventDefault();
+      const $container = $(this).closest('.cmfw-icon-picker-container');
+      const $preview = $container.find('.cmfw-icon-preview');
+      const $input = $container.find('.cmfw-icon-value');
+      showDashiconPicker($preview, $input);
     });
 
     // Dashicon picker functionality
@@ -282,7 +287,8 @@
       // Handle icon selection
       $grid.find('.cmfw-icon-item').on('click', function() {
         const selectedIcon = $(this).data('icon-name');
-        $preview.find('.dashicons').attr('class', `dashicons dashicons-${selectedIcon}`);
+        $preview.find('.dashicons').attr('class', `dashicons dashicons-${selectedIcon}`).show();
+        $preview.closest('.cmfw-icon-preview').find('.cmfw-no-icon').hide();
         $input.val(selectedIcon);
         // Clear image if any and update exclusivity in the parent item
         const $item = $input.closest('.cmfw-item');
@@ -304,12 +310,11 @@
     // WordPress Media Library Integration for Image Upload
     var cmfwMediaFrame;
 
-    // Handle image selection
-    $("#cmfw-groups-container").on("click", ".cmfw-select-image", function(e) {
+    // Click image area to open media frame
+    $("#cmfw-groups-container").on("click", ".cmfw-image-preview.cmfw-clickable", function(e) {
       e.preventDefault();
       
-      const $button = $(this);
-      const $container = $button.closest('.cmfw-image-picker-container');
+      const $container = $(this).closest('.cmfw-image-picker-container');
       const $preview = $container.find('.cmfw-image-preview');
       const $input = $container.find('.cmfw-image-value');
       const $removeBtn = $container.find('.cmfw-remove-image');
@@ -350,7 +355,7 @@
         $noImage.hide();
         $removeBtn.show();
         // Clear icon and update exclusivity
-        const $item = $button.closest('.cmfw-item');
+        const $item = $container.closest('.cmfw-item');
         $item.find('.cmfw-icon-value').val('');
         $item.find('.cmfw-icon-preview .dashicons').attr('class', 'dashicons dashicons-admin-generic');
         updateExclusivity($item);
@@ -388,7 +393,8 @@
       const $btn = $(this);
       const $item = $btn.closest('.cmfw-item');
       $item.find('.cmfw-icon-value').val('');
-      $item.find('.cmfw-icon-preview .dashicons').attr('class', 'dashicons dashicons-admin-generic');
+      $item.find('.cmfw-icon-preview .dashicons').attr('class', 'dashicons').hide();
+      $item.find('.cmfw-no-icon').show();
       $btn.hide();
       updateExclusivity($item);
     });

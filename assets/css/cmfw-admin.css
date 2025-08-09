@@ -340,7 +340,8 @@ button.faq-add-question.button.button-primary {
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     padding: 12px;
-  }
+    min-height: 135px;
+}
   .cmfw-archive-cm-item .cmfw-field label { display:block; }
   .cmfw-archive-cm-item .cmfw-open-icon-picker.is-disabled,
   .cmfw-archive-cm-item .cmfw-select-image.is-disabled {
@@ -502,9 +503,24 @@ button.faq-add-question.button.button-primary {
   }
 
   .cmfw-icon-preview .dashicons {
-    font-size: 24px;
-    width: 24px;
-    height: 24px;
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    display: none;
+  }
+
+  .cmfw-no-icon {
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 4px;
+    background: #fafafa;
   }
 
   /* Image Upload Styles */
@@ -542,6 +558,23 @@ button.faq-add-question.button.button-primary {
     border-radius: 4px;
     background: #fafafa;
     transition: border-color 0.2s, background-color 0.2s;
+  }
+
+  /* Clickable selectors */
+  .cmfw-clickable {
+    cursor: pointer;
+  }
+  .cmfw-clickable:hover .cmfw-no-image,
+  .cmfw-clickable:hover .cmfw-no-icon {
+    border-color: #999;
+    background-color: #f0f0f0;
+  }
+
+  .cmfw-choose-note {
+    margin: 0 0 8px;
+    font-size: 12px;
+    color: #374151;
+    font-weight: 600;
   }
 
   .cmfw-no-image:hover {

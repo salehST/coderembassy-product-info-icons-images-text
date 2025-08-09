@@ -104,16 +104,21 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
                     <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][title]" class="regular-text" />
             </label>
         </p>
+            <p class="cmfw-choose-note"><?php echo esc_html__('Select icon or image', 'custom-meta-for-woocommerce'); ?></p>
             <div class="cmfw-fields">
                 <div class="cmfw-field">
                     <label><?php echo esc_html__('Icon', 'custom-meta-for-woocommerce'); ?><br>
-                <div class="cmfw-icon-picker-container">
+                        <div class="cmfw-icon-picker-container">
                             <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][icon]" class="cmfw-icon-value" />
-                    <div class="cmfw-icon-preview" style="display: inline-block; margin-right: 10px;">
-                        <span class="dashicons dashicons-admin-generic" style="font-size: 24px; width: 24px; height: 24px;"></span>
-                    </div>
-                    <button type="button" class="button cmfw-open-icon-picker"><?php echo esc_html__('Select Icon', 'custom-meta-for-woocommerce'); ?></button>
-                            <button type="button" class="button cmfw-remove-icon" style="display:none; margin-left:5px;">&times;</button>
+                            <div class="cmfw-icon-preview cmfw-clickable" style="display: inline-block; margin-right: 10px;">
+                                <span class="dashicons" style="display:none; font-size: 24px; width: 24px; height: 24px;"></span>
+                                <div class="cmfw-no-icon" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
+                                    <?php echo esc_html__('No icon selected', 'custom-meta-for-woocommerce'); ?>
+                                </div>
+                            </div>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <button type="button" class="button cmfw-remove-icon" style="display:none; margin-left:5px;">&times;</button>
+                            </div>
                         </div>
                     </label>
                 </div>
@@ -121,17 +126,16 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
                     <label><?php echo esc_html__('Image', 'custom-meta-for-woocommerce'); ?><br>
                 <div class="cmfw-image-picker-container">
                             <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][image_id]" class="cmfw-image-value" />
-                    <div class="cmfw-image-preview" style="display: inline-block; margin-right: 10px; vertical-align: top;">
+                            <div class="cmfw-image-preview cmfw-clickable" style="display: inline-block; margin-right: 10px; vertical-align: top;">
                         <img src="" alt="Preview" style="max-width: 100px; max-height: 100px; display: none; border: 1px solid #ddd; border-radius: 4px;" />
                         <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
                             <?php echo esc_html__('No image selected', 'custom-meta-for-woocommerce'); ?>
                         </div>
                     </div>
-                    <div style="display: inline-block; vertical-align: top;">
-                        <button type="button" class="button cmfw-select-image"><?php echo esc_html__('Select Image', 'custom-meta-for-woocommerce'); ?></button>
+                            <div style="display: inline-block; vertical-align: top;">
                                 <button type="button" class="button cmfw-remove-image" style="display: none; margin-left: 5px;">&times;</button>
                                 <br><small style="color: #666; margin-top: 5px; display: block;">&nbsp;</small>
-                    </div>
+                            </div>
                 </div>
             </label>
                 </div>
