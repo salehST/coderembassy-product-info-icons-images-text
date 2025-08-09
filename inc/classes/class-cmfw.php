@@ -143,7 +143,7 @@ class CMFW
 
           $results = array_map(function($t){
                return [
-                    'label' => $t->name . ' (ID: ' . $t->term_id . ')',
+                    'label' => $t->name,
                     'value' => $t->term_id,
                ];
           }, $terms);

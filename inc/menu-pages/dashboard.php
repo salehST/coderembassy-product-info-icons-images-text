@@ -68,8 +68,8 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
     
     <!-- Templates -->
     <script type="text/html" id="cmfw-group-template">
-        <div class="cmfw-group" data-group-index="_INDEX_">
-            <button type="button" class="button cmfw-remove-group" title="<?php echo esc_attr__('Remove Group', 'custom-meta-for-woocommerce'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
+        <div class="cmfw-group cmfw-cm-archive-group" data-group-index="_INDEX_">
+            <button type="button" class="button cmfw-remove-group cmfw-archive-remove-cm-group" title="<?php echo esc_attr__('Remove Group', 'custom-meta-for-woocommerce'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
             <h2><?php echo esc_html__('Custom Meta Group', 'custom-meta-for-woocommerce'); ?></h2>
             <table class="form-table">
                 <tr>
@@ -90,14 +90,14 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
                     </td>
                 </tr>
             </table>
-            <div class="cmfw-items"></div>
+            <div class="cmfw-items cmfw-archive-cm-items"></div>
             <p><button type="button" class="button cmfw-add-item"><?php echo esc_html__('Add Custom Meta', 'custom-meta-for-woocommerce'); ?></button></p>
         </div>
     </script>
 
     <script type="text/html" id="cmfw-item-template">
-        <div class="cmfw-item">
-            <button type="button" class="button cmfw-remove-item" title="<?php echo esc_attr__('Remove Item', 'custom-meta-for-woocommerce'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
+        <div class="cmfw-item cmfw-archive-cm-item">
+            <button type="button" class="button cmfw-remove-item cmfw-archive-remove-cm-item" title="<?php echo esc_attr__('Remove Item', 'custom-meta-for-woocommerce'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
             <p>
                 <label><?php echo esc_html__('Title', 'custom-meta-for-woocommerce'); ?><br>
                     <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][title]" class="regular-text" />
