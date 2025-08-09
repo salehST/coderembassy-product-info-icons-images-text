@@ -15,16 +15,16 @@
                     <h2><?php echo esc_html(__('General Settings', 'custom-meta-for-woocommerce')); ?></h2>
                     <table class="form-table">
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Product Faq', 'custom-meta-for-woocommerce')); ?></th>
+                            <th scope="row"><?php echo esc_html(__('Product Meta', 'custom-meta-for-woocommerce')); ?></th>
                             <td><?php //$menu_instance->ProductFaq(); ?></td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Faq Position', 'custom-meta-for-woocommerce')); ?></th>
-                            <td><?php //$menu_instance->faqPosition(); ?></td>
+                            <th scope="row"><?php echo esc_html(__('Meta Position', 'custom-meta-for-woocommerce')); ?></th>
+                            <td></td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Faq Heading', 'custom-meta-for-woocommerce')); ?></th>
-                            <td><?php //$menu_instance->Heading(); ?></td>
+                            <th scope="row"><?php echo esc_html(__('Meta Heading', 'custom-meta-for-woocommerce')); ?></th>
+                            <td></td>
                         </tr>
                     </table>
                 </div>
@@ -33,27 +33,15 @@
                     <table class="form-table">
                         <tr valign="top">
                             <th scope="row"><?php echo esc_html(__('Heading Font Color', 'custom-meta-for-woocommerce')); ?></th>
-                            <td><?php //$menu_instance->HeadingColor(); ?></td>
-                        </tr>
-                        <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Question Font Color', 'custom-meta-for-woocommerce')); ?></th>
-                            <td><?php //$menu_instance->QuestionColor(); ?></td>
-                        </tr>
-                        <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Answer Font Color', 'custom-meta-for-woocommerce')); ?></th>
-                            <td><?php //$menu_instance->AnswerColor(); ?></td>
+                            <td></td>
                         </tr>
                         <tr valign="top">
                             <th scope="row"><?php echo esc_html(__('Heading Font Size', 'custom-meta-for-woocommerce')); ?></th>
-                            <td><?php //$menu_instance->HeadingFontSize(); ?></td>
+                            <td></td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Question Font Size', 'custom-meta-for-woocommerce')); ?></th>
-                            <td><?php //$menu_instance->QuestionFontSize(); ?></td>
-                        </tr>
-                        <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Answer Font Size', 'custom-meta-for-woocommerce')); ?></th>
-                            <td><?php //$menu_instance->AnswerFontSize(); ?></td>
+                            <th scope="row"><?php echo esc_html(__('Meta Font Size', 'custom-meta-for-woocommerce')); ?></th>
+                            <td></td>
                         </tr>
                     </table>
                 </div>
