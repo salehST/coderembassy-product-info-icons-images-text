@@ -30,6 +30,20 @@ jQuery(document).ready(function($) {
     if ($.fn.wpColorPicker) {
         $('.cmfw-color-picker').wpColorPicker({
             defaultColor: '#333333',
+            create: function(event, ui) {
+             setTimeout(function() {
+
+                 $('.iris-picker').css({
+                     'height': '240px',
+                 });
+                 $('.iris-palette').css({
+                     'width': '15px',
+                     'height': '15px',
+                     'margin': '1px'
+                 });
+
+           }, 0);
+         },
             change: function(event, ui){
                 // Color picker change event - you can add custom logic here
                 console.log('Color changed to: ' + ui.color.toString());
