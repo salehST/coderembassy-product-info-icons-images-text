@@ -51,12 +51,38 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
     update_option('cmfw_groups', $cmfw_groups);
 
     echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Custom Meta groups saved successfully!', 'custom-meta-for-woocommerce') . '</p></div>';
+        
+        // Show settings reminder
+        $settings = get_option('cmfw_settings', array());
+        $enable_meta = isset($settings['enable_meta']) ? $settings['enable_meta'] : '1';
+        if ($enable_meta !== '1') {
+            echo '<div class="notice notice-warning is-dismissible"><p>' . sprintf(
+                esc_html__('Custom Meta is currently disabled. %sEnable it in Settings%s to display on product pages.', 'custom-meta-for-woocommerce'),
+                '<a href="' . esc_url(admin_url('admin.php?page=custom-meta-settings')) . '">',
+                '</a>'
+            ) . '</p></div>';
+        }
 }
 ?>
 
 <div class="wrap">
     <div class="cmfw-groups">
         <h1><?php echo esc_html__('Custom Meta Groups', 'custom-meta-for-woocommerce'); ?></h1>
+        
+        <div class="cmfw-info-box" style="background: #f9f9f9; border-left: 4px solid #2271b1; padding: 12px; margin: 20px 0;">
+            <h3 style="margin-top: 0;"><?php echo esc_html__('How it works:', 'custom-meta-for-woocommerce'); ?></h3>
+            <ol style="margin-left: 20px;">
+                <li><?php echo esc_html__('Create groups and add custom meta items with icons or images', 'custom-meta-for-woocommerce'); ?></li>
+                <li><?php echo esc_html__('Choose taxonomy (Category/Tag) and select specific terms (optional)', 'custom-meta-for-woocommerce'); ?></li>
+                <li><?php echo esc_html__('Custom meta will display on single product pages based on your settings', 'custom-meta-for-woocommerce'); ?></li>
+                <li><?php echo sprintf(
+                    esc_html__('Configure display settings %shere%s (position, colors, fonts)', 'custom-meta-for-woocommerce'),
+                    '<a href="' . esc_url(admin_url('admin.php?page=custom-meta-settings')) . '">',
+                    '</a>'
+                ); ?></li>
+            </ol>
+        </div>
+        
         <form method="post" action="">
             <?php wp_nonce_field('save_cmfw_data', 'cmfw_nonce'); ?>
             <div id="cmfw-groups-container"></div>

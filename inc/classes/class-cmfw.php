@@ -28,6 +28,7 @@ class CMFW
           // Load classes
           Assets::get_instance();
           Menu::get_instance();
+          Frontend::get_instance();
      }
 
      /**
