@@ -140,16 +140,14 @@ class Menu
 
         // Sanitize meta_position
         $allowed_positions = array(
-            'woocommerce_product_additional_information',
-            'woocommerce_after_single_product_summary',
-            'woocommerce_before_single_product_summary',
+            'woocommerce_after_add_to_cart_button',
             'woocommerce_product_meta_end',
-            'woocommerce_before_add_to_cart_form',
-            'woocommerce_share',
+            'woocommerce_after_single_product_summary',
+            'woocommerce_after_single_product'
         );
         $sanitized['meta_position'] = isset($input['meta_position']) && in_array($input['meta_position'], $allowed_positions) 
             ? $input['meta_position'] 
-            : 'woocommerce_product_additional_information';
+            : 'woocommerce_after_add_to_cart_button';
 
         // Sanitize meta_heading
         $sanitized['meta_heading'] = isset($input['meta_heading']) 

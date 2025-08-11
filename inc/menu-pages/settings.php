@@ -46,12 +46,10 @@ $cmfw_meta_bg_color = isset($cmfw_settings['meta_bg_color']) ? $cmfw_settings['m
                             <th scope="row"><?php echo esc_html(__('Meta Position', 'custom-meta-for-woocommerce')); ?></th>
                             <td>
                                 <select name="cmfw_settings[meta_position]">
-                                    <option value="woocommerce_product_additional_information" <?php selected($cmfw_meta_position, 'woocommerce_product_additional_information'); ?>><?php echo esc_html(__('After Additional Information Tab', 'custom-meta-for-woocommerce')); ?></option>
-                                    <option value="woocommerce_after_single_product_summary" <?php selected($cmfw_meta_position, 'woocommerce_after_single_product_summary'); ?>><?php echo esc_html(__('After Product Summary', 'custom-meta-for-woocommerce')); ?></option>
-                                    <option value="woocommerce_before_single_product_summary" <?php selected($cmfw_meta_position, 'woocommerce_before_single_product_summary'); ?>><?php echo esc_html(__('Before Product Summary', 'custom-meta-for-woocommerce')); ?></option>
-                                    <option value="woocommerce_product_meta_end" <?php selected($cmfw_meta_position, 'woocommerce_product_meta_end'); ?>><?php echo esc_html(__('After Product Meta', 'custom-meta-for-woocommerce')); ?></option>
-                                    <option value="woocommerce_before_add_to_cart_form" <?php selected($cmfw_meta_position, 'woocommerce_before_add_to_cart_form'); ?>><?php echo esc_html(__('Before Add to Cart Form', 'custom-meta-for-woocommerce')); ?></option>
-                                    <option value="woocommerce_share" <?php selected($cmfw_meta_position, 'woocommerce_share'); ?>><?php echo esc_html(__('After Share section', 'custom-meta-for-woocommerce')); ?></option>
+                                    <option value="woocommerce_after_add_to_cart_button" <?php selected($cmfw_meta_position, 'woocommerce_after_add_to_cart_button'); ?>><?php echo esc_html(__('After Cart Button', 'custom-meta-for-woocommerce')); ?></option>
+                                    <option value="woocommerce_product_meta_end" <?php selected($cmfw_meta_position, 'woocommerce_product_meta_end'); ?>><?php echo esc_html(__('After Meta', 'custom-meta-for-woocommerce')); ?></option>
+                                    <option value="woocommerce_after_single_product_summary" <?php selected($cmfw_meta_position, 'woocommerce_after_single_product_summary'); ?>><?php echo esc_html(__('After Summary', 'custom-meta-for-woocommerce')); ?></option>
+                                    <option value="woocommerce_after_single_product" <?php selected($cmfw_meta_position, 'woocommerce_after_single_product'); ?>><?php echo esc_html(__('After Single product', 'custom-meta-for-woocommerce')); ?></option>     
                                 </select>
                                 <p class="description"><?php echo esc_html(__('Choose where to display the custom meta on product pages.', 'custom-meta-for-woocommerce')); ?></p>
                             </td>
