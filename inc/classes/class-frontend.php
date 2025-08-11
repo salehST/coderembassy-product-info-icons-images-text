@@ -53,15 +53,18 @@ class Frontend
         }
 
         $position = isset($settings['meta_position']) ? $settings['meta_position'] : 'woocommerce_product_additional_information';
-        
+
         // Set priority based on position
         $priority = 25;
         if ($position === 'woocommerce_before_single_product_summary') {
             $priority = 15;
         }
+        if ($position === 'woocommerce_before_add_to_cart_form') {
+            $priority = 10;
+        }
 
         // Add hook for displaying custom meta
-        add_action($position, [$this, 'display_custom_meta'], $priority);
+       add_action($position, [$this, 'display_custom_meta'], $priority);
         
         // Add inline styles
         add_action('wp_head', [$this, 'add_inline_styles']);
