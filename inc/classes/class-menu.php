@@ -145,6 +145,7 @@ class Menu
             'woocommerce_before_single_product_summary',
             'woocommerce_product_meta_end',
             'woocommerce_before_add_to_cart_form',
+            'woocommerce_share',
         );
         $sanitized['meta_position'] = isset($input['meta_position']) && in_array($input['meta_position'], $allowed_positions) 
             ? $input['meta_position'] 
