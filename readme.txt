@@ -1,8 +1,8 @@
 === Custom Meta for WooCommerce ===
-Contributors: codersaleh, phpcoderhannan
+Contributors: codersaleh, phpcoderhannan, fazlebari
 Tags: Custom Meta, Additional Information, Extra Info, custom meta for wooCommerc, signle product
 Requires at least: 5.2
-Tested up to: 6.8
+Tested up to: 6.8.2
 Requires PHP: 7.0.0
 Stable tag: 1.0.0
 License: GPL v2 or later
@@ -15,8 +15,17 @@ Custom meta for WooComemrce is a nice and useful tool for those store owner whos
 
 ✨ **Key Features (Free Version):**
 
+🏆 **Display Custom Meta at Various Postion**
+Display custom meta at Various Postion on Single product page.
+
+🏆 **Display Custom Meta at Archive page**
+Easily Display custom meta at category and tag page.
+
 🏆 **Add Custom Meta Data to Single product**
 Add Extra custom meta data to single product page as you want.you can easily add more information to your product. 
+
+🏆 **Add Custom Meta As a Group**
+You can add Custom meta as a group and three Group at free version.
 
 🏆 **Global Settings and product wise Settings**
 Add Extra custom meta data to single product page Globally or Specific product.
