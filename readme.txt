@@ -8,36 +8,41 @@ Stable tag: 1.0.0
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-Custom meta for WooComemrce is a nice and useful tool  for WooCommerce. 
+Add custom fields to WooCommerce products. Display extra details, specifications, notes & more anywhere on product pages — no coding required.
 
 == Description ==
-Custom meta for WooComemrce is a nice and useful tool for those store owner whose want to additional information at single product page on WooCommerce.
+**Custom Meta Fields for WooCommerce** is the easiest way to add extra product information without touching code or editing theme files.  
+Whether you need to show **product specifications**, **warranty information**, **custom notes**, or any other extra detail, this plugin lets you create and manage unlimited custom meta fields from the product edit screen.
 
-✨ **Key Features (Free Version):**
+You can also choose **exactly where** your custom meta appears by selecting from popular WooCommerce hook positions like before/after the Add to Cart button, inside the product summary, or at the start/end of the product meta section.
 
-🏆 **Display Custom Meta at Various Postion**
-Display custom meta at Various Postion on Single product page.
+**Why store owners love this plugin:**
+- Save time — no PHP or template editing needed
+- Show extra product information where it matters most
+- Works with any WooCommerce-compatible theme
 
-🏆 **Display Custom Meta at Archive page**
-Easily Display custom meta at category and tag page.
+**Popular use cases:**
+- Technical specifications
+- Care or usage instructions
+- Warranty details
+- Manufacturer information
+- Shipping or delivery notes
+- Promotional messages
 
-🏆 **Add Custom Meta Data to Single product**
-Add Extra custom meta data to single product page as you want.you can easily add more information to your product. 
+**Supported Hook Positions:**
+* woocommerce_after_add_to_cart_form — After Add to Cart form
+* woocommerce_after_single_product_summary — After product summary
+* woocommerce_product_meta_start — At start of product meta section
+* woocommerce_product_meta_end — At end of product meta section
 
-🏆 **Add Custom Meta As a Group**
-You can add Custom meta as a group and three Group at free version.
+== Features ==
 
-🏆 **Global Settings and product wise Settings**
-Add Extra custom meta data to single product page Globally or Specific product.
-
-🏆 **Add Icon in Custom Meta Data to Single product** 
-Display icon with custom meta data at single product page.
-
-🏆 **Add Image in Custom Meta Data to Single product** 
-Display Image with custom meta data at single product page.
-
-🏆 **Style area for Custom meta Data** 
-Easily change Custom meta data style such as change icon color, font-size, text color, padding, marign.
+*custom fields for products
+* Easy hook position selection for placement control
+* Works with simple and variable products
+* Lightweight — minimal impact on site speed
+* Fully translatable and WPML compatible
+* Theme-friendly output with custom CSS classes
 
 == Installation ==
 1. Upload the Plugin Files: Upload the Custom Meta for WooCommerce folder to the `/wp-content/plugins/` directory.
