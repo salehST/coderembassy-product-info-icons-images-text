@@ -50,14 +50,14 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
 
     update_option('cmfw_groups', $cmfw_groups);
 
-    echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Custom Meta groups saved successfully!', 'custom-meta-for-woocommerce') . '</p></div>';
+    echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Custom Meta groups saved successfully!', 'flexiproductinfo-icons-images-text') . '</p></div>';
         
         // Show settings reminder
         $settings = get_option('cmfw_settings', array());
         $enable_meta = isset($settings['enable_meta']) ? $settings['enable_meta'] : '1';
         if ($enable_meta !== '1') {
             echo '<div class="notice notice-warning is-dismissible"><p>' . sprintf(
-                esc_html__('Custom Meta is currently disabled. %sEnable it in Settings%s to display on product pages.', 'custom-meta-for-woocommerce'),
+                esc_html__('Custom Meta is currently disabled. %sEnable it in Settings%s to display on product pages.', 'flexiproductinfo-icons-images-text'),
                 '<a href="' . esc_url(admin_url('admin.php?page=custom-meta-settings')) . '">',
                 '</a>'
             ) . '</p></div>';
@@ -67,16 +67,16 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
 
 <div class="wrap">
     <div class="cmfw-groups">
-        <h1><?php echo esc_html__('Custom Meta Groups', 'custom-meta-for-woocommerce'); ?></h1>
+        <h1><?php echo esc_html__('Custom Meta Groups', 'flexiproductinfo-icons-images-text'); ?></h1>
         
         <div class="cmfw-info-box" style="background: #f9f9f9; border-left: 4px solid #2271b1; padding: 12px; margin: 20px 0;">
-            <h3 style="margin-top: 0;"><?php echo esc_html__('How it works:', 'custom-meta-for-woocommerce'); ?></h3>
+            <h3 style="margin-top: 0;"><?php echo esc_html__('How it works:', 'flexiproductinfo-icons-images-text'); ?></h3>
             <ol style="margin-left: 20px;">
-                <li><?php echo esc_html__('Create groups and add custom meta items with icons or images', 'custom-meta-for-woocommerce'); ?></li>
-                <li><?php echo esc_html__('Choose taxonomy (Category/Tag) and select specific terms (optional)', 'custom-meta-for-woocommerce'); ?></li>
-                <li><?php echo esc_html__('Custom meta will display on single product pages based on your settings', 'custom-meta-for-woocommerce'); ?></li>
+                <li><?php echo esc_html__('Create groups and add custom meta items with icons or images', 'flexiproductinfo-icons-images-text'); ?></li>
+                <li><?php echo esc_html__('Choose taxonomy (Category/Tag) and select specific terms (optional)', 'flexiproductinfo-icons-images-text'); ?></li>
+                <li><?php echo esc_html__('Custom meta will display on single product pages based on your settings', 'flexiproductinfo-icons-images-text'); ?></li>
                 <li><?php echo sprintf(
-                    esc_html__('Configure display settings %shere%s (position, colors, fonts)', 'custom-meta-for-woocommerce'),
+                    esc_html__('Configure display settings %shere%s (position, colors, fonts)', 'flexiproductinfo-icons-images-text'),
                     '<a href="' . esc_url(admin_url('admin.php?page=custom-meta-settings')) . '">',
                     '</a>'
                 ); ?></li>
@@ -86,60 +86,60 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
         <form method="post" action="">
             <?php wp_nonce_field('save_cmfw_data', 'cmfw_nonce'); ?>
             <div id="cmfw-groups-container"></div>
-            <p><button type="button" class="button cmfw-add-group"><?php echo esc_html__('Add New Group', 'custom-meta-for-woocommerce'); ?></button></p>
+            <p><button type="button" class="button cmfw-add-group"><?php echo esc_html__('Add New Group', 'flexiproductinfo-icons-images-text'); ?></button></p>
             <hr>
-            <input type="submit" name="save_cmfw" class="button button-primary" value="<?php echo esc_attr__('Save', 'custom-meta-for-woocommerce'); ?>">
+            <input type="submit" name="save_cmfw" class="button button-primary" value="<?php echo esc_attr__('Save', 'flexiproductinfo-icons-images-text'); ?>">
         </form>
 </div>
 
 <!-- Templates -->
     <script type="text/html" id="cmfw-group-template">
         <div class="cmfw-group cmfw-cm-archive-group" data-group-index="_INDEX_">
-            <button type="button" class="button cmfw-remove-group cmfw-archive-remove-cm-group" title="<?php echo esc_attr__('Remove Group', 'custom-meta-for-woocommerce'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
-        <h2><?php echo esc_html__('Custom Meta Group', 'custom-meta-for-woocommerce'); ?></h2>
+            <button type="button" class="button cmfw-remove-group cmfw-archive-remove-cm-group" title="<?php echo esc_attr__('Remove Group', 'flexiproductinfo-icons-images-text'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
+        <h2><?php echo esc_html__('Custom Meta Group', 'flexiproductinfo-icons-images-text'); ?></h2>
         <table class="form-table">
             <tr>
-                    <th scope="row"><label><?php echo esc_html__('Taxonomy', 'custom-meta-for-woocommerce'); ?></label></th>
+                    <th scope="row"><label><?php echo esc_html__('Taxonomy', 'flexiproductinfo-icons-images-text'); ?></label></th>
                 <td>
                         <select class="taxonomy-select" name="cmfw_groups[_INDEX_][taxonomy]">
-                            <option value=""><?php echo esc_html__('Select taxonomy', 'custom-meta-for-woocommerce'); ?></option>
-                        <option value="product_cat"><?php echo esc_html__('Category', 'custom-meta-for-woocommerce'); ?></option>
-                        <option value="product_tag"><?php echo esc_html__('Tag', 'custom-meta-for-woocommerce'); ?></option>
+                            <option value=""><?php echo esc_html__('Select taxonomy', 'flexiproductinfo-icons-images-text'); ?></option>
+                        <option value="product_cat"><?php echo esc_html__('Category', 'flexiproductinfo-icons-images-text'); ?></option>
+                        <option value="product_tag"><?php echo esc_html__('Tag', 'flexiproductinfo-icons-images-text'); ?></option>
                     </select>
                 </td>
             </tr>
                 <tr class="term-row" style="display:none;">
-                    <th scope="row"><label><?php echo esc_html__('Terms', 'custom-meta-for-woocommerce'); ?></label></th>
+                    <th scope="row"><label><?php echo esc_html__('Terms', 'flexiproductinfo-icons-images-text'); ?></label></th>
                 <td>
-                        <input type="text" class="term-search regular-text" name="" placeholder="<?php echo esc_attr__('Search terms...', 'custom-meta-for-woocommerce'); ?>" />
+                        <input type="text" class="term-search regular-text" name="" placeholder="<?php echo esc_attr__('Search terms...', 'flexiproductinfo-icons-images-text'); ?>" />
                     <div class="selected-terms"></div>
                 </td>
             </tr>
         </table>
             <div class="cmfw-items cmfw-archive-cm-items"></div>
-            <p><button type="button" class="button cmfw-add-item"><?php echo esc_html__('Add Custom Meta', 'custom-meta-for-woocommerce'); ?></button></p>
+            <p><button type="button" class="button cmfw-add-item"><?php echo esc_html__('Add Custom Meta', 'flexiproductinfo-icons-images-text'); ?></button></p>
     </div>
 </script>
 
     <script type="text/html" id="cmfw-item-template">
         <div class="cmfw-item cmfw-archive-cm-item">
-            <button type="button" class="button cmfw-remove-item cmfw-archive-remove-cm-item" title="<?php echo esc_attr__('Remove Item', 'custom-meta-for-woocommerce'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
-            <div class="cmfw-excl-note"><?php echo esc_html__('Tip: Choose either an icon or an image (not both).', 'custom-meta-for-woocommerce'); ?></div>
+            <button type="button" class="button cmfw-remove-item cmfw-archive-remove-cm-item" title="<?php echo esc_attr__('Remove Item', 'flexiproductinfo-icons-images-text'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
+            <div class="cmfw-excl-note"><?php echo esc_html__('Tip: Choose either an icon or an image (not both).', 'flexiproductinfo-icons-images-text'); ?></div>
             <p>
-                <label><?php echo esc_html__('Title', 'custom-meta-for-woocommerce'); ?><br>
+                <label><?php echo esc_html__('Title', 'flexiproductinfo-icons-images-text'); ?><br>
                     <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][title]" class="regular-text" />
             </label>
         </p>
-            <p class="cmfw-choose-note"><?php echo esc_html__('Select icon or image', 'custom-meta-for-woocommerce'); ?></p>
+            <p class="cmfw-choose-note"><?php echo esc_html__('Select icon or image', 'flexiproductinfo-icons-images-text'); ?></p>
             <div class="cmfw-fields">
                 <div class="cmfw-field">
-                    <label><?php echo esc_html__('Icon', 'custom-meta-for-woocommerce'); ?><br>
+                    <label><?php echo esc_html__('Icon', 'flexiproductinfo-icons-images-text'); ?><br>
                         <div class="cmfw-icon-picker-container">
                             <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][icon]" class="cmfw-icon-value" />
                             <div class="cmfw-icon-preview cmfw-clickable" style="display: inline-block; margin-right: 10px;">
                                 <span class="dashicons" style="display:none; font-size: 24px; width: 24px; height: 24px;"></span>
                                 <div class="cmfw-no-icon" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
-                                    <?php echo esc_html__('No icon selected', 'custom-meta-for-woocommerce'); ?>
+                                    <?php echo esc_html__('No icon selected', 'flexiproductinfo-icons-images-text'); ?>
                                 </div>
                             </div>
                             <div style="display: inline-block; vertical-align: top;">
@@ -149,13 +149,13 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
                     </label>
                 </div>
                 <div class="cmfw-field">
-                    <label><?php echo esc_html__('Image', 'custom-meta-for-woocommerce'); ?><br>
+                    <label><?php echo esc_html__('Image', 'flexiproductinfo-icons-images-text'); ?><br>
                 <div class="cmfw-image-picker-container">
                             <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][image_id]" class="cmfw-image-value" />
                             <div class="cmfw-image-preview cmfw-clickable" style="display: inline-block; margin-right: 10px; vertical-align: top;">
                         <img src="" alt="Preview" style="max-width: 100px; max-height: 100px; display: none; border: 1px solid #ddd; border-radius: 4px;" />
                         <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
-                            <?php echo esc_html__('No image selected', 'custom-meta-for-woocommerce'); ?>
+                            <?php echo esc_html__('No image selected', 'flexiproductinfo-icons-images-text'); ?>
                         </div>
                     </div>
                             <div style="display: inline-block; vertical-align: top;">
@@ -210,7 +210,7 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
                 if (Array.isArray(group.terms)) {
                     const $selected = $group.find('.selected-terms');
                     group.terms.forEach(function(termId) {
-                        const name = termNames[termId] || ('<?php echo esc_js(__('Term #', 'custom-meta-for-woocommerce')); ?> ' + termId);
+                        const name = termNames[termId] || ('<?php echo esc_js(__('Term #', 'flexiproductinfo-icons-images-text')); ?> ' + termId);
                         const pill = `
                             <span class="term-pill" style="display:inline-block; margin:3px; padding:3px 8px; background:#f1f1f1; border:1px solid #ccc; border-radius:20px;">
                                 ${$('<div>').text(name).html()}

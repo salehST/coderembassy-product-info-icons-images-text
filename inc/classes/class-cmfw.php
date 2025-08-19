@@ -59,7 +59,7 @@ class CMFW
      public function admin_notice_missing_woocommerce_plugin()
      {
           $class = 'notice notice-error';
-          $message = __("Custom Meta for WooCommerce Requires WooCommerce to be Activated", "custom-meta-for-woocommerce");
+          $message = __("Custom Meta for WooCommerce Requires WooCommerce to be Activated", "flexiproductinfo-icons-images-text");
 
           printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
      }
@@ -85,13 +85,13 @@ class CMFW
      {
           // Verify nonce
           if (!wp_verify_nonce($_POST['nonce'] ?? '', 'cmfw_ajax_nonce')) {
-               wp_die(__('Security check failed', 'custom-meta-for-woocommerce'));
+               wp_die(__('Security check failed', 'flexiproductinfo-icons-images-text'));
           }
 
           $image_id = intval($_POST['image_id'] ?? 0);
           
           if ($image_id <= 0) {
-               wp_send_json_error(['message' => __('Invalid image ID', 'custom-meta-for-woocommerce')]);
+               wp_send_json_error(['message' => __('Invalid image ID', 'flexiproductinfo-icons-images-text')]);
           }
 
           // Get image URL
@@ -108,7 +108,7 @@ class CMFW
                     'id' => $image_id
                ]);
           } else {
-               wp_send_json_error(['message' => __('Image not found', 'custom-meta-for-woocommerce')]);
+               wp_send_json_error(['message' => __('Image not found', 'flexiproductinfo-icons-images-text')]);
           }
      }
 
@@ -120,7 +120,7 @@ class CMFW
      {
           // Verify nonce
           if (!wp_verify_nonce($_REQUEST['nonce'] ?? '', 'cmfw_ajax_nonce')) {
-               wp_die(__('Security check failed', 'custom-meta-for-woocommerce'));
+               wp_die(__('Security check failed', 'flexiproductinfo-icons-images-text'));
           }
 
           $taxonomy = sanitize_text_field($_REQUEST['taxonomy'] ?? '');

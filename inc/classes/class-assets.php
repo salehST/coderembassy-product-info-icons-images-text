@@ -72,7 +72,7 @@ class Assets {
 
 		// Only load assets on plugin pages
 		$plugin_pages = array(
-			'toplevel_page_custom-meta-for-woocommerce',
+			'toplevel_page_flexiproductinfo-icons-images-text',
 			'cmfw_page_custom-meta-settings'
 		);
 
@@ -102,8 +102,8 @@ class Assets {
 			wp_localize_script('cmfw-admin-js', 'cmfwAjax', [
 				'ajax_url' => admin_url('admin-ajax.php'),
 				'nonce' => wp_create_nonce('cmfw_ajax_nonce'),
-				'media_title' => __('Select Image', 'custom-meta-for-woocommerce'),
-				'media_button' => __('Use This Image', 'custom-meta-for-woocommerce'),
+				'media_title' => __('Select Image', 'flexiproductinfo-icons-images-text'),
+				'media_button' => __('Use This Image', 'flexiproductinfo-icons-images-text'),
 			]);
 		}
 	}

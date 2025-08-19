@@ -94,7 +94,7 @@ class Frontend
             return;
         }
         $settings = get_option('cmfw_settings', array());
-        $heading = isset($settings['meta_heading']) ? $settings['meta_heading'] : __('Product Information', 'custom-meta-for-woocommerce');
+        $heading = isset($settings['meta_heading']) ? $settings['meta_heading'] : __('Product Information', 'flexiproductinfo-icons-images-text');
 
         $this->render_custom_meta($groups, $heading);
         

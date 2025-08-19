@@ -1,55 +1,117 @@
-=== Custom Meta for WooCommerce ===
-Contributors: codersaleh, phpcoderhannan
-Tags: Custom Meta, Additional Information, Extra Info, custom meta for wooCommerc, signle product
-Requires at least: 5.2
+=== FlexiProduct Info – Icons, Images & Text ===
+Contributors: codersaleh, phpcoderhannan, fazlebari
+Donate link: https://coderembassy.com/donate
+Tags: woocommerce, product-info, icons, images, text
+Requires at least: 5.0
 Tested up to: 6.8
-Requires PHP: 7.0.0
+Requires PHP: 7.4
 Stable tag: 1.0.0
-License: GPL v2 or later
-License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Custom meta for WooComemrce is a nice and useful tool  for WooCommerce. 
+Add custom icons, images and text to WooCommerce product pages. Enhance product information display with flexible positioning options.
 
 == Description ==
-Custom meta for WooComemrce is a nice and useful tool for those store owner whose want to additional information at single product page on WooCommerce.
 
-✨ **Key Features (Free Version):**
+FlexiProduct Info is a powerful WordPress plugin that allows you to enhance your WooCommerce product pages by adding custom icons, images, and text blocks. Create engaging product presentations that highlight key features, specifications, benefits, or any additional information you want to showcase.
 
-🏆 **Add Custom Meta Data to Single product**
-Add Extra custom meta data to single product page as you want.you can easily add more information to your product. 
+= Key Features =
 
-🏆 **Global Settings and product wise Settings**
-Add Extra custom meta data to single product page Globally or Specific product.
+* **Add Custom Icons**: Choose from icon libraries or upload custom icons
+* **Insert Images**: Add product-related images with customizable sizing
+* **Custom Text Blocks**: Create formatted text sections with rich content
+* **Flexible Positioning**: Place elements anywhere on product pages
+* **Responsive Design**: Fully mobile-friendly and responsive layouts
+* **Easy Setup**: User-friendly interface with drag-and-drop functionality
+* **Multiple Display Options**: Show/hide elements based on conditions
+* **Styling Options**: Customize colors, fonts, and spacing
+* **WooCommerce Integration**: Seamless integration with existing product data
 
-🏆 **Add Icon in Custom Meta Data to Single product** 
-Display icon with custom meta data at single product page.
+= Perfect For =
 
-🏆 **Add Image in Custom Meta Data to Single product** 
-Display Image with custom meta data at single product page.
+* Highlighting product features and benefits
+* Displaying technical specifications
+* Adding warranty information
+* Showcasing certifications and badges
+* Including size charts and guides
+* Promoting special offers or guarantees
+* Adding shipping and return information
 
-🏆 **Style area for Custom meta Data** 
-Easily change Custom meta data style such as change icon color, font-size, text color, padding, marign.
+= Pro Features (Coming Soon) =
+
+* Advanced styling options
+* Animation effects
+* Conditional display rules
+* Import/export configurations
+* Premium icon libraries
+* Advanced positioning controls
 
 == Installation ==
-1. Upload the Plugin Files: Upload the Custom Meta for WooCommerce folder to the `/wp-content/plugins/` directory.
-   2.Activate the Plugin: Activate the plugin through the \\\'Plugins\\\' menu in WordPress.
-3. Install Required Plugins: Make sure WooCommerce is installed and activated.
-4. Configure the Plugin: Go to \\\'WooCommerce\\\' WC Custom Fields\\\' under Admin Menu to configure the plugin
+
+1. Upload the plugin files to the `/wp-content/plugins/flexiproduct-info` directory, or install the plugin through the WordPress plugins screen directly.
+2. Activate the plugin through the 'Plugins' screen in WordPress
+3. Navigate to WooCommerce > FlexiProduct Info to configure the plugin
+4. Go to any product edit page to start adding custom elements
+5. Save your changes and view the product page to see your enhancements
 
 == Frequently Asked Questions ==
-1. can i add extra information about product?
-yes, you can add extra information at single product page.
 
-2. Can i change style of Custom filed?
-Yes you can change custom filed style.
+= Does this plugin work with all WooCommerce themes? =
+
+Yes, FlexiProduct Info is designed to work with most WooCommerce-compatible themes. The responsive design ensures compatibility across different layouts.
+
+= Can I use my own custom icons? =
+
+Absolutely! You can upload your own custom icons in various formats (PNG, JPG, SVG) or choose from our built-in icon library.
+
+= Will this plugin slow down my website? =
+
+No, FlexiProduct Info is optimized for performance. It only loads necessary resources on product pages and uses efficient coding practices.
+
+= Can I customize the styling of the elements? =
+
+Yes, the plugin includes various styling options for colors, fonts, spacing, and positioning. Advanced users can also add custom CSS.
+
+= Does it work with variable products? =
+
+Yes, FlexiProduct Info works with simple products, variable products, grouped products, and external products.
+
+= Is the plugin translation-ready? =
+
+Yes, the plugin is fully translation-ready and includes .pot files for easy localization.
 
 == Screenshots ==
-1. How to add custom filed
-2. Displaying custom filed
-3. 
+
+1. Plugin settings page showing configuration options
+2. Product edit page with FlexiProduct Info elements
+3. Frontend product page displaying custom icons and text
+4. Mobile responsive view of enhanced product page
+5. Icon library selection interface
+6. Styling customization options
 
 == Changelog ==
-1.0.0
+
+= 1.0.0 =
+* Initial release
+* Add custom icons to product pages
+* Insert custom images with flexible sizing
+* Create custom text blocks with rich formatting
+* Responsive design implementation
+* Basic styling options
+* WooCommerce integration
+* Multi-language support
 
 == Upgrade Notice ==
-N/A
+
+= 1.0.0 =
+Initial release of FlexiProduct Info. Enhance your WooCommerce product pages with custom icons, images, and text.
+
+== Support ==
+
+For support, feature requests, or bug reports, please visit our [support forum](https://yourwebsite.com/support) or contact us at support@yourwebsite.com.
+
+== Credits ==
+
+* Icon libraries provided by Font Awesome and Dashicons
+* Built with WordPress coding standards
+* Compatible with WPML and other translation plugins

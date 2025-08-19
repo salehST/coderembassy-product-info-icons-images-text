@@ -50,8 +50,8 @@ class Menu
      */
     public function adminMenu()
     {
-        add_menu_page(__('CMFW', 'custom-meta-for-woocommerce'), __('CMFW', 'custom-meta-for-woocommerce'), 'manage_options', 'custom-meta-for-woocommerce', [$this, 'adminPage'], 'dashicons-admin-generic',55);
-        add_submenu_page('custom-meta-for-woocommerce', __('Settings', 'custom-meta-for-woocommerce'), __('Settings', 'custom-meta-for-woocommerce'), 'manage_options', 'custom-meta-settings', [$this, 'settingsPage']);
+        add_menu_page(__('CMFW', 'flexiproductinfo-icons-images-text'), __('CMFW', 'flexiproductinfo-icons-images-text'), 'manage_options', 'flexiproductinfo-icons-images-text', [$this, 'adminPage'], 'dashicons-admin-generic',55);
+        add_submenu_page('flexiproductinfo-icons-images-text', __('Settings', 'flexiproductinfo-icons-images-text'), __('Settings', 'flexiproductinfo-icons-images-text'), 'manage_options', 'custom-meta-settings', [$this, 'settingsPage']);
 
     }
 
@@ -79,7 +79,7 @@ class Menu
         $settings_url = esc_url( 
             add_query_arg( 
                 'page', 
-                'custom-meta-for-woocommerce', 
+                'flexiproductinfo-icons-images-text', 
                 admin_url( 'admin.php' ) 
             )
         );
@@ -88,7 +88,7 @@ class Menu
         $settings_link = sprintf( 
             '<a href="%s">%s</a>',
             $settings_url,
-            __( 'Settings', 'custom-meta-for-woocommerce' ) 
+            __( 'Settings', 'flexiproductinfo-icons-images-text' ) 
         );
         
        
@@ -152,7 +152,7 @@ class Menu
         // Sanitize meta_heading
         $sanitized['meta_heading'] = isset($input['meta_heading']) 
             ? sanitize_text_field($input['meta_heading']) 
-            : __('Product Information', 'custom-meta-for-woocommerce');
+            : __('Product Information', 'flexiproductinfo-icons-images-text');
 
         // Sanitize heading_color
         $sanitized['heading_color'] = isset($input['heading_color']) 
