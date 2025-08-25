@@ -1,5 +1,5 @@
 === CodersEmbassy Product Info Icons Images Text ===
-Contributors: codersaleh, phpcoderhannan, fazlebari
+Contributors: codersaleh, phpcoderhannan, fazlebarisn
 Donate link: https://coderembassy.com/donate
 Tags: ecommerce, product-info, icons, images, text
 Requires at least: 5.0
@@ -115,4 +115,5 @@ For support, feature requests, or bug reports, please visit our [support forum](
 
 * Icon libraries provided by Font Awesome and Dashicons
 * Built with WordPress coding standards
+
 * Compatible with WPML and other translation plugins
