@@ -659,3 +659,39 @@ button.faq-add-question.button.button-primary {
     }
   }
   
+  /* Free version limits styling */
+  .cmfw-limits-notice {
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cmfw-limits-notice ul {
+    margin: 8px 0;
+  }
+  
+  .cmfw-limits-notice li {
+    margin: 3px 0;
+  }
+  
+  .cmfw-limits-notice p:last-child {
+    margin-bottom: 0;
+    font-style: italic;
+  }
+  
+  /* Disabled button styling */
+  button.cmfw-add-group.disabled,
+  button.cmfw-add-item.disabled {
+    opacity: 0.6;
+    cursor: not-allowed !important;
+    background-color: #f0f0f0 !important;
+    color: #666 !important;
+    border-color: #ccc !important;
+  }
+  
+  button.cmfw-add-group.disabled:hover,
+  button.cmfw-add-item.disabled:hover {
+    background-color: #f0f0f0 !important;
+    color: #666 !important;
+    border-color: #ccc !important;
+  }
+  

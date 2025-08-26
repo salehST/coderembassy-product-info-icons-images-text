@@ -164,4 +164,10 @@ function cmfw_auto_display_product_custom_meta() {
 // Uncomment the line below to automatically display custom meta on single product pages
 // add_action('woocommerce_single_product_summary', 'cmfw_auto_display_product_custom_meta', 25);
 
-// New comment
+/**
+ * Check if PRO version is active
+ * @return bool
+ */
+function cmfw_is_pro_active() {
+    return function_exists('cmfw_pro_is_active') && cmfw_pro_is_active();
+}

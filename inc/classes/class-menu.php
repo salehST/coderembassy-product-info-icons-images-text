@@ -52,7 +52,11 @@ class Menu
     {
         add_menu_page(__('Product Info', 'coderembassy-product-info-icons-images-text'), __('PRODUCT INFO', 'coderembassy-product-info-icons-images-text'), 'manage_options', 'coderembassy-product-info-icons-images-text', [$this, 'adminPage'], 'dashicons-admin-generic',55);
         add_submenu_page('coderembassy-product-info-icons-images-text', __('Settings', 'coderembassy-product-info-icons-images-text'), __('Settings', 'coderembassy-product-info-icons-images-text'), 'manage_options', 'custom-meta-settings', [$this, 'settingsPage']);
-
+        
+        // Add test limits page for development/testing
+        if (WP_DEBUG) {
+            add_submenu_page('coderembassy-product-info-icons-images-text', __('Test Limits', 'coderembassy-product-info-icons-images-text'), __('Test Limits', 'coderembassy-product-info-icons-images-text'), 'manage_options', 'cmfw-test-limits', [$this, 'testLimitsPage']);
+        }
     }
 
     /**
@@ -67,6 +71,19 @@ class Menu
         }
 
         include_once CMFW_DIR_PATH . '/inc/menu-pages/dashboard.php';
+    }
+    
+    /**
+     * Test limits page for development/testing
+     * @since 1.0.0
+     * @author Assistant
+     */
+    public function testLimitsPage(){
+        if( !current_user_can('manage_options')){
+            return;
+        }
+
+        include_once CMFW_DIR_PATH . '/inc/menu-pages/test-limits.php';
     }
 
     /*

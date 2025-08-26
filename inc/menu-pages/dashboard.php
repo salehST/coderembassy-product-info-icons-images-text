@@ -1,8 +1,19 @@
 <?php
 if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_nonce')) {
     $raw_groups = $_POST['cmfw_groups'] ?? [];
-
     $cmfw_groups = [];
+    
+    // Check if PRO version is active for limits
+    $pro_active = cmfw_is_pro_active();
+    
+    // Apply limits for free version
+    if (!$pro_active) {
+        // Limit to 2 groups
+        if (count($raw_groups) > 2) {
+            $raw_groups = array_slice($raw_groups, 0, 2);
+            echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__('Free version limit: Only first 2 groups will be saved. Upgrade to PRO version to add more groups.', 'coderembassy-product-info-icons-images-text') . '</p></div>';
+        }
+    }
 
     if (is_array($raw_groups)) {
         foreach ($raw_groups as $group) {
@@ -22,6 +33,12 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
             }
 
             if (!empty($group['items']) && is_array($group['items'])) {
+                // Apply limits for free version
+                if (!$pro_active && count($group['items']) > 3) {
+                    $group['items'] = array_slice($group['items'], 0, 3);
+                    echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__('Free version limit: Only first 3 Product Info items per group will be saved. Upgrade to PRO version to add more items.', 'coderembassy-product-info-icons-images-text') . '</p></div>';
+                }
+                
                 foreach ($group['items'] as $item) {
                     $title = sanitize_text_field($item['title'] ?? '');
                     $icon = sanitize_text_field($item['icon'] ?? '');
@@ -72,7 +89,23 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
         <form method="post" action="">
             <?php wp_nonce_field('save_cmfw_data', 'cmfw_nonce'); ?>
             <div id="cmfw-groups-container"></div>
-            <p><button type="button" class="button cmfw-add-group"><?php echo esc_html__('Add New Group', 'coderembassy-product-info-icons-images-text'); ?></button></p>
+            <?php
+            // Check if PRO version is active
+            $pro_active = cmfw_is_pro_active();
+            
+            if (!$pro_active) {
+                // Show limits for free version
+                echo '<div class="cmfw-limits-notice notice notice-info" style="margin: 15px 0; padding: 10px 15px; background: #e7f3ff; border-left: 4px solid #0073aa;">';
+                echo '<p><strong>' . esc_html__('Free Version Limits:', 'coderembassy-product-info-icons-images-text') . '</strong></p>';
+                echo '<ul style="margin: 5px 0; padding-left: 20px;">';
+                echo '<li>' . esc_html__('Maximum 2 groups allowed', 'coderembassy-product-info-icons-images-text') . '</li>';
+                echo '<li>' . esc_html__('Maximum 3 Product Info items per group', 'coderembassy-product-info-icons-images-text') . '</li>';
+                echo '</ul>';
+                echo '<p><em>' . esc_html__('Upgrade to PRO version to remove these limits!', 'coderembassy-product-info-icons-images-text') . '</em></p>';
+                echo '</div>';
+            }
+            ?>
+            <p><button type="button" class="button cmfw-add-group" <?php echo (!$pro_active && count(get_option('cmfw_groups', [])) >= 2) ? 'disabled' : ''; ?>><?php echo esc_html__('Add New Group', 'coderembassy-product-info-icons-images-text'); ?></button></p>
             <hr>
             <input type="submit" name="save_cmfw" class="button button-primary" value="<?php echo esc_attr__('Save', 'coderembassy-product-info-icons-images-text'); ?>">
         </form>
@@ -103,7 +136,7 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
             </tr>
         </table>
             <div class="cmfw-items cmfw-archive-cm-items"></div>
-            <p><button type="button" class="button cmfw-add-item"><?php echo esc_html__('Add Product Info', 'coderembassy-product-info-icons-images-text'); ?></button></p>
+            <p><button type="button" class="button cmfw-add-item" data-group-index="_INDEX_"><?php echo esc_html__('Add Product Info', 'coderembassy-product-info-icons-images-text'); ?></button></p>
     </div>
 </script>
 

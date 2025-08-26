@@ -105,6 +105,7 @@ class Assets {
 				'nonce' => wp_create_nonce('cmfw_ajax_nonce'),
 				'media_title' => __('Select Image', 'coderembassy-product-info-icons-images-text'),
 				'media_button' => __('Use This Image', 'coderembassy-product-info-icons-images-text'),
+				'pro_active' => cmfw_is_pro_active() ? '1' : '0',
 			]);
 		//}
 	}

@@ -20,31 +20,60 @@
     }
 
     $(document.body).on('click', '.cmfw-add-group', function () {
-      const groupIndex = $('#cmfw-groups-container .cmfw-group').length;
+      const currentGroups = $('#cmfw-groups-container .cmfw-group').length;
+      
+      // Check limits for free version
+      if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentGroups >= 2) {
+        alert('Free version limit: Maximum 2 groups allowed. Upgrade to PRO version to add more groups.');
+        return;
+      }
+      
+      const groupIndex = currentGroups;
       let groupHtml = $('#cmfw-group-template').html().replace(/_INDEX_/g, groupIndex);
       $('#cmfw-groups-container').append(groupHtml);
       reindexAll();
+      
+      // Update button state after adding group
+      updateAddGroupButtonState();
     });
 
     $('#cmfw-groups-container').on('click', '.cmfw-remove-group', function () {
       $(this).closest('.cmfw-group').remove();
       reindexAll();
+      
+      // Update button states after removing group
+      updateAddGroupButtonState();
+      updateAddItemButtonStates();
     });
 
     $('#cmfw-groups-container').on('click', '.cmfw-add-item', function () {
       const $group = $(this).closest('.cmfw-group');
       const groupIndex = $('#cmfw-groups-container .cmfw-group').index($group);
-      const itemIndex = $group.find('.cmfw-item').length;
+      const currentItems = $group.find('.cmfw-item').length;
+      
+      // Check limits for free version
+      if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentItems >= 3) {
+        alert('Free version limit: Maximum 3 Product Info items per group. Upgrade to PRO version to add more items.');
+        return;
+      }
+      
+      const itemIndex = currentItems;
       let itemHtml = $('#cmfw-item-template').html()
         .replace(/_GROUP_INDEX_/g, groupIndex)
         .replace(/_ITEM_INDEX_/g, itemIndex);
       $group.find('.cmfw-items').append(itemHtml);
       reindexAll();
+      
+      // Update button state after adding item
+      updateAddItemButtonStates();
     });
 
     $('#cmfw-groups-container').on('click', '.cmfw-remove-item', function () {
       $(this).closest('.cmfw-item').remove();
       reindexAll();
+      
+      // Update button states after removing item
+      updateAddItemButtonStates();
     });
 
     // Taxonomy show/hide terms row
@@ -437,7 +466,42 @@
       setTimeout(loadExistingImages, 500); // Small delay to ensure DOM is fully ready
       // Initialize exclusivity for existing items
       $('#cmfw-groups-container .cmfw-item').each(function(){ updateExclusivity($(this)); });
+      
+      // Initialize button states
+      updateAddGroupButtonState();
+      updateAddItemButtonStates();
     });
+    
+    // Function to update Add Group button state
+    function updateAddGroupButtonState() {
+      const currentGroups = $('#cmfw-groups-container .cmfw-group').length;
+      const $addGroupBtn = $('.cmfw-add-group');
+      
+      if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentGroups >= 2) {
+        $addGroupBtn.prop('disabled', true).addClass('disabled');
+        $addGroupBtn.attr('title', 'Free version limit: Maximum 2 groups allowed. Upgrade to PRO version to add more groups.');
+      } else {
+        $addGroupBtn.prop('disabled', false).removeClass('disabled');
+        $addGroupBtn.attr('title', '');
+      }
+    }
+    
+    // Function to update Add Item button states
+    function updateAddItemButtonStates() {
+      $('#cmfw-groups-container .cmfw-group').each(function() {
+        const $group = $(this);
+        const currentItems = $group.find('.cmfw-item').length;
+        const $addItemBtn = $group.find('.cmfw-add-item');
+        
+        if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentItems >= 3) {
+          $addItemBtn.prop('disabled', true).addClass('disabled');
+          $addItemBtn.attr('title', 'Free version limit: Maximum 3 Product Info items per group. Upgrade to PRO version to add more items.');
+        } else {
+          $addItemBtn.prop('disabled', false).removeClass('disabled');
+          $addItemBtn.attr('title', '');
+        }
+      });
+    }
 
   });
 })(jQuery);
