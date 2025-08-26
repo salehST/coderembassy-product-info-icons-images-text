@@ -10,6 +10,11 @@ $group_count = count($current_groups);
 $max_groups = $pro_active ? 'Unlimited' : '2';
 $max_items = $pro_active ? 'Unlimited' : '3';
 
+// Debug information
+$pro_function_exists = function_exists('cmfw_pro_is_active');
+$active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+$plugin_in_list = in_array('coderembassy-product-info-icons-images-text-pro/coderembassy-product-info-icons-images-text-pro.php', $active_plugins) || 
+                  in_array('coderembassy-product-info-icons-images-text-Pro/coderembassy-product-info-icons-images-text-pro.php', $active_plugins);
 // Count total items across all groups
 $total_items = 0;
 foreach ($current_groups as $group) {
@@ -32,6 +37,16 @@ foreach ($current_groups as $group) {
                     </span>
                 </td>
             </tr>
+            <?php if (WP_DEBUG): ?>
+            <tr>
+                <th scope="row">Debug Info</th>
+                <td>
+                    <strong>Function exists:</strong> <?php echo $pro_function_exists ? 'Yes' : 'No'; ?><br>
+                    <strong>Plugin in active list:</strong> <?php echo $plugin_in_list ? 'Yes' : 'No'; ?><br>
+                    <strong>Active plugins:</strong> <?php echo esc_html(implode(', ', $active_plugins)); ?>
+                </td>
+            </tr>
+            <?php endif; ?>
             <tr>
                 <th scope="row"><?php echo esc_html__('Current Groups', 'coderembassy-product-info-icons-images-text'); ?></th>
                 <td>

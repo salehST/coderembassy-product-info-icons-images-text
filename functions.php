@@ -169,5 +169,21 @@ function cmfw_auto_display_product_custom_meta() {
  * @return bool
  */
 function cmfw_is_pro_active() {
-    return function_exists('cmfw_pro_is_active') && cmfw_pro_is_active();
+    $pro_function_exists = function_exists('cmfw_pro_is_active');
+    $pro_is_active = $pro_function_exists ? cmfw_pro_is_active() : false;
+    
+    // Debug information
+    if (WP_DEBUG) {
+        error_log('CMFW Debug - cmfw_is_pro_active() called');
+        error_log('CMFW Debug - function_exists("cmfw_pro_is_active"): ' . ($pro_function_exists ? 'true' : 'false'));
+        error_log('CMFW Debug - cmfw_pro_is_active() result: ' . ($pro_is_active ? 'true' : 'false'));
+        
+        // Also check if the plugin is in active plugins list
+        $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+        $plugin_in_list = in_array('coderembassy-product-info-icons-images-text-pro/coderembassy-product-info-icons-images-text-pro.php', $active_plugins);
+        error_log('CMFW Debug - plugin in active list: ' . ($plugin_in_list ? 'true' : 'false'));
+        error_log('CMFW Debug - active plugins: ' . print_r($active_plugins, true));
+    }
+    
+    return $pro_function_exists && $pro_is_active;
 }
