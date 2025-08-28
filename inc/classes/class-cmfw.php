@@ -71,10 +71,10 @@ class CMFW
      public function ajax_get_image_url()
      {
           // Verify nonce
-          if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'cmfw_ajax_nonce')) {
-               wp_die(__('Security check failed', 'coderembassy-product-info-icons-images-text'));
-          }
-
+          if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'cmfw_ajax_nonce' ) ) {
+               wp_die( esc_html__( 'Security check failed', 'coderembassy-product-info-icons-images-text' ) );
+           }
+           
           $image_id = intval($_POST['image_id'] ?? 0);
 
           if ($image_id <= 0) {
@@ -107,7 +107,7 @@ class CMFW
      {
           // Verify nonce
           if (!isset($_REQUEST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['nonce'])), 'cmfw_ajax_nonce')) {
-               wp_die(__('Security check failed', 'coderembassy-product-info-icons-images-text'));
+               wp_die( esc_html__( 'Security check failed', 'coderembassy-product-info-icons-images-text' ) );
           }
 
           $taxonomy = sanitize_text_field($_REQUEST['taxonomy'] ?? '');
