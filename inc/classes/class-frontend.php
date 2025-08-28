@@ -46,7 +46,7 @@ class Frontend
     {
         $settings = get_option('cmfw_settings', array());
         $enable_meta = isset($settings['enable_meta']) ? $settings['enable_meta'] : '1';
-        
+
         // Only proceed if meta is enabled
         if ($enable_meta !== '1') {
             return;
@@ -64,10 +64,10 @@ class Frontend
         }
 
         // Add hook for displaying custom meta
-       add_action($position, [$this, 'display_custom_meta'], $priority);
-        
+        add_action($position, [$this, 'display_custom_meta'], $priority);
+
         // Add inline styles
-        add_action('wp_head', [$this, 'add_inline_styles']);
+        add_action('wp_enqueue_scripts', [$this, 'add_inline_styles'], 20);
     }
 
     /**
@@ -89,7 +89,7 @@ class Frontend
         }
 
         $groups = $this->get_matching_groups($product);
-        
+
         if (empty($groups)) {
             return;
         }
@@ -97,11 +97,6 @@ class Frontend
         $heading = isset($settings['meta_heading']) ? $settings['meta_heading'] : __('Product Information', 'coderembassy-product-info-icons-images-text');
 
         $this->render_custom_meta($groups, $heading);
-        
-        // For debugging - add this to see when meta is displayed (remove in production)
-        if (current_user_can('manage_options') && WP_DEBUG) {
-            echo '<!-- CMFW: Custom meta displayed with ' . count($groups) . ' group(s) -->';
-        }
     }
 
     /**
@@ -146,7 +141,7 @@ class Frontend
 
             // Check if product has any of the specified terms
             $product_terms = wp_get_post_terms($product_id, $taxonomy, array('fields' => 'ids'));
-            
+
             if (!is_wp_error($product_terms) && !empty($product_terms)) {
                 $intersect = array_intersect($terms, $product_terms);
                 if (!empty($intersect)) {
@@ -167,33 +162,33 @@ class Frontend
     private function render_custom_meta($groups, $heading)
     {
         echo '<div class="cmfw-custom-meta-section">';
-        
+
         if (!empty($heading)) {
             echo '<h3 class="cmfw-meta-heading">' . esc_html($heading) . '</h3>';
         }
 
         echo '<div class="cmfw-meta-groups">';
-        
+
         foreach ($groups as $group_index => $group) {
             $items = $group['items'] ?? [];
-            
+
             if (empty($items)) {
                 continue;
             }
 
             echo '<div class="cmfw-meta-group" data-group="' . esc_attr($group_index) . '">';
-            
+
             foreach ($items as $item_index => $item) {
                 $title = $item['title'] ?? '';
                 $icon = $item['icon'] ?? '';
                 $image_id = $item['image_id'] ?? 0;
-                
+
                 if (empty($title)) {
                     continue;
                 }
 
                 echo '<div class="cmfw-meta-item" data-item="' . esc_attr($item_index) . '">';
-                
+
                 // Display icon or image
                 if (!empty($icon)) {
                     echo '<span class="cmfw-meta-icon dashicons dashicons-' . esc_attr($icon) . '"></span>';
@@ -203,14 +198,14 @@ class Frontend
                         echo '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($title) . '" class="cmfw-meta-image" />';
                     }
                 }
-                
+
                 echo '<span class="cmfw-meta-title">' . esc_html($title) . '</span>';
                 echo '</div>';
             }
-            
+
             echo '</div>';
         }
-        
+
         echo '</div>';
         echo '</div>';
     }
@@ -223,98 +218,96 @@ class Frontend
     public function add_inline_styles()
     {
         // Only add styles on single product pages
-        if (!is_product()) {
+        if (! is_product()) {
             return;
         }
 
-        $settings = get_option('cmfw_settings', array());
+        $settings = get_option('cmfw_settings', []);
         $enable_meta = isset($settings['enable_meta']) ? $settings['enable_meta'] : '1';
-        
+
         if ($enable_meta !== '1') {
             return;
         }
 
-        $heading_color = isset($settings['heading_color']) ? $settings['heading_color'] : '#333333';
-        $heading_size = isset($settings['heading_size']) ? $settings['heading_size'] : '18';
-        $meta_font_size = isset($settings['meta_font_size']) ? $settings['meta_font_size'] : '14';
-        $meta_text_color = isset($settings['meta_text_color']) ? $settings['meta_text_color'] : '#666666';
-        $meta_bg_color = isset($settings['meta_bg_color']) ? $settings['meta_bg_color'] : '#ffffff';
+        $heading_color   = $settings['heading_color']   ?? '#333333';
+        $heading_size    = $settings['heading_size']    ?? '18';
+        $meta_font_size  = $settings['meta_font_size']  ?? '14';
+        $meta_text_color = $settings['meta_text_color'] ?? '#666666';
+        $meta_bg_color   = $settings['meta_bg_color']   ?? '#ffffff';
 
-        ?>
-        <style type="text/css">
-            .cmfw-custom-meta-section {
-                background-color: <?php echo esc_attr($meta_bg_color); ?>;
-                padding: 20px;
-                margin: 20px 0;
-                border-radius: 5px;
-                border: 1px solid #e0e0e0;
-            }
-            
-            .cmfw-meta-heading {
-                color: <?php echo esc_attr($heading_color); ?>;
-                font-size: <?php echo esc_attr($heading_size); ?>px;
-                margin: 0 0 15px 0;
-                font-weight: 600;
-                line-height: 1.4;
-            }
-            
+        $custom_css = "
+        .cmfw-custom-meta-section {
+            background-color: {$meta_bg_color};
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .cmfw-meta-heading {
+            color: {$heading_color};
+            font-size: {$heading_size}px;
+            margin: 0 0 15px 0;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .cmfw-meta-groups {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .cmfw-meta-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .cmfw-meta-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+        
+        .cmfw-meta-icon {
+            color: {$meta_text_color};
+            font-size: " . ((int) $meta_font_size + 4) . "px;
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        
+        .cmfw-meta-image {
+            max-width: 24px;
+            max-height: 24px;
+            margin-right: 10px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        
+        .cmfw-meta-title {
+            color: {$meta_text_color};
+            font-size: {$meta_font_size}px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+        
+        @media (max-width: 768px) {
             .cmfw-meta-groups {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 15px;
+                flex-direction: column;
             }
-            
             .cmfw-meta-group {
-                flex: 1;
-                min-width: 200px;
+                min-width: 100%;
             }
-            
-            .cmfw-meta-item {
-                display: flex;
-                align-items: center;
-                margin-bottom: 10px;
-                padding: 8px 0;
+            .cmfw-custom-meta-section {
+                padding: 15px;
             }
-            
-            .cmfw-meta-icon {
-                color: <?php echo esc_attr($meta_text_color); ?>;
-                font-size: <?php echo esc_attr($meta_font_size + 4); ?>px;
-                margin-right: 10px;
-                width: 24px;
-                height: 24px;
-                flex-shrink: 0;
-            }
-            
-            .cmfw-meta-image {
-                max-width: 24px;
-                max-height: 24px;
-                margin-right: 10px;
-                border-radius: 3px;
-                flex-shrink: 0;
-            }
-            
-            .cmfw-meta-title {
-                color: <?php echo esc_attr($meta_text_color); ?>;
-                font-size: <?php echo esc_attr($meta_font_size); ?>px;
-                line-height: 1.5;
-                font-weight: 400;
-            }
-            
-            /* Responsive design */
-            @media (max-width: 768px) {
-                .cmfw-meta-groups {
-                    flex-direction: column;
-                }
-                
-                .cmfw-meta-group {
-                    min-width: 100%;
-                }
-                
-                .cmfw-custom-meta-section {
-                    padding: 15px;
-                }
-            }
-        </style>
-        <?php
+        }
+    ";
+
+        // Attach inline CSS to your already registered/enqueued frontend stylesheet
+        wp_add_inline_style('cmfw-frontend-css', $custom_css);
     }
 }
