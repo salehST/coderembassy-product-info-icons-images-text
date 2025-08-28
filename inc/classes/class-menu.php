@@ -39,7 +39,7 @@ class Menu
         add_action('admin_init', [$this, 'registerSettings']);
 
         // add settings link 
-        add_filter('plugin_action_links_' . plugin_basename(CMFW_BASENAME), [$this, 'addSettingsLink']);
+        add_filter('plugin_action_links_'.CMFW_BASENAME, [$this, 'addSettingsLink']);
 
     }
 

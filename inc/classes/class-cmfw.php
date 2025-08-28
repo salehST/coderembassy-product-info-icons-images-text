@@ -44,7 +44,7 @@ class CMFW
           }
 
           add_action('before_woocommerce_init', [$this, 'cmfw_hpos']);
-          
+
           // AJAX handlers for image functionality
           add_action('wp_ajax_cmfw_get_image_url', [$this, 'ajax_get_image_url']);
           // Term search for taxonomy autocomplete
@@ -89,14 +89,14 @@ class CMFW
           }
 
           $image_id = intval($_POST['image_id'] ?? 0);
-          
+
           if ($image_id <= 0) {
                wp_send_json_error(['message' => __('Invalid image ID', 'coderembassy-product-info-icons-images-text')]);
           }
 
           // Get image URL
           $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
-          
+
           if (!$image_url) {
                // Try to get full size if thumbnail doesn't exist
                $image_url = wp_get_attachment_image_url($image_id, 'full');
@@ -142,7 +142,7 @@ class CMFW
                wp_send_json([]);
           }
 
-          $results = array_map(function($t){
+          $results = array_map(function ($t) {
                return [
                     'label' => $t->name,
                     'value' => $t->term_id,

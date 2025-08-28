@@ -9,8 +9,11 @@
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       coderembassy-product-info-icons-images-text
- * Requires at least: 6.4.2
+ * Requires at least: 3.0.0
  * Requires PHP:      7.0
+ * Tested up to:      6.8.2
+ * WC tested up to:	  10.0.4
+ * Licence:           GPL Or leater 
  *
  * @package           cmfw
  */
@@ -20,9 +23,10 @@ if ( ! defined( 'CMFW_DIR_PATH' ) ) {
 	define( 'CMFW_DIR_PATH', __DIR__ );
 }
 
-define( 'CMFW_FILE' , __FILE__ );
-define( 'CMFW_URL' , plugins_url( '' , CMFW_FILE ) );
-define( 'CMFW_BASENAME' , plugin_basename(__FILE__) );
+define( 'CMFW_FILE', __FILE__ );
+define( 'CMFW_BASENAME', plugin_basename( __FILE__ ) );
+define( 'CMFW_URL', plugin_dir_url( CMFW_FILE ) );
+define( 'CMFW_VERSION', '1.1.0' );
 
 require_once CMFW_DIR_PATH . '/inc/helpers/autoloader.php';
 
