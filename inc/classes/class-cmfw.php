@@ -84,7 +84,7 @@ class CMFW
      public function ajax_get_image_url()
      {
           // Verify nonce
-          if (!wp_verify_nonce($_POST['nonce'] ?? '', 'cmfw_ajax_nonce')) {
+          if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'cmfw_ajax_nonce')) {
                wp_die(__('Security check failed', 'coderembassy-product-info-icons-images-text'));
           }
 
@@ -119,7 +119,7 @@ class CMFW
      public function ajax_term_search()
      {
           // Verify nonce
-          if (!wp_verify_nonce($_REQUEST['nonce'] ?? '', 'cmfw_ajax_nonce')) {
+          if (!isset($_REQUEST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['nonce'])), 'cmfw_ajax_nonce')) {
                wp_die(__('Security check failed', 'coderembassy-product-info-icons-images-text'));
           }
 

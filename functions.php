@@ -147,43 +147,11 @@ function cmfw_get_current_product_custom_meta() {
 }
 
 /**
- * Auto display custom meta on single product page
- * Hook this function to display custom meta automatically
- */
-function cmfw_auto_display_product_custom_meta() {
-    $custom_meta = cmfw_get_current_product_custom_meta();
-    
-    if (!empty($custom_meta)) {
-        cmfw_display_custom_meta($custom_meta, [
-            'container_class' => 'cmfw-product-custom-meta',
-            'item_class' => 'cmfw-product-meta-item',
-        ]);
-    }
-}
-
-// Uncomment the line below to automatically display custom meta on single product pages
-// add_action('woocommerce_single_product_summary', 'cmfw_auto_display_product_custom_meta', 25);
-
-/**
  * Check if PRO version is active
  * @return bool
  */
 function cmfw_is_pro_active() {
     $pro_function_exists = function_exists('cmfw_pro_is_active');
     $pro_is_active = $pro_function_exists ? cmfw_pro_is_active() : false;
-    
-    // Debug information
-    if (WP_DEBUG) {
-        error_log('CMFW Debug - cmfw_is_pro_active() called');
-        error_log('CMFW Debug - function_exists("cmfw_pro_is_active"): ' . ($pro_function_exists ? 'true' : 'false'));
-        error_log('CMFW Debug - cmfw_pro_is_active() result: ' . ($pro_is_active ? 'true' : 'false'));
-        
-        // Also check if the plugin is in active plugins list
-        $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
-        $plugin_in_list = in_array('coderembassy-product-info-icons-images-text-pro/coderembassy-product-info-icons-images-text-pro.php', $active_plugins);
-        error_log('CMFW Debug - plugin in active list: ' . ($plugin_in_list ? 'true' : 'false'));
-        error_log('CMFW Debug - active plugins: ' . print_r($active_plugins, true));
-    }
-    
     return $pro_function_exists && $pro_is_active;
 }

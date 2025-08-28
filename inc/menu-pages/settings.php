@@ -1,4 +1,6 @@
 <?php
+defined('ABSPATH') or die('Nice Try!');
+
 // Get current settings
 $cmfw_settings = get_option('cmfw_settings', array());
 

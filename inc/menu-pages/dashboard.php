@@ -1,4 +1,6 @@
 <?php
+defined('ABSPATH') or die('Nice Try!');
+
 if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_nonce')) {
     $raw_groups = $_POST['cmfw_groups'] ?? [];
     $cmfw_groups = [];
