@@ -6,8 +6,8 @@ Tested up to: 6.8
 WC tested up to: 10.1
 Requires PHP: 7.3
 Stable Tag: 1.0.0
-License: GPLv3
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Add custom icons, images and text to WooCommerce product pages. Enhance product information display with flexible positioning options.
 

@@ -110,8 +110,8 @@ class CMFW
                wp_die( esc_html__( 'Security check failed', 'coderembassy-product-info-icons-images-text' ) );
           }
 
-          $taxonomy = sanitize_text_field($_REQUEST['taxonomy'] ?? '');
-          $search   = sanitize_text_field($_REQUEST['term'] ?? '');
+          $taxonomy = sanitize_text_field(wp_unslash($_REQUEST['taxonomy'] ?? ''));
+          $search   = sanitize_text_field(wp_unslash($_REQUEST['term'] ?? ''));
 
           if (!$taxonomy || !$search || !taxonomy_exists($taxonomy)) {
                wp_send_json([]);
