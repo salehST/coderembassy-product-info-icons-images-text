@@ -35,17 +35,17 @@ $cmfw_meta_bg_color = isset($cmfw_settings['meta_bg_color']) ? $cmfw_settings['m
                     <h2><?php echo esc_html(__('General Settings', 'coderembassy-product-info-icons-images-text')); ?></h2>
                     <table class="form-table">
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Enable Custom Meta', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <th scope="row"><?php echo esc_html(__('Enable Product info ', 'coderembassy-product-info-icons-images-text')); ?></th>
                             <td>
                                 <label>
                                     <input type="checkbox" name="cmfw_settings[enable_meta]" value="1" <?php checked($cmfw_enable_meta, '1'); ?> />
-                                    <?php echo esc_html(__('Enable custom meta display on product pages', 'coderembassy-product-info-icons-images-text')); ?>
+                                    <?php echo esc_html(__('Enable Product info display on product pages', 'coderembassy-product-info-icons-images-text')); ?>
                                 </label>
                                 <p class="description"><?php echo esc_html(__('Check this to enable the custom meta functionality.', 'coderembassy-product-info-icons-images-text')); ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Meta Position', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <th scope="row"><?php echo esc_html(__('Product Info Position', 'coderembassy-product-info-icons-images-text')); ?></th>
                             <td>
                                 <select name="cmfw_settings[meta_position]">
                                     <option value="woocommerce_after_add_to_cart_button" <?php selected($cmfw_meta_position, 'woocommerce_after_add_to_cart_button'); ?>><?php echo esc_html(__('After Cart Button', 'coderembassy-product-info-icons-images-text')); ?></option>
@@ -53,14 +53,14 @@ $cmfw_meta_bg_color = isset($cmfw_settings['meta_bg_color']) ? $cmfw_settings['m
                                     <option value="woocommerce_after_single_product_summary" <?php selected($cmfw_meta_position, 'woocommerce_after_single_product_summary'); ?>><?php echo esc_html(__('After Summary', 'coderembassy-product-info-icons-images-text')); ?></option>
                                     <option value="woocommerce_after_single_product" <?php selected($cmfw_meta_position, 'woocommerce_after_single_product'); ?>><?php echo esc_html(__('After Single product', 'coderembassy-product-info-icons-images-text')); ?></option>     
                                 </select>
-                                <p class="description"><?php echo esc_html(__('Choose where to display the custom meta on product pages.', 'coderembassy-product-info-icons-images-text')); ?></p>
+                                <p class="description"><?php echo esc_html(__('Choose where to display the Product Info on product pages.', 'coderembassy-product-info-icons-images-text')); ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Meta Heading', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <th scope="row"><?php echo esc_html(__('Product Info Heading', 'coderembassy-product-info-icons-images-text')); ?></th>
                             <td>
                                 <input type="text" name="cmfw_settings[meta_heading]" value="<?php echo esc_attr($cmfw_meta_heading); ?>" class="regular-text" />
-                                <p class="description"><?php echo esc_html(__('Enter the heading text for the custom meta section.', 'coderembassy-product-info-icons-images-text')); ?></p>
+                                <p class="description"><?php echo esc_html(__('Enter the heading text for the Product Info section.', 'coderembassy-product-info-icons-images-text')); ?></p>
                             </td>
                         </tr>
                     </table>
@@ -80,29 +80,29 @@ $cmfw_meta_bg_color = isset($cmfw_settings['meta_bg_color']) ? $cmfw_settings['m
                             <td>
                                 <input type="number" name="cmfw_settings[heading_size]" value="<?php echo esc_attr($cmfw_heading_size); ?>" class="small-text" />
                                 <span><?php echo esc_html(__('px', 'coderembassy-product-info-icons-images-text')); ?></span>
-                                <p class="description"><?php echo esc_html(__('Set the font size for the meta heading (10-48px).', 'coderembassy-product-info-icons-images-text')); ?></p>
+                                <p class="description"><?php echo esc_html(__('Set the font size for the product info heading (10-48px).', 'coderembassy-product-info-icons-images-text')); ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Meta Title Font Size', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <th scope="row"><?php echo esc_html(__('Title Font Size', 'coderembassy-product-info-icons-images-text')); ?></th>
                             <td>
                                 <input type="number" name="cmfw_settings[meta_font_size]" value="<?php echo esc_attr($cmfw_meta_font_size); ?>" class="small-text" />
                                 <span><?php echo esc_html(__('px', 'coderembassy-product-info-icons-images-text')); ?></span>
-                                <p class="description"><?php echo esc_html(__('Set the font size for the meta content (10-24px).', 'coderembassy-product-info-icons-images-text')); ?></p>
+                                <p class="description"><?php echo esc_html(__('Set the font size for the product info content (10-24px).', 'coderembassy-product-info-icons-images-text')); ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Meta Text Color', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <th scope="row"><?php echo esc_html(__('Product Info Text Color', 'coderembassy-product-info-icons-images-text')); ?></th>
                             <td>
                                 <input type="text" name="cmfw_settings[meta_text_color]" value="<?php echo esc_attr($cmfw_meta_text_color); ?>" class="cmfw-color-picker" />
-                                <p class="description"><?php echo esc_html(__('Choose the color for the meta text content.', 'coderembassy-product-info-icons-images-text')); ?></p>
+                                <p class="description"><?php echo esc_html(__('Choose the color for the product info text content.', 'coderembassy-product-info-icons-images-text')); ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Meta Background Color', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <th scope="row"><?php echo esc_html(__('Background Color', 'coderembassy-product-info-icons-images-text')); ?></th>
                             <td>
                                 <input type="text" name="cmfw_settings[meta_bg_color]" value="<?php echo esc_attr($cmfw_meta_bg_color); ?>" class="cmfw-color-picker" />
-                                <p class="description"><?php echo esc_html(__('Choose the background color for the meta section.', 'coderembassy-product-info-icons-images-text')); ?></p>
+                                <p class="description"><?php echo esc_html(__('Choose the background color for the product info section.', 'coderembassy-product-info-icons-images-text')); ?></p>
                             </td>
                         </tr>
                     </table>
