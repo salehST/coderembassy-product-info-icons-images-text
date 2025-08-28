@@ -7,6 +7,8 @@
  * Author:            codersaleh
  * Author URI:		  https://github.com/coderembassy
  * Plugin URI: 		  https://coderembassy.com/
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       coderembassy-product-info-icons-images-text
  * Requires at least: 5.0
  * Requires PHP:      7.3
