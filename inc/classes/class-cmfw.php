@@ -43,7 +43,7 @@ class CMFW
                add_action('admin_notices', [$this, 'admin_notice_missing_woocommerce_plugin']);
           }
 
-          add_action('before_woocommerce_init', [$this, 'cmfw_hpos']);
+          
 
           // AJAX handlers for image functionality
           add_action('wp_ajax_cmfw_get_image_url', [$this, 'ajax_get_image_url']);
@@ -62,19 +62,6 @@ class CMFW
           $message = __("Custom Meta for WooCommerce Requires WooCommerce to be Activated", "coderembassy-product-info-icons-images-text");
 
           printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
-     }
-
-     /**
-      * Declare compatibility with custom order tables for WooCommerce.
-      * Support WooCommerce High-performance order storage
-      * @since 1.0.0
-      * @author Fazle Bari <fazlebarisn@gmail.com>
-      */
-     public function cmfw_hpos()
-     {
-          if (class_exists('\Automattic\WooCommerce\Utilities\FeaturesUtil')) {
-               \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
-          }
      }
 
      /**
