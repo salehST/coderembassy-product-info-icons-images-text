@@ -1,21 +1,18 @@
 <?php
 
 /**
- * Plugin Name:       Coderembassy Product Info Icons Images Text
+ * Plugin Name:       CodersEmbassy Product Info Icons Images Text
  * Description:       CoderEmbassy Product Info: Add icons, images & custom text to product pages. Boost WooCommerce conversions with enhanced product information display.
  * Version:           1.0.0
  * Author:            codersaleh
  * Author URI:		  https://github.com/coderembassy
  * Plugin URI: 		  https://coderembassy.com/
- * License:           GPL-2.0-or-later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       coderembassy-product-info-icons-images-text
- * Requires at least: 3.0.0
- * Requires PHP:      7.0
+ * Requires at least: 5.0
+ * Requires PHP:      7.3
  * Requires Plugins:  woocommerce
- * Tested up to:      6.8.2
- * WC tested up to:	  10.0.4
- * Licence:           GPL Or leater 
+ * Tested up to:      6.8
+ * WC tested up to:	  10.1
  *
  * @package           cmfw
  */

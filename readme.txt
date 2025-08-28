@@ -2,9 +2,10 @@
 Contributors: codersaleh, phpcoderhannan, fazlebari
 Tags: product-info, icons, images, text
 Requires at least: 5.0
-Tested up to: 6.8.2
-WC tested up to: 10.0.4
+Tested up to: 6.8
+WC tested up to: 10.1
 Requires PHP: 7.3
+Stable Tag: 1.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
