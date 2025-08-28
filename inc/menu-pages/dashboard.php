@@ -2,7 +2,8 @@
 defined('ABSPATH') or die('Nice Try!');
 
 if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_nonce')) {
-    $raw_groups = wp_unslash($_POST['cmfw_groups'] ?? []);
+
+    $raw_groups =  array_map('sanitize_text_field', wp_unslash($_POST['cmfw_groups'] ?? []));
     $cmfw_groups = [];
 
     // Check if PRO version is active for limits
