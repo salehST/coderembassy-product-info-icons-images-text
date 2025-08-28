@@ -1,13 +1,12 @@
 === CodersEmbassy Product Info Icons Images Text ===
 Contributors: codersaleh, phpcoderhannan, fazlebari
-Donate link: https://coderembassy.com/donate
-Tags: ecommerce, product-info, icons, images, text
+Tags: product-info, icons, images, text
 Requires at least: 5.0
-Tested up to: 6.8
-Requires PHP: 7.4
-Stable tag: 1.0.0
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Tested up to: 6.8.2
+WC tested up to: 10.0.4
+Requires PHP: 7.3
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Add custom icons, images and text to WooCommerce product pages. Enhance product information display with flexible positioning options.
 
