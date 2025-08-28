@@ -75,7 +75,7 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
         if ($enable_meta !== '1') {
             echo '<div class="notice notice-warning is-dismissible"><p>' . sprintf(
                 esc_html__('Custom Meta is currently disabled. %sEnable it in Settings%s to display on product pages.', 'coderembassy-product-info-icons-images-text'),
-                '<a href="' . esc_url(admin_url('admin.php?page=custom-meta-settings')) . '">',
+                '<a href="' . esc_url(admin_url('admin.php?page=coderembassy-meta-settings')) . '">',
                 '</a>'
             ) . '</p></div>';
         }

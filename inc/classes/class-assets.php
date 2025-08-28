@@ -75,16 +75,6 @@ class Assets
 	 */
 	public function adminAssets($hook)
 	{
-		// Only load assets on plugin admin pages
-		$plugin_pages = [
-			'toplevel_page_coderembassy-product-info-icons-images-text',
-			'cmfw_page_custom-meta-settings',
-		];
-
-		// if (! in_array($hook, $plugin_pages, true)) {
-		// 	return;
-		// }
-
 		// Admin CSS
 		wp_enqueue_style(
 			'cmfw-admin-settings-css',

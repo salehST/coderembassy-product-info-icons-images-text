@@ -51,7 +51,7 @@ class Menu
     public function adminMenu()
     {
         add_menu_page(__('Product Info', 'coderembassy-product-info-icons-images-text'), __('PRODUCT INFO', 'coderembassy-product-info-icons-images-text'), 'manage_options', 'coderembassy-product-info-icons-images-text', [$this, 'adminPage'], 'dashicons-admin-generic',55);
-        add_submenu_page('coderembassy-product-info-icons-images-text', __('Settings', 'coderembassy-product-info-icons-images-text'), __('Settings', 'coderembassy-product-info-icons-images-text'), 'manage_options', 'custom-meta-settings', [$this, 'settingsPage']);
+        add_submenu_page('coderembassy-product-info-icons-images-text', __('Settings', 'coderembassy-product-info-icons-images-text'), __('Settings', 'coderembassy-product-info-icons-images-text'), 'manage_options', 'coderembassy-meta-settings', [$this, 'settingsPage']);
         
         // Add test limits page for development/testing
         if (WP_DEBUG) {
