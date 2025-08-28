@@ -41,7 +41,7 @@ $cmfw_meta_bg_color = isset($cmfw_settings['meta_bg_color']) ? $cmfw_settings['m
                                     <input type="checkbox" name="cmfw_settings[enable_meta]" value="1" <?php checked($cmfw_enable_meta, '1'); ?> />
                                     <?php echo esc_html(__('Enable Product info display on product pages', 'coderembassy-product-info-icons-images-text')); ?>
                                 </label>
-                                <p class="description"><?php echo esc_html(__('Check this to enable the custom meta functionality.', 'coderembassy-product-info-icons-images-text')); ?></p>
+                                <p class="description"><?php echo esc_html(__('Check this to enable the Product Info functionality.', 'coderembassy-product-info-icons-images-text')); ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
@@ -72,7 +72,7 @@ $cmfw_meta_bg_color = isset($cmfw_settings['meta_bg_color']) ? $cmfw_settings['m
                             <th scope="row"><?php echo esc_html(__('Heading Font Color', 'coderembassy-product-info-icons-images-text')); ?></th>
                             <td>
                                 <input type="text" name="cmfw_settings[heading_color]" value="<?php echo esc_attr($cmfw_heading_color); ?>" class="cmfw-color-picker" />
-                                <p class="description"><?php echo esc_html(__('Choose the color for the meta heading text.', 'coderembassy-product-info-icons-images-text')); ?></p>
+                                <p class="description"><?php echo esc_html(__('Choose the color for the product info heading text.', 'coderembassy-product-info-icons-images-text')); ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
