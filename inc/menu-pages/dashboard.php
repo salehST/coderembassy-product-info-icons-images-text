@@ -3,7 +3,7 @@ defined('ABSPATH') or die('Nice Try!');
 
 if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_nonce')) {
 
-
+    // Validation function
     function coderembassy_sanitize_recursive($data) {
         if (is_array($data)) {
             return array_map('coderembassy_sanitize_recursive', $data);
@@ -84,17 +84,17 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
     // Redirect back to the same page
     wp_redirect(admin_url('admin.php?page=coderembassy-product-info-icons-images-text'));
     exit;
+}
 
-    // Show settings reminder
-    $settings = get_option('cmfw_settings', array());
-    $enable_meta = isset($settings['enable_meta']) ? $settings['enable_meta'] : '1';
-    if ($enable_meta !== '1') {
-        echo '<div class="notice notice-warning is-dismissible"><p>' . sprintf(
-            esc_html__('Custom Meta is currently disabled. Enable it in Settings to display on product pages.', 'coderembassy-product-info-icons-images-text'),
-            '<a href="' . esc_url(admin_url('admin.php?page=coderembassy-meta-settings')) . '">',
-            '</a>'
-        ) . '</p></div>';
-    }
+// Show settings reminder
+$settings = get_option('cmfw_settings', array());
+$enable_meta = isset($settings['enable_meta']) ? $settings['enable_meta'] : '1';
+if ($enable_meta !== '1') {
+    echo '<div class="notice notice-warning is-dismissible"><p>' . sprintf(
+        esc_html__('Custom Meta is currently disabled. Enable it in Settings to display on product pages.', 'coderembassy-product-info-icons-images-text'),
+        '<a href="' . esc_url(admin_url('admin.php?page=coderembassy-meta-settings')) . '">',
+        '</a>'
+    ) . '</p></div>';
 }
 ?>
 
@@ -102,7 +102,7 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
     <div class="cmfw-groups">
         <h1><?php echo esc_html__('PRODUCT INFO Groups', 'coderembassy-product-info-icons-images-text'); ?></h1>
 
-        <form method="post" action="">
+        <form method="post" action="" id="cmfw-save-form">
             <?php wp_nonce_field('save_cmfw_data', 'cmfw_nonce'); ?>
             <div id="cmfw-groups-container"></div>
             <?php
@@ -113,6 +113,12 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
             <hr>
             <input type="submit" name="save_cmfw" class="button button-primary" value="<?php echo esc_attr__('Save', 'coderembassy-product-info-icons-images-text'); ?>">
         </form>
+        
+        <!-- Validation Error Display Area -->
+        <div id="cmfw-validation-errors" style="display: none;" class="notice notice-error is-dismissible">
+            <p><strong><?php echo esc_html__('Validation Errors:', 'coderembassy-product-info-icons-images-text'); ?></strong></p>
+            <ul id="cmfw-error-list"></ul>
+        </div>
     </div>
 
     <!-- Templates -->

@@ -470,7 +470,106 @@
       // Initialize button states
       updateAddGroupButtonState();
       updateAddItemButtonStates();
+      
+      // Initialize form validation
+      initializeFormValidation();
     });
+    
+    // Form validation function
+    function initializeFormValidation() {
+      // Form validation function
+      function validateForm() {
+        var errors = [];
+        var groups = $("#cmfw-groups-container .cmfw-group");
+        
+        // Check if any groups exist
+        if (groups.length === 0) {
+          errors.push("Please add at least one Product Info group before saving.");
+          return errors;
+        }
+        
+        // Validate each group
+        groups.each(function(groupIndex) {
+          var $group = $(this);
+          var groupNumber = groupIndex + 1;
+          
+          // Check taxonomy selection
+          var taxonomy = $group.find(".taxonomy-select").val();
+          if (!taxonomy) {
+            errors.push("Group " + groupNumber + ": Please select a taxonomy (Category or Tag).");
+          }
+          
+          // Check terms selection
+          var terms = $group.find(".selected-terms input[type=\"hidden\"]");
+          if (terms.length === 0) {
+            errors.push("Group " + groupNumber + ": Please select at least one term (category or tag).");
+          }
+          
+          // Check if items exist
+          var items = $group.find(".cmfw-item");
+          if (items.length === 0) {
+            errors.push("Group " + groupNumber + ": Please add at least one Product Info item.");
+          } else {
+            // Check item titles
+            items.each(function(itemIndex) {
+              var $item = $(this);
+              var itemNumber = itemIndex + 1;
+              var title = $item.find("input[name$=\"[title]\"]").val().trim();
+              
+              if (!title) {
+                errors.push("Group " + groupNumber + ", Item " + itemNumber + ": Product Info title cannot be empty.");
+              }
+            });
+          }
+        });
+        
+        return errors;
+      }
+      
+      // Handle form submission
+      $("#cmfw-save-form").on("submit", function(e) {
+        var errors = validateForm();
+        
+        if (errors.length > 0) {
+          e.preventDefault();
+          
+          // Hide any existing error messages
+          $("#cmfw-validation-errors").hide();
+          
+          // Display errors
+          var $errorList = $("#cmfw-error-list");
+          $errorList.empty();
+          
+          errors.forEach(function(error) {
+            $errorList.append("<li>" + error + "</li>");
+          });
+          
+          // Show error container
+          $("#cmfw-validation-errors").show();
+          
+          // Scroll to top to show errors
+          $("html, body").animate({
+            scrollTop: $("#cmfw-validation-errors").offset().top - 50
+          }, 500);
+          
+          return false;
+        }
+        
+        // If validation passes, allow form submission
+        return true;
+      });
+      
+      // Hide validation errors when user starts fixing them
+      $(document).on("change", ".taxonomy-select, input[name$=\"[title]\"]", function() {
+        $("#cmfw-validation-errors").hide();
+      });
+      
+      $(document).on("click", ".remove-term", function() {
+        setTimeout(function() {
+          $("#cmfw-validation-errors").hide();
+        }, 100);
+      });
+    }
     
     // Function to update Add Group button state
     function updateAddGroupButtonState() {
