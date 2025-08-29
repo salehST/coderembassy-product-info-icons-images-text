@@ -81,7 +81,9 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
 
     update_option('cmfw_groups', $cmfw_groups);
 
-    echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Custom Meta groups saved successfully!', 'coderembassy-product-info-icons-images-text') . '</p></div>';
+    // Redirect back to the same page
+    wp_redirect(admin_url('admin.php?page=coderembassy-product-info-icons-images-text'));
+    exit;
 
     // Show settings reminder
     $settings = get_option('cmfw_settings', array());

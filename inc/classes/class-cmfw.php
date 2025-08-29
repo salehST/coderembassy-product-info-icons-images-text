@@ -49,6 +49,8 @@ class CMFW
           add_action('wp_ajax_cmfw_get_image_url', [$this, 'ajax_get_image_url']);
           // Term search for taxonomy autocomplete
           add_action('wp_ajax_cmfw_term_search', [$this, 'ajax_term_search']);
+          // Get saved groups for form reload
+          add_action('wp_ajax_cmfw_get_saved_groups', [$this, 'ajax_get_saved_groups']);
      }
 
      /**
@@ -137,5 +139,40 @@ class CMFW
           }, $terms);
 
           wp_send_json($results);
+     }
+
+     /**
+      * AJAX handler to get saved groups for form reload
+      * @since 1.0.0
+      */
+     public function ajax_get_saved_groups()
+     {
+          // Verify nonce
+          if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'cmfw_ajax_nonce')) {
+               wp_die(esc_html__('Security check failed', 'coderembassy-product-info-icons-images-text'));
+          }
+
+          // Get saved groups
+          $saved_groups = get_option('cmfw_groups', []);
+
+          // Attach term names for pills
+          if (!empty($saved_groups)) {
+               foreach ($saved_groups as &$group) {
+                    $taxonomy = $group['taxonomy'] ?? '';
+                    $term_names = [];
+                    if (!empty($group['terms']) && taxonomy_exists($taxonomy)) {
+                         foreach ((array) $group['terms'] as $term_id) {
+                              $term_obj = get_term((int) $term_id, $taxonomy);
+                              if ($term_obj && !is_wp_error($term_obj)) {
+                                   $term_names[(int) $term_id] = esc_html($term_obj->name);
+                              }
+                         }
+                    }
+                    $group['term_names'] = $term_names;
+               }
+               unset($group);
+          }
+
+          wp_send_json_success($saved_groups);
      }
 }
