@@ -3,13 +3,24 @@ defined('ABSPATH') or die('Nice Try!');
 
 if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_nonce')) {
 
-    $raw_groups =  array_map('sanitize_text_field', wp_unslash($_POST['cmfw_groups'] ?? []));
+
+    function coderembassy_sanitize_recursive($data) {
+        if (is_array($data)) {
+            return array_map('coderembassy_sanitize_recursive', $data);
+        } else {
+            return sanitize_text_field($data);
+        }
+    }
+
+    $input_groups = filter_input( INPUT_POST, 'cmfw_groups', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+    $raw_groups   = $input_groups ? coderembassy_sanitize_recursive( $input_groups ) : [];
+
+   
     $cmfw_groups = [];
 
     // Check if PRO version is active for limits
     $pro_active = cmfw_is_pro_active();
 
-    // Apply limits for free version
     if (!$pro_active) {
         // Limit to 2 groups
         if (count($raw_groups) > 2) {
@@ -96,17 +107,17 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
             // Check if PRO version is active
             $pro_active = cmfw_is_pro_active();
 
-            if (!$pro_active) {
-                // Show limits for free version
-                echo '<div class="cmfw-limits-notice notice notice-info" style="margin: 15px 0; padding: 10px 15px; background: #e7f3ff; border-left: 4px solid #0073aa;">';
-                echo '<p><strong>' . esc_html__('Free Version Limits:', 'coderembassy-product-info-icons-images-text') . '</strong></p>';
-                echo '<ul style="margin: 5px 0; padding-left: 20px;">';
-                echo '<li>' . esc_html__('Maximum 2 groups allowed', 'coderembassy-product-info-icons-images-text') . '</li>';
-                echo '<li>' . esc_html__('Maximum 3 Product Info items per group', 'coderembassy-product-info-icons-images-text') . '</li>';
-                echo '</ul>';
-                echo '<p><em>' . esc_html__('Upgrade to PRO version to remove these limits!', 'coderembassy-product-info-icons-images-text') . '</em></p>';
-                echo '</div>';
-            }
+            // if (!$pro_active) {
+            //     // Show limits for free version
+            //     echo '<div class="cmfw-limits-notice notice notice-info" style="margin: 15px 0; padding: 10px 15px; background: #e7f3ff; border-left: 4px solid #0073aa;">';
+            //     echo '<p><strong>' . esc_html__('Free Version Limits:', 'coderembassy-product-info-icons-images-text') . '</strong></p>';
+            //     echo '<ul style="margin: 5px 0; padding-left: 20px;">';
+            //     echo '<li>' . esc_html__('Maximum 2 groups allowed', 'coderembassy-product-info-icons-images-text') . '</li>';
+            //     echo '<li>' . esc_html__('Maximum 3 Product Info items per group', 'coderembassy-product-info-icons-images-text') . '</li>';
+            //     echo '</ul>';
+            //     echo '<p><em>' . esc_html__('Upgrade to PRO version to remove these limits!', 'coderembassy-product-info-icons-images-text') . '</em></p>';
+            //     echo '</div>';
+            // }
             ?>
             <p><button type="button" class="button cmfw-add-group" <?php echo (!$pro_active && count(get_option('cmfw_groups', [])) >= 2) ? 'disabled' : ''; ?>><?php echo esc_html__('Add New Group', 'coderembassy-product-info-icons-images-text'); ?></button></p>
             <hr>
