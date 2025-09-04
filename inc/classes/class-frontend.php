@@ -228,14 +228,14 @@ class Frontend
         if ($enable_meta !== '1') {
             return;
         }
+    
+        $heading_color   = isset( $settings['heading_color'] )   ? sanitize_hex_color( $settings['heading_color'] )   : '#333333';
+        $heading_size    = isset( $settings['heading_size'] )    ? absint( $settings['heading_size'] )                : 18;
+        $meta_font_size  = isset( $settings['meta_font_size'] )  ? absint( $settings['meta_font_size'] )              : 14;
+        $meta_text_color = isset( $settings['meta_text_color'] ) ? sanitize_hex_color( $settings['meta_text_color'] ) : '#666666';
+        $meta_bg_color   = isset( $settings['meta_bg_color'] )   ? sanitize_hex_color( $settings['meta_bg_color'] )   : '#ffffff';
 
-        $heading_color   = $settings['heading_color']   ?? '#333333';
-        $heading_size    = $settings['heading_size']    ?? '18';
-        $meta_font_size  = $settings['meta_font_size']  ?? '14';
-        $meta_text_color = $settings['meta_text_color'] ?? '#666666';
-        $meta_bg_color   = $settings['meta_bg_color']   ?? '#ffffff';
-
-        $custom_css = "
+    $custom_css = "
         .cmfw-custom-meta-section {
             background-color: {$meta_bg_color};
             padding: 20px;
@@ -243,7 +243,7 @@ class Frontend
             border-radius: 5px;
             border: 1px solid #e0e0e0;
         }
-        
+
         .cmfw-meta-heading {
             color: {$heading_color};
             font-size: {$heading_size}px;
@@ -251,34 +251,34 @@ class Frontend
             font-weight: 600;
             line-height: 1.4;
         }
-        
+
         .cmfw-meta-groups {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
         }
-        
+
         .cmfw-meta-group {
             flex: 1;
             min-width: 200px;
         }
-        
+
         .cmfw-meta-item {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
             padding: 8px 0;
         }
-        
+
         .cmfw-meta-icon {
             color: {$meta_text_color};
-            font-size: " . ((int) $meta_font_size + 4) . "px;
+            font-size: " . ( $meta_font_size + 4 ) . "px;
             margin-right: 10px;
             width: 24px;
             height: 24px;
             flex-shrink: 0;
         }
-        
+
         .cmfw-meta-image {
             max-width: 24px;
             max-height: 24px;
@@ -286,14 +286,14 @@ class Frontend
             border-radius: 3px;
             flex-shrink: 0;
         }
-        
+
         .cmfw-meta-title {
             color: {$meta_text_color};
             font-size: {$meta_font_size}px;
             line-height: 1.5;
             font-weight: 400;
         }
-        
+
         @media (max-width: 768px) {
             .cmfw-meta-groups {
                 flex-direction: column;
