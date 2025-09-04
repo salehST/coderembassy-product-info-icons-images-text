@@ -107,9 +107,9 @@ if ($enable_meta !== '1') {
             <div id="cmfw-groups-container"></div>
             <?php
             // Check if PRO version is active
-            $pro_active = cmfw_is_pro_active();
+            // $pro_active = cmfw_is_pro_active();
             ?>
-            <p><button type="button" class="button cmfw-add-group" <?php echo (!$pro_active && count(get_option('cmfw_groups', [])) >= 2) ? 'disabled' : ''; ?>><?php echo esc_html__('Add New Group', 'coderembassy-product-info-icons-images-text'); ?></button></p>
+            <p><button type="button" class="button cmfw-add-group"><?php echo esc_html__('Add New Group', 'coderembassy-product-info-icons-images-text'); ?></button></p>
             <hr>
             <input type="submit" name="save_cmfw" class="button button-primary" value="<?php echo esc_attr__('Save', 'coderembassy-product-info-icons-images-text'); ?>">
         </form>

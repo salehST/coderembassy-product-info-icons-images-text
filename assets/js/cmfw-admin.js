@@ -21,13 +21,7 @@
 
     $(document.body).on('click', '.cmfw-add-group', function () {
       const currentGroups = $('#cmfw-groups-container .cmfw-group').length;
-      
-      // Check limits for free version
-      if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentGroups >= 2) {
-        alert('Free version limit: Maximum 2 groups allowed. Upgrade to PRO version to add more groups.');
-        return;
-      }
-      
+        
       const groupIndex = currentGroups;
       let groupHtml = $('#cmfw-group-template').html().replace(/_INDEX_/g, groupIndex);
       $('#cmfw-groups-container').append(groupHtml);
@@ -573,36 +567,7 @@
       });
     }
     
-    // Function to update Add Group button state
-    function updateAddGroupButtonState() {
-      const currentGroups = $('#cmfw-groups-container .cmfw-group').length;
-      const $addGroupBtn = $('.cmfw-add-group');
-      
-      if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentGroups >= 2) {
-        $addGroupBtn.prop('disabled', true).addClass('disabled');
-        $addGroupBtn.attr('title', 'Free version limit: Maximum 2 groups allowed. Upgrade to PRO version to add more groups.');
-      } else {
-        $addGroupBtn.prop('disabled', false).removeClass('disabled');
-        $addGroupBtn.attr('title', '');
-      }
-    }
-    
-    // Function to update Add Item button states
-    function updateAddItemButtonStates() {
-      $('#cmfw-groups-container .cmfw-group').each(function() {
-        const $group = $(this);
-        const currentItems = $group.find('.cmfw-item').length;
-        const $addItemBtn = $group.find('.cmfw-add-item');
-        
-        // if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentItems >= 3) {
-        //   $addItemBtn.prop('disabled', true).addClass('disabled');
-        //   $addItemBtn.attr('title', 'Free version limit: Maximum 3 Product Info items per group. Upgrade to PRO version to add more items.');
-        // } else {
-        //   $addItemBtn.prop('disabled', false).removeClass('disabled');
-        //   $addItemBtn.attr('title', '');
-        // }
-      });
-    }
+
 
   });
 })(jQuery);
