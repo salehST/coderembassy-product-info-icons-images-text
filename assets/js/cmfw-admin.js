@@ -52,10 +52,12 @@
       const currentItems = $group.find('.cmfw-item').length;
       
       // Check limits for free version
+      /*
       if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentItems >= 3) {
         alert('Free version limit: Maximum 3 Product Info items per group. Upgrade to PRO version to add more items.');
         return;
       }
+      */
       
       const itemIndex = currentItems;
       let itemHtml = $('#cmfw-item-template').html()
@@ -592,13 +594,13 @@
         const currentItems = $group.find('.cmfw-item').length;
         const $addItemBtn = $group.find('.cmfw-add-item');
         
-        if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentItems >= 3) {
-          $addItemBtn.prop('disabled', true).addClass('disabled');
-          $addItemBtn.attr('title', 'Free version limit: Maximum 3 Product Info items per group. Upgrade to PRO version to add more items.');
-        } else {
-          $addItemBtn.prop('disabled', false).removeClass('disabled');
-          $addItemBtn.attr('title', '');
-        }
+        // if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentItems >= 3) {
+        //   $addItemBtn.prop('disabled', true).addClass('disabled');
+        //   $addItemBtn.attr('title', 'Free version limit: Maximum 3 Product Info items per group. Upgrade to PRO version to add more items.');
+        // } else {
+        //   $addItemBtn.prop('disabled', false).removeClass('disabled');
+        //   $addItemBtn.attr('title', '');
+        // }
       });
     }
 

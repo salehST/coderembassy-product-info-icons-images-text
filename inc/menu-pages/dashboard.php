@@ -21,13 +21,13 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
     // Check if PRO version is active for limits
     $pro_active = cmfw_is_pro_active();
 
-    if (!$pro_active) {
-        // Limit to 2 groups
-        if (count($raw_groups) > 2) {
-            $raw_groups = array_slice($raw_groups, 0, 2);
-            echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__('Free version limit: Only first 2 groups will be saved. Upgrade to PRO version to add more groups.', 'coderembassy-product-info-icons-images-text') . '</p></div>';
-        }
-    }
+    // if (!$pro_active) {
+    //     // Limit to 2 groups
+    //     if (count($raw_groups) > 2) {
+    //         $raw_groups = array_slice($raw_groups, 0, 2);
+    //         echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__('Free version limit: Only first 2 groups will be saved. Upgrade to PRO version to add more groups.', 'coderembassy-product-info-icons-images-text') . '</p></div>';
+    //     }
+    // }
 
     if (is_array($raw_groups)) {
         foreach ($raw_groups as $group) {

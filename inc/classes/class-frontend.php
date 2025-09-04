@@ -235,77 +235,77 @@ class Frontend
         $meta_text_color = isset( $settings['meta_text_color'] ) ? sanitize_hex_color( $settings['meta_text_color'] ) : '#666666';
         $meta_bg_color   = isset( $settings['meta_bg_color'] )   ? sanitize_hex_color( $settings['meta_bg_color'] )   : '#ffffff';
 
-    $custom_css = "
-        .cmfw-custom-meta-section {
-            background-color: {$meta_bg_color};
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-            border: 1px solid #e0e0e0;
-        }
+        $custom_css = "
+            .cmfw-custom-meta-section {git 
+                background-color: {$meta_bg_color};
+                padding: 20px;
+                margin: 20px 0;
+                border-radius: 5px;
+                border: 1px solid #e0e0e0;
+            }
 
-        .cmfw-meta-heading {
-            color: {$heading_color};
-            font-size: {$heading_size}px;
-            margin: 0 0 15px 0;
-            font-weight: 600;
-            line-height: 1.4;
-        }
+            .cmfw-meta-heading {
+                color: {$heading_color};
+                font-size: {$heading_size}px;
+                margin: 0 0 15px 0;
+                font-weight: 600;
+                line-height: 1.4;
+            }
 
-        .cmfw-meta-groups {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .cmfw-meta-group {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .cmfw-meta-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 8px 0;
-        }
-
-        .cmfw-meta-icon {
-            color: {$meta_text_color};
-            font-size: " . ( $meta_font_size + 4 ) . "px;
-            margin-right: 10px;
-            width: 24px;
-            height: 24px;
-            flex-shrink: 0;
-        }
-
-        .cmfw-meta-image {
-            max-width: 24px;
-            max-height: 24px;
-            margin-right: 10px;
-            border-radius: 3px;
-            flex-shrink: 0;
-        }
-
-        .cmfw-meta-title {
-            color: {$meta_text_color};
-            font-size: {$meta_font_size}px;
-            line-height: 1.5;
-            font-weight: 400;
-        }
-
-        @media (max-width: 768px) {
             .cmfw-meta-groups {
-                flex-direction: column;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
             }
+
             .cmfw-meta-group {
-                min-width: 100%;
+                flex: 1;
+                min-width: 200px;
             }
-            .cmfw-custom-meta-section {
-                padding: 15px;
+
+            .cmfw-meta-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+                padding: 8px 0;
             }
-        }
-    ";
+
+            .cmfw-meta-icon {
+                color: {$meta_text_color};
+                font-size: " . ( $meta_font_size + 4 ) . "px;
+                margin-right: 10px;
+                width: 24px;
+                height: 24px;
+                flex-shrink: 0;
+            }
+
+            .cmfw-meta-image {
+                max-width: 24px;
+                max-height: 24px;
+                margin-right: 10px;
+                border-radius: 3px;
+                flex-shrink: 0;
+            }
+
+            .cmfw-meta-title {
+                color: {$meta_text_color};
+                font-size: {$meta_font_size}px;
+                line-height: 1.5;
+                font-weight: 400;
+            }
+
+            @media (max-width: 768px) {
+                .cmfw-meta-groups {
+                    flex-direction: column;
+                }
+                .cmfw-meta-group {
+                    min-width: 100%;
+                }
+                .cmfw-custom-meta-section {
+                    padding: 15px;
+                }
+            }
+        ";
 
         // Attach inline CSS to your already registered/enqueued frontend stylesheet
         wp_add_inline_style('cmfw-frontend-css', $custom_css);
