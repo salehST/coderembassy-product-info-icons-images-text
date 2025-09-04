@@ -64,7 +64,10 @@ class Frontend
         }
 
         // Add hook for displaying custom meta
-        add_action($position, [$this, 'display_custom_meta'], $priority);
+        // add_action($position, [$this, 'display_custom_meta'], $priority);
+
+        add_action('woocommerce_after_add_to_cart_button', [$this, 'display_custom_meta'], 10);
+
 
         // Add inline styles
         add_action('wp_enqueue_scripts', [$this, 'add_inline_styles'], 20);

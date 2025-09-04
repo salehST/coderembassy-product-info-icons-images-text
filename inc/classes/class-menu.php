@@ -146,7 +146,7 @@ class Menu
         );
         $sanitized['meta_position'] = isset($input['meta_position']) && in_array($input['meta_position'], $allowed_positions) 
             ? $input['meta_position'] 
-            : 'woocommerce_after_add_to_cart_button';
+            : 'woocommerce_product_meta_end';
 
         // Sanitize meta_heading
         $sanitized['meta_heading'] = isset($input['meta_heading']) 

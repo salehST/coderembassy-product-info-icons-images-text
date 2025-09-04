@@ -45,13 +45,7 @@ $cmfw_meta_bg_color = isset($cmfw_settings['meta_bg_color']) ? $cmfw_settings['m
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Product Info Position', 'coderembassy-product-info-icons-images-text')); ?></th>
-                            <td>
-                                <select name="cmfw_settings[meta_position]">
-                                    <option value="woocommerce_after_add_to_cart_button" <?php selected($cmfw_meta_position, 'woocommerce_after_add_to_cart_button'); ?>><?php echo esc_html(__('After Cart Button', 'coderembassy-product-info-icons-images-text')); ?></option>    
-                                </select>
-                                <p class="description"><?php echo esc_html(__('Choose where to display the Product Info on product pages.', 'coderembassy-product-info-icons-images-text')); ?></p>
-                            </td>
+                           
                         </tr>
                         <tr valign="top">
                             <th scope="row"><?php echo esc_html(__('Product Info Heading', 'coderembassy-product-info-icons-images-text')); ?></th>

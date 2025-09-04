@@ -20,10 +20,10 @@
     }
 
     $(document.body).on('click', '.cmfw-add-group', function () {
-      const currentGroups = $('#cmfw-groups-container .cmfw-group').length;
-        
+      const currentGroups = $('#cmfw-groups-container .cmfw-group').length; 
       const groupIndex = currentGroups;
       let groupHtml = $('#cmfw-group-template').html().replace(/_INDEX_/g, groupIndex);
+
       $('#cmfw-groups-container').append(groupHtml);
       reindexAll();
       
