@@ -228,16 +228,16 @@ class Frontend
         if ($enable_meta !== '1') {
             return;
         }
-    
-        $heading_color   = isset( $settings['heading_color'] )   ? sanitize_hex_color( $settings['heading_color'] )   : '#333333';
-        $heading_size    = isset( $settings['heading_size'] )    ? absint( $settings['heading_size'] )                : 18;
-        $meta_font_size  = isset( $settings['meta_font_size'] )  ? absint( $settings['meta_font_size'] )              : 14;
-        $meta_text_color = isset( $settings['meta_text_color'] ) ? sanitize_hex_color( $settings['meta_text_color'] ) : '#666666';
-        $meta_bg_color   = isset( $settings['meta_bg_color'] )   ? sanitize_hex_color( $settings['meta_bg_color'] )   : '#ffffff';
 
-    $custom_css = "
+        $heading_color   = isset($settings['heading_color'])   ? sanitize_hex_color($settings['heading_color'])   : '#333333';
+        $heading_size    = isset($settings['heading_size'])    ? absint($settings['heading_size'])                : 18;
+        $meta_font_size  = isset($settings['meta_font_size'])  ? absint($settings['meta_font_size'])              : 14;
+        $meta_text_color = isset($settings['meta_text_color']) ? sanitize_hex_color($settings['meta_text_color']) : '#666666';
+        $meta_bg_color   = isset($settings['meta_bg_color'])   ? sanitize_hex_color($settings['meta_bg_color'])   : '#ffffff';
+
+        $custom_css = "
         .cmfw-custom-meta-section {
-            background-color: {$meta_bg_color};
+            background-color: " . esc_attr($meta_bg_color) . ";
             padding: 20px;
             margin: 20px 0;
             border-radius: 5px;
@@ -245,8 +245,8 @@ class Frontend
         }
 
         .cmfw-meta-heading {
-            color: {$heading_color};
-            font-size: {$heading_size}px;
+            color: " . esc_attr($heading_color) . ";
+            font-size: " . esc_attr($heading_size) . "px;
             margin: 0 0 15px 0;
             font-weight: 600;
             line-height: 1.4;
@@ -271,8 +271,8 @@ class Frontend
         }
 
         .cmfw-meta-icon {
-            color: {$meta_text_color};
-            font-size: " . ( $meta_font_size + 4 ) . "px;
+            color: " . esc_attr($meta_text_color) . ";
+            font-size: " . esc_attr($meta_font_size + 4) . "px;
             margin-right: 10px;
             width: 24px;
             height: 24px;
@@ -288,8 +288,8 @@ class Frontend
         }
 
         .cmfw-meta-title {
-            color: {$meta_text_color};
-            font-size: {$meta_font_size}px;
+            color: " . esc_attr( $meta_text_color ) . ";
+            font-size: " . esc_attr( $meta_font_size ) . "px;
             line-height: 1.5;
             font-weight: 400;
         }
