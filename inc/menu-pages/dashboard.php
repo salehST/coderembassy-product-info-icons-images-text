@@ -40,12 +40,7 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
             }
 
             if (!empty($group['items']) && is_array($group['items'])) {
-                // Apply limits for free version
-                if (!$pro_active && count($group['items']) > 3) {
-                    $group['items'] = array_slice($group['items'], 0, 3);
-                    echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__('Free version limit: Only first 3 Product Info items per group will be saved. Upgrade to PRO version to add more items.', 'coderembassy-product-info-icons-images-text') . '</p></div>';
-                }
-
+            
                 foreach ($group['items'] as $item) {
                     $title = sanitize_text_field($item['title'] ?? '');
                     $icon = sanitize_text_field($item['icon'] ?? '');
