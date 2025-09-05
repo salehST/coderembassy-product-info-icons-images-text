@@ -44,18 +44,10 @@ $cmfw_meta_bg_color = isset($cmfw_settings['meta_bg_color']) ? $cmfw_settings['m
                                 <p class="description"><?php echo esc_html(__('Check this to enable the Product Info functionality.', 'coderembassy-product-info-icons-images-text')); ?></p>
                             </td>
                         </tr>
-                        <tr valign="top">
-                            <th scope="row"><?php echo esc_html(__('Product Info Position', 'coderembassy-product-info-icons-images-text')); ?></th>
-                            <td>
-                                <select name="cmfw_settings[meta_position]">
-                                    <option value="woocommerce_after_add_to_cart_button" <?php selected($cmfw_meta_position, 'woocommerce_after_add_to_cart_button'); ?>><?php echo esc_html(__('After Cart Button', 'coderembassy-product-info-icons-images-text')); ?></option>
-                                    <option value="woocommerce_product_meta_end" <?php selected($cmfw_meta_position, 'woocommerce_product_meta_end'); ?>><?php echo esc_html(__('After Meta', 'coderembassy-product-info-icons-images-text')); ?></option>
-                                    <option value="woocommerce_after_single_product_summary" <?php selected($cmfw_meta_position, 'woocommerce_after_single_product_summary'); ?>><?php echo esc_html(__('After Summary', 'coderembassy-product-info-icons-images-text')); ?></option>
-                                    <option value="woocommerce_after_single_product" <?php selected($cmfw_meta_position, 'woocommerce_after_single_product'); ?>><?php echo esc_html(__('After Single product', 'coderembassy-product-info-icons-images-text')); ?></option>     
-                                </select>
-                                <p class="description"><?php echo esc_html(__('Choose where to display the Product Info on product pages.', 'coderembassy-product-info-icons-images-text')); ?></p>
-                            </td>
-                        </tr>
+                        <?php
+                        // Allow pro version to add position setting
+                        do_action('cmfw_pro_position_setting', $cmfw_meta_position);
+                        ?>
                         <tr valign="top">
                             <th scope="row"><?php echo esc_html(__('Product Info Heading', 'coderembassy-product-info-icons-images-text')); ?></th>
                             <td>

@@ -138,15 +138,17 @@ class Menu
         $sanitized['enable_meta'] = isset($input['enable_meta']) ? '1' : '0';
 
         // Sanitize meta_position
-        $allowed_positions = array(
-            'woocommerce_after_add_to_cart_button',
-            'woocommerce_product_meta_end',
-            'woocommerce_after_single_product_summary',
-            'woocommerce_after_single_product'
-        );
-        $sanitized['meta_position'] = isset($input['meta_position']) && in_array($input['meta_position'], $allowed_positions) 
-            ? $input['meta_position'] 
-            : 'woocommerce_after_add_to_cart_button';
+        $allowed_positions = apply_filters('cmfw_allowed_positions', array(
+            'woocommerce_after_add_to_cart_button'
+        ));
+        
+        // For free version, always use 'After Cart Button' position
+        $sanitized['meta_position'] = 'woocommerce_after_add_to_cart_button';
+        
+        // Allow pro version to override the position
+        if (isset($input['meta_position']) && in_array($input['meta_position'], $allowed_positions)) {
+            $sanitized['meta_position'] = $input['meta_position'];
+        }
 
         // Sanitize meta_heading
         $sanitized['meta_heading'] = isset($input['meta_heading']) 
