@@ -605,5 +605,39 @@
       });
     }
 
+    // Dashboard validation and visual feedback
+    // Add validation before form submission
+    $('#cmfw-save-form').on('submit', function(e) {
+        var hasValidItems = false;
+        
+        // Check all title inputs - at least one must have a title
+        $('input[name*="[title]"]').each(function() {
+            var title = $(this).val().trim();
+            if (title !== '') {
+                hasValidItems = true;
+            }
+        });
+        
+        if (!hasValidItems) {
+            e.preventDefault();
+            alert('Please enter at least one title before saving.');
+            return false;
+        }
+        
+        return true;
+    });
+    
+    // Add visual feedback for empty title fields
+    $('input[name*="[title]"]').on('blur', function() {
+        var $input = $(this);
+        var $item = $input.closest('.cmfw-item, .cmfw-free-item');
+        
+        if ($input.val().trim() === '') {
+            $item.addClass('cmfw-item-empty');
+        } else {
+            $item.removeClass('cmfw-item-empty');
+        }
+    });
+
   });
 })(jQuery);
