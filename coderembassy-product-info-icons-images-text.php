@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name:       CodersEmbassy Product Info Icons Images Text
+ * Plugin Name:       CoderEmbassy Product Info Icons Images Text
  * Description:       CoderEmbassy Product Info: Add icons, images & custom text to product pages. Boost WooCommerce conversions with enhanced product information display.
  * Version:           1.0.0
  * Author:            codersaleh
