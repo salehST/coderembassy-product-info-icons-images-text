@@ -3,6 +3,47 @@ button.faq-add-question.button.button-primary {
     margin-top: 10px;
     margin-left: 15px;
   }
+
+  /* Free version specific styles */
+  .cmfw-free-version-group {
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #f9f9f9;
+  }
+
+  .cmfw-free-version-group h2 {
+    color: #0073aa;
+    margin-top: 0;
+  }
+
+  .cmfw-free-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: white;
+  }
+
+  .cmfw-free-item h4 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .cmfw-pro-group-features {
+    background: #e8f4fd;
+    border: 1px solid #0073aa;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  .cmfw-pro-group-actions {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+  }
   
   .option-group-wrapper p.faq-note span {
     color: red;
