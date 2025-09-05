@@ -96,6 +96,11 @@ if ($enable_meta !== '1') {
         // Get saved groups or create default structure
         $saved_groups = cmfw_get_groups();
         $dashboard_config = cmfw_get_dashboard_config();
+        
+        // Ensure we have at least one group for free version
+        if (!$pro_active && empty($saved_groups)) {
+            $saved_groups = cmfw_apply_free_version_structure([]);
+        }
         ?>
 
         <form method="post" action="" id="cmfw-save-form">
@@ -109,7 +114,8 @@ if ($enable_meta !== '1') {
                         
                         <?php
                         // Allow pro version to add content before the group
-                        do_action('cmfw_before_group_content', 0, $saved_groups[0] ?? []);
+                        $first_group = $saved_groups[0] ?? [];
+                        do_action('cmfw_before_group_content', 0, $first_group);
                         ?>
                         
                         <table class="form-table">
@@ -118,20 +124,20 @@ if ($enable_meta !== '1') {
                                 <td>
                                     <select class="taxonomy-select" name="cmfw_groups[0][taxonomy]">
                                         <option value=""><?php echo esc_html__('Select taxonomy', 'coderembassy-product-info-icons-images-text'); ?></option>
-                                        <option value="product_cat" <?php selected($saved_groups[0]['taxonomy'] ?? '', 'product_cat'); ?>><?php echo esc_html__('Category', 'coderembassy-product-info-icons-images-text'); ?></option>
-                                        <option value="product_tag" <?php selected($saved_groups[0]['taxonomy'] ?? '', 'product_tag'); ?>><?php echo esc_html__('Tag', 'coderembassy-product-info-icons-images-text'); ?></option>
+                                        <option value="product_cat" <?php selected($first_group['taxonomy'] ?? '', 'product_cat'); ?>><?php echo esc_html__('Category', 'coderembassy-product-info-icons-images-text'); ?></option>
+                                        <option value="product_tag" <?php selected($first_group['taxonomy'] ?? '', 'product_tag'); ?>><?php echo esc_html__('Tag', 'coderembassy-product-info-icons-images-text'); ?></option>
                                     </select>
                                 </td>
                             </tr>
-                            <tr class="term-row" style="<?php echo !empty($saved_groups[0]['taxonomy']) ? '' : 'display:none;'; ?>">
+                            <tr class="term-row" style="<?php echo !empty($first_group['taxonomy']) ? '' : 'display:none;'; ?>">
                                 <th scope="row"><label><?php echo esc_html__('Terms', 'coderembassy-product-info-icons-images-text'); ?></label></th>
                                 <td>
                                     <input type="text" class="term-search regular-text" name="" placeholder="<?php echo esc_attr__('Search terms...', 'coderembassy-product-info-icons-images-text'); ?>" />
                                     <div class="selected-terms">
                                         <?php
-                                        if (!empty($saved_groups[0]['terms'])) {
-                                            $taxonomy = $saved_groups[0]['taxonomy'] ?? '';
-                                            foreach ($saved_groups[0]['terms'] as $term_id) {
+                                        if (!empty($first_group['terms'])) {
+                                            $taxonomy = $first_group['taxonomy'] ?? '';
+                                            foreach ($first_group['terms'] as $term_id) {
                                                 $term_obj = get_term((int) $term_id, $taxonomy);
                                                 if ($term_obj && !is_wp_error($term_obj)) {
                                                     echo '<span class="term-pill" style="display:inline-block; margin:3px; padding:3px 8px; background:#f1f1f1; border:1px solid #ccc; border-radius:20px;">';
@@ -150,7 +156,7 @@ if ($enable_meta !== '1') {
                         
                         <div class="cmfw-items">
                             <?php
-                            $items = $saved_groups[0]['items'] ?? [];
+                            $items = $first_group['items'] ?? [];
                             for ($i = 0; $i < 3; $i++):
                                 $item = $items[$i] ?? ['title' => '', 'icon' => '', 'image_id' => 0];
                             ?>
@@ -207,15 +213,15 @@ if ($enable_meta !== '1') {
                         
                         <?php
                         // Allow pro version to add content after the group
-                        do_action('cmfw_after_group_content', 0, $saved_groups[0] ?? []);
+                        do_action('cmfw_after_group_content', 0, $first_group);
                         ?>
                     </div>
                 <?php else: ?>
                     <!-- Pro version: Dynamic structure -->
-                    <?php
+            <?php
                     // Allow pro version to render its own dashboard
                     do_action('cmfw_pro_dashboard_content', $saved_groups, $dashboard_config);
-                    ?>
+            ?>
                 <?php endif; ?>
             </div>
             <hr>

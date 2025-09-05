@@ -24,11 +24,30 @@ button.faq-add-question.button.button-primary {
     padding: 15px;
     margin-bottom: 15px;
     background: white;
+    width: calc(49% - 7.5px);
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+  }
+
+  .cmfw-free-item:nth-child(odd) {
+    margin-right: 15px;
+  }
+
+  .cmfw-free-item:nth-child(even) {
+    margin-right: 0;
   }
 
   .cmfw-free-item h4 {
     margin-top: 0;
     color: #333;
+  }
+
+  .cmfw-item.cmfw-free-item .cmfw-fields{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    gap: 16px;
+    align-items: start;
   }
 
   .cmfw-pro-group-features {
