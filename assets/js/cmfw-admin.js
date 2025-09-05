@@ -337,8 +337,6 @@
     }
 
     // WordPress Media Library Integration for Image Upload
-    var cmfwMediaFrame;
-
     // Click image area to open media frame
     $("#cmfw-groups-container").on("click", ".cmfw-image-preview.cmfw-clickable", function(e) {
       e.preventDefault();
@@ -350,14 +348,8 @@
       const $noImage = $container.find('.cmfw-no-image');
       const $img = $preview.find('img');
 
-      // If the media frame already exists, reopen it
-      if (cmfwMediaFrame) {
-        cmfwMediaFrame.open();
-        return;
-      }
-
-      // Create the media frame
-      cmfwMediaFrame = wp.media({
+      // Create a new media frame for this specific picker
+      const mediaFrame = wp.media({
         title: cmfwAjax.media_title,
         button: {
           text: cmfwAjax.media_button
@@ -369,8 +361,8 @@
       });
 
       // When an image is selected, run a callback
-      cmfwMediaFrame.on('select', function() {
-        const attachment = cmfwMediaFrame.state().get('selection').first().toJSON();
+      mediaFrame.on('select', function() {
+        const attachment = mediaFrame.state().get('selection').first().toJSON();
         
         // Set the attachment ID
         $input.val(attachment.id);
@@ -380,9 +372,13 @@
           ? attachment.sizes.thumbnail.url
           : attachment.url;
         
+        // Update the image source and show it
         $img.attr('src', imageUrl).show();
         $noImage.hide();
         $removeBtn.show();
+        
+        // Update the container's data attribute
+        $container.attr('data-image-id', attachment.id);
         // Clear icon and update exclusivity
         const $item = $container.closest('.cmfw-item');
         $item.find('.cmfw-icon-value').val('');
@@ -391,7 +387,7 @@
       });
 
       // Open the media frame
-      cmfwMediaFrame.open();
+      mediaFrame.open();
     });
 
     // Handle image removal
@@ -412,6 +408,9 @@
       $img.hide().attr('src', '');
       $noImage.show();
       $button.hide();
+      
+      // Clear the container's data attribute
+      $container.attr('data-image-id', '');
       const $item = $button.closest('.cmfw-item');
       updateExclusivity($item);
     });

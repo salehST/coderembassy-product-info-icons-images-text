@@ -182,13 +182,10 @@ if ($enable_meta !== '1') {
                                             <div class="cmfw-image-picker-container" data-image-id="<?php echo esc_attr($item['image_id']); ?>">
                                                 <input type="hidden" name="cmfw_groups[0][items][<?php echo $i; ?>][image_id]" class="cmfw-image-value" value="<?php echo esc_attr($item['image_id']); ?>" />
                                                 <div class="cmfw-image-preview cmfw-clickable" style="display: inline-block; margin-right: 10px; vertical-align: top;">
-                                                    <?php if (!empty($item['image_id'])): ?>
-                                                        <?php echo wp_get_attachment_image($item['image_id'], 'thumbnail', false, ['style' => 'max-width: 100px; max-height: 100px; border: 1px solid #ddd; border-radius: 4px;']); ?>
-                                                    <?php else: ?>
-                                                        <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
-                                                            <?php echo esc_html__('No image selected', 'coderembassy-product-info-icons-images-text'); ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                    <img src="<?php echo !empty($item['image_id']) ? wp_get_attachment_image_url($item['image_id'], 'thumbnail') : ''; ?>" alt="Preview" style="max-width: 100px; max-height: 100px; border: 1px solid #ddd; border-radius: 4px; <?php echo !empty($item['image_id']) ? '' : 'display: none;'; ?>" />
+                                                    <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: <?php echo !empty($item['image_id']) ? 'none' : 'flex'; ?>; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
+                                                        <?php echo esc_html__('No image selected', 'coderembassy-product-info-icons-images-text'); ?>
+                                                    </div>
                                                 </div>
                                                 <div style="display: inline-block; vertical-align: top;">
                                                     <button type="button" class="button cmfw-remove-image" style="<?php echo !empty($item['image_id']) ? '' : 'display: none;'; ?> margin-left: 5px;">&times;</button>
