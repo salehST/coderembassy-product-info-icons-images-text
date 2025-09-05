@@ -145,7 +145,7 @@ if ($enable_meta !== '1') {
             <div class="cmfw-excl-note"><?php echo esc_html__('Tip: Choose either an icon or an image (not both).', 'coderembassy-product-info-icons-images-text'); ?></div>
             <p>
                 <label><?php echo esc_html__('Title', 'coderembassy-product-info-icons-images-text'); ?><br>
-                    <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][title]" class="regular-text" />
+                    <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][0][title]" class="regular-text" />
                 </label>
             </p>
             <p class="cmfw-choose-note"><?php echo esc_html__('Select icon or image', 'coderembassy-product-info-icons-images-text'); ?></p>
@@ -153,7 +153,7 @@ if ($enable_meta !== '1') {
                 <div class="cmfw-field">
                     <label><?php echo esc_html__('Icon', 'coderembassy-product-info-icons-images-text'); ?><br>
                         <div class="cmfw-icon-picker-container">
-                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][icon]" class="cmfw-icon-value" />
+                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][0][icon]" class="cmfw-icon-value" />
                             <div class="cmfw-icon-preview cmfw-clickable" style="display: inline-block; margin-right: 10px;">
                                 <span class="dashicons" style="display:none; font-size: 24px; width: 24px; height: 24px;"></span>
                                 <div class="cmfw-no-icon" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
@@ -169,7 +169,7 @@ if ($enable_meta !== '1') {
                 <div class="cmfw-field">
                     <label><?php echo esc_html__('Image', 'coderembassy-product-info-icons-images-text'); ?><br>
                         <div class="cmfw-image-picker-container">
-                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][image_id]" class="cmfw-image-value" />
+                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][0][image_id]" class="cmfw-image-value" />
                             <div class="cmfw-image-preview cmfw-clickable" style="display: inline-block; margin-right: 10px; vertical-align: top;">
                                 <img src="" alt="Preview" style="max-width: 100px; max-height: 100px; display: none; border: 1px solid #ddd; border-radius: 4px;" />
                                 <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
@@ -191,7 +191,7 @@ if ($enable_meta !== '1') {
             <div class="cmfw-excl-note"><?php echo esc_html__('Tip: Choose either an icon or an image (not both).', 'coderembassy-product-info-icons-images-text'); ?></div>
             <p>
                 <label><?php echo esc_html__('Title', 'coderembassy-product-info-icons-images-text'); ?><br>
-                    <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][title]" class="regular-text" />
+                    <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][1][title]" class="regular-text" />
                 </label>
             </p>
             <p class="cmfw-choose-note"><?php echo esc_html__('Select icon or image', 'coderembassy-product-info-icons-images-text'); ?></p>
@@ -199,7 +199,7 @@ if ($enable_meta !== '1') {
                 <div class="cmfw-field">
                     <label><?php echo esc_html__('Icon', 'coderembassy-product-info-icons-images-text'); ?><br>
                         <div class="cmfw-icon-picker-container">
-                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][icon]" class="cmfw-icon-value" />
+                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][1][icon]" class="cmfw-icon-value" />
                             <div class="cmfw-icon-preview cmfw-clickable" style="display: inline-block; margin-right: 10px;">
                                 <span class="dashicons" style="display:none; font-size: 24px; width: 24px; height: 24px;"></span>
                                 <div class="cmfw-no-icon" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
@@ -215,7 +215,7 @@ if ($enable_meta !== '1') {
                 <div class="cmfw-field">
                     <label><?php echo esc_html__('Image', 'coderembassy-product-info-icons-images-text'); ?><br>
                         <div class="cmfw-image-picker-container">
-                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][image_id]" class="cmfw-image-value" />
+                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][1][image_id]" class="cmfw-image-value" />
                             <div class="cmfw-image-preview cmfw-clickable" style="display: inline-block; margin-right: 10px; vertical-align: top;">
                                 <img src="" alt="Preview" style="max-width: 100px; max-height: 100px; display: none; border: 1px solid #ddd; border-radius: 4px;" />
                                 <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
@@ -238,7 +238,7 @@ if ($enable_meta !== '1') {
             <div class="cmfw-excl-note"><?php echo esc_html__('Tip: Choose either an icon or an image (not both).', 'coderembassy-product-info-icons-images-text'); ?></div>
             <p>
                 <label><?php echo esc_html__('Title', 'coderembassy-product-info-icons-images-text'); ?><br>
-                    <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][title]" class="regular-text" />
+                    <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][2][title]" class="regular-text" />
                 </label>
             </p>
             <p class="cmfw-choose-note"><?php echo esc_html__('Select icon or image', 'coderembassy-product-info-icons-images-text'); ?></p>
@@ -246,7 +246,7 @@ if ($enable_meta !== '1') {
                 <div class="cmfw-field">
                     <label><?php echo esc_html__('Icon', 'coderembassy-product-info-icons-images-text'); ?><br>
                         <div class="cmfw-icon-picker-container">
-                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][icon]" class="cmfw-icon-value" />
+                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][2][icon]" class="cmfw-icon-value" />
                             <div class="cmfw-icon-preview cmfw-clickable" style="display: inline-block; margin-right: 10px;">
                                 <span class="dashicons" style="display:none; font-size: 24px; width: 24px; height: 24px;"></span>
                                 <div class="cmfw-no-icon" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
@@ -262,7 +262,7 @@ if ($enable_meta !== '1') {
                 <div class="cmfw-field">
                     <label><?php echo esc_html__('Image', 'coderembassy-product-info-icons-images-text'); ?><br>
                         <div class="cmfw-image-picker-container">
-                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][image_id]" class="cmfw-image-value" />
+                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][2][image_id]" class="cmfw-image-value" />
                             <div class="cmfw-image-preview cmfw-clickable" style="display: inline-block; margin-right: 10px; vertical-align: top;">
                                 <img src="" alt="Preview" style="max-width: 100px; max-height: 100px; display: none; border: 1px solid #ddd; border-radius: 4px;" />
                                 <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
@@ -278,53 +278,7 @@ if ($enable_meta !== '1') {
                 </div>
             </div>
         </div>
-      
-        <!--  item four-->
-        <div class="cmfw-item cmfw-archive-cm-item">
-        <button type="button" class="button cmfw-remove-item cmfw-archive-remove-cm-item" title="<?php echo esc_attr__('Remove Item', 'coderembassy-product-info-icons-images-text'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
-        <div class="cmfw-excl-note"><?php echo esc_html__('Tip: Choose either an icon or an image (not both).', 'coderembassy-product-info-icons-images-text'); ?></div>
-        <p>
-            <label><?php echo esc_html__('Title', 'coderembassy-product-info-icons-images-text'); ?><br>
-                <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][title]" class="regular-text" />
-            </label>
-        </p>
-        <p class="cmfw-choose-note"><?php echo esc_html__('Select icon or image', 'coderembassy-product-info-icons-images-text'); ?></p>
-        <div class="cmfw-fields">
-            <div class="cmfw-field">
-                <label><?php echo esc_html__('Icon', 'coderembassy-product-info-icons-images-text'); ?><br>
-                    <div class="cmfw-icon-picker-container">
-                        <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][icon]" class="cmfw-icon-value" />
-                        <div class="cmfw-icon-preview cmfw-clickable" style="display: inline-block; margin-right: 10px;">
-                            <span class="dashicons" style="display:none; font-size: 24px; width: 24px; height: 24px;"></span>
-                            <div class="cmfw-no-icon" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
-                                <?php echo esc_html__('No icon selected', 'coderembassy-product-info-icons-images-text'); ?>
-                            </div>
-                        </div>
-                        <div style="display: inline-block; vertical-align: top;">
-                            <button type="button" class="button cmfw-remove-icon" style="display:none; margin-left:5px;">&times;</button>
-                        </div>
-                    </div>
-                </label>
-            </div>
-            <div class="cmfw-field">
-                <label><?php echo esc_html__('Image', 'coderembassy-product-info-icons-images-text'); ?><br>
-                    <div class="cmfw-image-picker-container">
-                        <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][image_id]" class="cmfw-image-value" />
-                        <div class="cmfw-image-preview cmfw-clickable" style="display: inline-block; margin-right: 10px; vertical-align: top;">
-                            <img src="" alt="Preview" style="max-width: 100px; max-height: 100px; display: none; border: 1px solid #ddd; border-radius: 4px;" />
-                            <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
-                                <?php echo esc_html__('No image selected', 'coderembassy-product-info-icons-images-text'); ?>
-                            </div>
-                        </div>
-                        <div style="display: inline-block; vertical-align: top;">
-                            <button type="button" class="button cmfw-remove-image" style="display: none; margin-left: 5px;">&times;</button>
-                            <br><small style="color: #666; margin-top: 5px; display: block;">&nbsp;</small>
-                        </div>
-                    </div>
-                </label>
-            </div>
-        </div>
-        </div>
+
    
     </script>
 </div>
