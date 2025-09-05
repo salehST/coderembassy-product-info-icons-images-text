@@ -22,12 +22,6 @@
     $(document.body).on('click', '.cmfw-add-group', function () {
       const currentGroups = $('#cmfw-groups-container .cmfw-group').length;
       
-      // Check limits for free version
-      if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentGroups >= 2) {
-        alert('Free version limit: Maximum 2 groups allowed. Upgrade to PRO version to add more groups.');
-        return;
-      }
-      
       const groupIndex = currentGroups;
       let groupHtml = $('#cmfw-group-template').html().replace(/_INDEX_/g, groupIndex);
       $('#cmfw-groups-container').append(groupHtml);
@@ -50,12 +44,6 @@
       const $group = $(this).closest('.cmfw-group');
       const groupIndex = $('#cmfw-groups-container .cmfw-group').index($group);
       const currentItems = $group.find('.cmfw-item').length;
-      
-      // Check limits for free version
-      if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentItems >= 3) {
-        alert('Free version limit: Maximum 3 Product Info items per group. Upgrade to PRO version to add more items.');
-        return;
-      }
       
       const itemIndex = currentItems;
       let itemHtml = $('#cmfw-item-template').html()
