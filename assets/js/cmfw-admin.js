@@ -510,16 +510,20 @@
           if (items.length === 0) {
             errors.push("Group " + groupNumber + ": Please add at least one Product Info item.");
           } else {
-            // Check item titles
+            // Check if at least one item has a title
+            var hasValidTitle = false;
             items.each(function(itemIndex) {
               var $item = $(this);
-              var itemNumber = itemIndex + 1;
               var title = $item.find("input[name$=\"[title]\"]").val().trim();
               
-              if (!title) {
-                errors.push("Group " + groupNumber + ", Item " + itemNumber + ": Product Info title cannot be empty.");
+              if (title) {
+                hasValidTitle = true;
               }
             });
+            
+            if (!hasValidTitle) {
+              errors.push("Group " + groupNumber + ": Please enter at least one title.");
+            }
           }
         });
         

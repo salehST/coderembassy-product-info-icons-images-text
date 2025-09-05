@@ -56,11 +56,12 @@ function cmfw_display_custom_meta($custom_meta_items = [], $args = [])
     echo '<div class="' . esc_attr($args['container_class']) . '">';
 
     foreach ($custom_meta_items as $item) {
-        $question = $item['question'] ?? '';
+        $title = $item['title'] ?? $item['question'] ?? '';
         $icon = $item['icon'] ?? '';
         $image_id = absint($item['image_id'] ?? 0);
 
-        if (empty($question)) {
+        // Only display items that have a title
+        if (empty($title)) {
             continue;
         }
 
@@ -88,7 +89,7 @@ function cmfw_display_custom_meta($custom_meta_items = [], $args = [])
                 false,
                 [
                     'class' => $image_class,
-                    'alt'   => esc_attr($question),
+                    'alt'   => esc_attr($title),
                 ]
             );
 
@@ -98,7 +99,7 @@ function cmfw_display_custom_meta($custom_meta_items = [], $args = [])
         }
 
         // Display title
-        echo '<span class="' . esc_attr($title_class) . '">' . esc_html($question) . '</span>';
+        echo '<span class="' . esc_attr($title_class) . '">' . esc_html($title) . '</span>';
 
         echo '</div>';
     }
@@ -172,15 +173,19 @@ function cmfw_apply_free_version_structure($groups) {
             ]
         ]];
     } else {
-        // Take only the first group and limit to 3 items
+        // Take only the first group and ensure it has exactly 3 items
         $first_group = $groups[0];
-        $first_group['items'] = array_slice($first_group['items'], 0, 3);
         
-        // Ensure we have exactly 3 items
-        while (count($first_group['items']) < 3) {
-            $first_group['items'][] = ['title' => '', 'icon' => '', 'image_id' => 0];
+        // Ensure we have exactly 3 items (maintain structure even if some are empty)
+        $items = $first_group['items'] ?? [];
+        $items = array_slice($items, 0, 3); // Take first 3 items
+        
+        // Fill up to 3 items if needed
+        while (count($items) < 3) {
+            $items[] = ['title' => '', 'icon' => '', 'image_id' => 0];
         }
         
+        $first_group['items'] = $items;
         $groups = [$first_group];
     }
     

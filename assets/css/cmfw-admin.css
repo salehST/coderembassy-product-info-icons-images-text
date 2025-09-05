@@ -63,6 +63,22 @@ button.faq-add-question.button.button-primary {
     padding-top: 15px;
     border-top: 1px solid #ddd;
   }
+
+  /* Validation styles for empty items */
+  .cmfw-item-empty {
+    border-left: 3px solid #ff6b6b !important;
+    background-color: #fff5f5 !important;
+  }
+
+  .cmfw-item-empty input[name*="[title]"] {
+    border-color: #ff6b6b !important;
+    background-color: #fff5f5 !important;
+  }
+
+  .cmfw-pro-item.cmfw-item-empty {
+    border-left: 3px solid #ff6b6b !important;
+    background-color: #fff5f5 !important;
+  }
   
   .option-group-wrapper p.faq-note span {
     color: red;

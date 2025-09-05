@@ -17,9 +17,6 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
 
     $cmfw_groups = [];
 
-    // Check if PRO version is active for limits
-    $pro_active = cmfw_is_pro_active();
-
     if (is_array($raw_groups)) {
         foreach ($raw_groups as $group) {
             $taxonomy = '';
@@ -43,13 +40,12 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
                     $icon = sanitize_text_field($item['icon'] ?? '');
                     $image_id = intval($item['image_id'] ?? 0);
 
-                    if ($title !== '') {
-                        $items[] = [
-                            'title' => $title,
-                            'icon' => $icon,
-                            'image_id' => $image_id,
-                        ];
-                    }
+                    // Save all items to maintain structure (free version has fixed 3 items)
+                    $items[] = [
+                        'title' => $title,
+                        'icon' => $icon,
+                        'image_id' => $image_id,
+                    ];
                 }
             }
 
@@ -233,3 +229,52 @@ if ($enable_meta !== '1') {
     do_action('cmfw_pro_templates');
     ?>
 </div>
+
+<script>
+jQuery(document).ready(function($) {
+    // Add validation before form submission
+    $('#cmfw-save-form').on('submit', function(e) {
+        var hasValidItems = false;
+        
+        // Check all title inputs - at least one must have a title
+        $('input[name*="[title]"]').each(function() {
+            var title = $(this).val().trim();
+            if (title !== '') {
+                hasValidItems = true;
+            }
+        });
+        
+        if (!hasValidItems) {
+            e.preventDefault();
+            alert('<?php echo esc_js(__('Please enter at least one title before saving.', 'coderembassy-product-info-icons-images-text')); ?>');
+            return false;
+        }
+        
+        return true;
+    });
+    
+    // Add visual feedback for empty title fields
+    $('input[name*="[title]"]').on('blur', function() {
+        var $input = $(this);
+        var $item = $input.closest('.cmfw-item, .cmfw-free-item');
+        
+        if ($input.val().trim() === '') {
+            $item.addClass('cmfw-item-empty');
+        } else {
+            $item.removeClass('cmfw-item-empty');
+        }
+    });
+});
+</script>
+
+<style>
+.cmfw-item-empty {
+    border-left: 3px solid #ff6b6b !important;
+    background-color: #fff5f5 !important;
+}
+
+.cmfw-item-empty input[name*="[title]"] {
+    border-color: #ff6b6b !important;
+    background-color: #fff5f5 !important;
+}
+</style>
