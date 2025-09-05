@@ -18,9 +18,6 @@ if (isset($_POST['save_cmfw']) && check_admin_referer('save_cmfw_data', 'cmfw_no
    
     $cmfw_groups = [];
 
-    // Check if PRO version is active for limits
-    $pro_active = cmfw_is_pro_active();
-
    
     if (is_array($raw_groups)) {
         foreach ($raw_groups as $group) {
