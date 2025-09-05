@@ -101,8 +101,6 @@ if ($enable_meta !== '1') {
                 <!-- Free version: Fixed structure with 1 group and 3 items -->
                 <div class="cmfw-group cmfw-free-version-group" data-group-index="0">
                     <h2><?php echo esc_html__('PRODUCT INFO Group (Free Version)', 'coderembassy-product-info-icons-images-text'); ?></h2>
-                    <p class="description"><?php echo esc_html__('Free version includes 1 group with 3 product info items. Upgrade to PRO to add more groups and items.', 'coderembassy-product-info-icons-images-text'); ?></p>
-                    
                     <?php
                     // Allow pro version to add content before the group
                     $first_group = $saved_groups[0] ?? [];
