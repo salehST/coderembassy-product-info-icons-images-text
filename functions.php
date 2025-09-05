@@ -194,10 +194,8 @@ function cmfw_apply_free_version_structure($groups) {
 function cmfw_get_groups() {
     $groups = get_option('cmfw_groups', []);
     
-    // Apply free version structure if pro is not active
-    if (!cmfw_is_pro_active()) {
-        $groups = cmfw_apply_free_version_structure($groups);
-    }
+    // Apply free version structure
+    $groups = cmfw_apply_free_version_structure($groups);
     
     // Allow pro version to modify groups
     return apply_filters('cmfw_get_groups', $groups);
@@ -209,10 +207,8 @@ function cmfw_get_groups() {
  * @return bool
  */
 function cmfw_save_groups($groups) {
-    // Apply free version structure if pro is not active
-    if (!cmfw_is_pro_active()) {
-        $groups = cmfw_apply_free_version_structure($groups);
-    }
+    // Apply free version structure
+    $groups = cmfw_apply_free_version_structure($groups);
     
     // Allow pro version to modify groups before saving
     $groups = apply_filters('cmfw_save_groups', $groups);
@@ -221,100 +217,51 @@ function cmfw_save_groups($groups) {
 }
 
 /**
- * Get maximum groups allowed
+ * Get maximum groups allowed (free version limit)
  * @return int
  */
 function cmfw_get_max_groups() {
-    if (cmfw_is_pro_active()) {
-        return apply_filters('cmfw_max_groups', 999); // Unlimited for pro
-    }
-    return 1; // Free version limit
+    return apply_filters('cmfw_max_groups', 1); // Free version limit
 }
 
 /**
- * Get maximum items per group
+ * Get maximum items per group (free version limit)
  * @return int
  */
 function cmfw_get_max_items_per_group() {
-    if (cmfw_is_pro_active()) {
-        return apply_filters('cmfw_max_items_per_group', 999); // Unlimited for pro
-    }
-    return 3; // Free version limit
+    return apply_filters('cmfw_max_items_per_group', 3); // Free version limit
 }
 
 /**
- * Check if user can add groups
+ * Check if user can add groups (free version cannot)
  * @return bool
  */
 function cmfw_can_add_groups() {
-    if (cmfw_is_pro_active()) {
-        return apply_filters('cmfw_can_add_groups', true);
-    }
-    return false; // Free version cannot add groups
+    return apply_filters('cmfw_can_add_groups', false); // Free version cannot add groups
 }
 
 /**
- * Check if user can add items to group
+ * Check if user can add items to group (free version cannot)
  * @param int $group_index
  * @return bool
  */
 function cmfw_can_add_items($group_index = 0) {
-    if (cmfw_is_pro_active()) {
-        return apply_filters('cmfw_can_add_items', true, $group_index);
-    }
-    
-    // Free version can only add items to the first group if it has less than 3 items
-    $groups = cmfw_get_groups();
-    if ($group_index === 0 && isset($groups[0])) {
-        return count($groups[0]['items']) < 3;
-    }
-    
-    return false;
+    return apply_filters('cmfw_can_add_items', false, $group_index); // Free version cannot add items
 }
 
 /**
- * Check if user can remove groups
+ * Check if user can remove groups (free version cannot)
  * @return bool
  */
 function cmfw_can_remove_groups() {
-    if (cmfw_is_pro_active()) {
-        return apply_filters('cmfw_can_remove_groups', true);
-    }
-    return false; // Free version cannot remove groups
+    return apply_filters('cmfw_can_remove_groups', false); // Free version cannot remove groups
 }
 
 /**
- * Check if user can remove items from group
+ * Check if user can remove items from group (free version cannot)
  * @param int $group_index
  * @return bool
  */
 function cmfw_can_remove_items($group_index = 0) {
-    if (cmfw_is_pro_active()) {
-        return apply_filters('cmfw_can_remove_items', true, $group_index);
-    }
-    
-    // Free version cannot remove items (always keep 3 items)
-    return false;
-}
-
-/**
- * Get dashboard UI configuration
- * @return array
- */
-function cmfw_get_dashboard_config() {
-    $config = [
-        'can_add_groups' => cmfw_can_add_groups(),
-        'can_remove_groups' => cmfw_can_remove_groups(),
-        'can_add_items' => cmfw_can_add_items(),
-        'can_remove_items' => cmfw_can_remove_items(),
-        'max_groups' => cmfw_get_max_groups(),
-        'max_items_per_group' => cmfw_get_max_items_per_group(),
-        'is_pro_active' => cmfw_is_pro_active(),
-        'free_version_limits' => [
-            'groups' => 1,
-            'items_per_group' => 3
-        ]
-    ];
-    
-    return apply_filters('cmfw_dashboard_config', $config);
+    return apply_filters('cmfw_can_remove_items', false, $group_index); // Free version cannot remove items
 }

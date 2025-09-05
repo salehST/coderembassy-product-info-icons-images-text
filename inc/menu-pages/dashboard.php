@@ -90,15 +90,11 @@ if ($enable_meta !== '1') {
         <h1><?php echo esc_html__('PRODUCT INFO Groups', 'coderembassy-product-info-icons-images-text'); ?></h1>
 
         <?php
-        // Check if PRO version is active
-        $pro_active = cmfw_is_pro_active();
-        
         // Get saved groups or create default structure
         $saved_groups = cmfw_get_groups();
-        $dashboard_config = cmfw_get_dashboard_config();
         
         // Ensure we have at least one group for free version
-        if (!$pro_active && empty($saved_groups)) {
+        if (empty($saved_groups)) {
             $saved_groups = cmfw_apply_free_version_structure([]);
         }
         ?>
@@ -106,17 +102,16 @@ if ($enable_meta !== '1') {
         <form method="post" action="" id="cmfw-save-form">
             <?php wp_nonce_field('save_cmfw_data', 'cmfw_nonce'); ?>
             <div id="cmfw-groups-container">
-                <?php if (!$pro_active): ?>
-                    <!-- Free version: Fixed structure with 1 group and 3 items -->
-                    <div class="cmfw-group cmfw-free-version-group" data-group-index="0">
-                        <h2><?php echo esc_html__('PRODUCT INFO Group (Free Version)', 'coderembassy-product-info-icons-images-text'); ?></h2>
-                        <p class="description"><?php echo esc_html__('Free version includes 1 group with 3 product info items. Upgrade to PRO to add more groups and items.', 'coderembassy-product-info-icons-images-text'); ?></p>
-                        
-                        <?php
-                        // Allow pro version to add content before the group
-                        $first_group = $saved_groups[0] ?? [];
-                        do_action('cmfw_before_group_content', 0, $first_group);
-                        ?>
+                <!-- Free version: Fixed structure with 1 group and 3 items -->
+                <div class="cmfw-group cmfw-free-version-group" data-group-index="0">
+                    <h2><?php echo esc_html__('PRODUCT INFO Group (Free Version)', 'coderembassy-product-info-icons-images-text'); ?></h2>
+                    <p class="description"><?php echo esc_html__('Free version includes 1 group with 3 product info items. Upgrade to PRO to add more groups and items.', 'coderembassy-product-info-icons-images-text'); ?></p>
+                    
+                    <?php
+                    // Allow pro version to add content before the group
+                    $first_group = $saved_groups[0] ?? [];
+                    do_action('cmfw_before_group_content', 0, $first_group);
+                    ?>
                         
                         <table class="form-table">
                             <tr>
@@ -211,18 +206,16 @@ if ($enable_meta !== '1') {
                             <?php endfor; ?>
                         </div>
                         
-                        <?php
-                        // Allow pro version to add content after the group
-                        do_action('cmfw_after_group_content', 0, $first_group);
-                        ?>
-                    </div>
-                <?php else: ?>
-                    <!-- Pro version: Dynamic structure -->
+                    <?php
+                    // Allow pro version to add content after the group
+                    do_action('cmfw_after_group_content', 0, $first_group);
+                    ?>
+                </div>
+                
             <?php
-                    // Allow pro version to render its own dashboard
-                    do_action('cmfw_pro_dashboard_content', $saved_groups, $dashboard_config);
+                // Allow pro version to render its own dashboard
+                do_action('cmfw_pro_dashboard_content', $saved_groups);
             ?>
-                <?php endif; ?>
             </div>
             <hr>
             <input type="submit" name="save_cmfw" class="button button-primary" value="<?php echo esc_attr__('Save', 'coderembassy-product-info-icons-images-text'); ?>">
@@ -235,80 +228,8 @@ if ($enable_meta !== '1') {
         </div>
     </div>
 
-    <!-- Templates -->
-    <script type="text/html" id="cmfw-group-template">
-        <div class="cmfw-group cmfw-cm-archive-group" data-group-index="_INDEX_">
-            <button type="button" class="button cmfw-remove-group cmfw-archive-remove-cm-group" title="<?php echo esc_attr__('Remove Group', 'coderembassy-product-info-icons-images-text'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
-            <h2><?php echo esc_html__('PRODUCT INFO Group', 'coderembassy-product-info-icons-images-text'); ?></h2>
-            <table class="form-table">
-                <tr>
-                    <th scope="row"><label><?php echo esc_html__('Taxonomy', 'coderembassy-product-info-icons-images-text'); ?></label></th>
-                    <td>
-                        <select class="taxonomy-select" name="cmfw_groups[_INDEX_][taxonomy]">
-                            <option value=""><?php echo esc_html__('Select taxonomy', 'coderembassy-product-info-icons-images-text'); ?></option>
-                            <option value="product_cat"><?php echo esc_html__('Category', 'coderembassy-product-info-icons-images-text'); ?></option>
-                            <option value="product_tag"><?php echo esc_html__('Tag', 'coderembassy-product-info-icons-images-text'); ?></option>
-                        </select>
-                    </td>
-                </tr>
-                <tr class="term-row" style="display:none;">
-                    <th scope="row"><label><?php echo esc_html__('Terms', 'coderembassy-product-info-icons-images-text'); ?></label></th>
-                    <td>
-                        <input type="text" class="term-search regular-text" name="" placeholder="<?php echo esc_attr__('Search terms...', 'coderembassy-product-info-icons-images-text'); ?>" />
-                        <div class="selected-terms"></div>
-                    </td>
-                </tr>
-            </table>
-            <div class="cmfw-items cmfw-archive-cm-items"></div>
-            <p><button type="button" class="button cmfw-add-item" data-group-index="_INDEX_"><?php echo esc_html__('Add Product Info', 'coderembassy-product-info-icons-images-text'); ?></button></p>
-        </div>
-    </script>
-
-    <script type="text/html" id="cmfw-item-template">
-        <div class="cmfw-item cmfw-archive-cm-item">
-            <button type="button" class="button cmfw-remove-item cmfw-archive-remove-cm-item" title="<?php echo esc_attr__('Remove Item', 'coderembassy-product-info-icons-images-text'); ?>"><span class="dashicons dashicons-no-alt"></span></button>
-            <div class="cmfw-excl-note"><?php echo esc_html__('Tip: Choose either an icon or an image (not both).', 'coderembassy-product-info-icons-images-text'); ?></div>
-            <p>
-                <label><?php echo esc_html__('Title', 'coderembassy-product-info-icons-images-text'); ?><br>
-                    <input type="text" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][title]" class="regular-text" />
-                </label>
-            </p>
-            <p class="cmfw-choose-note"><?php echo esc_html__('Select icon or image', 'coderembassy-product-info-icons-images-text'); ?></p>
-            <div class="cmfw-fields">
-                <div class="cmfw-field">
-                    <label><?php echo esc_html__('Icon', 'coderembassy-product-info-icons-images-text'); ?><br>
-                        <div class="cmfw-icon-picker-container">
-                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][icon]" class="cmfw-icon-value" />
-                            <div class="cmfw-icon-preview cmfw-clickable" style="display: inline-block; margin-right: 10px;">
-                                <span class="dashicons" style="display:none; font-size: 24px; width: 24px; height: 24px;"></span>
-                                <div class="cmfw-no-icon" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
-                                    <?php echo esc_html__('No icon selected', 'coderembassy-product-info-icons-images-text'); ?>
-                                </div>
-                            </div>
-                            <div style="display: inline-block; vertical-align: top;">
-                                <button type="button" class="button cmfw-remove-icon" style="display:none; margin-left:5px;">&times;</button>
-                            </div>
-                        </div>
-                    </label>
-                </div>
-                <div class="cmfw-field">
-                    <label><?php echo esc_html__('Image', 'coderembassy-product-info-icons-images-text'); ?><br>
-                        <div class="cmfw-image-picker-container">
-                            <input type="hidden" name="cmfw_groups[_GROUP_INDEX_][items][_ITEM_INDEX_][image_id]" class="cmfw-image-value" />
-                            <div class="cmfw-image-preview cmfw-clickable" style="display: inline-block; margin-right: 10px; vertical-align: top;">
-                                <img src="" alt="Preview" style="max-width: 100px; max-height: 100px; display: none; border: 1px solid #ddd; border-radius: 4px;" />
-                                <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
-                                    <?php echo esc_html__('No image selected', 'coderembassy-product-info-icons-images-text'); ?>
-                                </div>
-                            </div>
-                            <div style="display: inline-block; vertical-align: top;">
-                                <button type="button" class="button cmfw-remove-image" style="display: none; margin-left: 5px;">&times;</button>
-                                <br><small style="color: #666; margin-top: 5px; display: block;">&nbsp;</small>
-                            </div>
-                        </div>
-                    </label>
-                </div>
-            </div>
-        </div>
-    </script>
+    <?php
+    // Allow pro version to add its own templates
+    do_action('cmfw_pro_templates');
+    ?>
 </div>
