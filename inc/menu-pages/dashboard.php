@@ -83,7 +83,7 @@ if ($enable_meta !== '1') {
 
 <div class="wrap">
     <div class="cmfw-groups">
-        <h1><?php echo esc_html__('PRODUCT INFO Groups', 'coderembassy-product-info-icons-images-text'); ?></h1>
+        <h1><?php echo esc_html__('PRODUCT INFO Group', 'coderembassy-product-info-icons-images-text'); ?></h1>
 
         <?php
         // Get saved groups or create default structure
@@ -100,7 +100,7 @@ if ($enable_meta !== '1') {
             <div id="cmfw-groups-container">
                 <!-- Free version: Fixed structure with 1 group and 3 items -->
                 <div class="cmfw-group cmfw-free-version-group" data-group-index="0">
-                    <h2><?php echo esc_html__('PRODUCT INFO Group (Free Version)', 'coderembassy-product-info-icons-images-text'); ?></h2>
+                    <h2><?php echo esc_html__('PRODUCT INFO Group', 'coderembassy-product-info-icons-images-text'); ?></h2>
                     <?php
                     // Allow pro version to add content before the group
                     $first_group = $saved_groups[0] ?? [];
