@@ -29,7 +29,7 @@ CoderEmbassy Product Info Icons Images Text is a powerful WordPress plugin that 
 
 = Perfect For =
 
-* Add unlimited product info group 
+* Add product info group 
 * Highlighting product features and benefits
 * Displaying technical specifications
 * Adding warranty information

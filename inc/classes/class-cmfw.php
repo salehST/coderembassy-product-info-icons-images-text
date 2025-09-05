@@ -61,7 +61,7 @@ class CMFW
      public function admin_notice_missing_woocommerce_plugin()
      {
           $class = 'notice notice-error';
-          $message = __("Custom Meta for WooCommerce Requires WooCommerce to be Activated", "coderembassy-product-info-icons-images-text");
+          $message = __("CoderEmbassy Product Info Icons Images Text Requires WooCommerce to be Activated", "coderembassy-product-info-icons-images-text");
 
           printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
      }
