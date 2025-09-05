@@ -1,4 +1,4 @@
-=== CodersEmbassy Product Info Icons Images Text ===
+=== CoderEmbassy Product Info Icons Images Text ===
 Contributors: codersaleh, phpcoderhannan, fazlebari
 Tags: product-info, icons, images, text
 Requires at least: 5.0
@@ -13,7 +13,7 @@ Add custom icons, images and text to WooCommerce product pages. Enhance product 
 
 == Description ==
 
-CodersEmbassy Product Info Icons Images Text is a powerful WordPress plugin that allows you to enhance your WooCommerce product pages by adding custom icons, images, and text blocks. Create engaging product presentations that highlight key features, specifications, benefits, or any additional information you want to showcase.
+CoderEmbassy Product Info Icons Images Text is a powerful WordPress plugin that allows you to enhance your WooCommerce product pages by adding custom icons, images, and text blocks. Create engaging product presentations that highlight key features, specifications, benefits, or any additional information you want to showcase.
 
 = Key Features =
 

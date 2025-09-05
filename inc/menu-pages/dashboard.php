@@ -152,11 +152,14 @@ if ($enable_meta !== '1') {
                                 $item = $items[$i] ?? ['title' => '', 'icon' => '', 'image_id' => 0];
                             ?>
                             <div class="cmfw-item cmfw-free-item">
-                                <h4><?php echo esc_html__('Product Info Item', 'coderembassy-product-info-icons-images-text'); ?> <?php echo $i + 1; ?></h4>
+                            <h4>
+                                <?php echo esc_html__('Product Info Item', 'coderembassy-product-info-icons-images-text'); ?>
+                                <?php echo esc_html($i + 1); ?>
+                            </h4>
                                 <div class="cmfw-excl-note"><?php echo esc_html__('Tip: Choose either an icon or an image (not both).', 'coderembassy-product-info-icons-images-text'); ?></div>
                                 <p>
                                     <label><?php echo esc_html__('Title', 'coderembassy-product-info-icons-images-text'); ?><br>
-                                        <input type="text" name="cmfw_groups[0][items][<?php echo $i; ?>][title]" class="regular-text" value="<?php echo esc_attr($item['title']); ?>" />
+                                        <input type="text" name="cmfw_groups[0][items][<?php echo esc_html($i); ?>][title]" class="regular-text" value="<?php echo esc_attr($item['title']); ?>" />
                                     </label>
                                 </p>
                                 <p class="cmfw-choose-note"><?php echo esc_html__('Select icon or image', 'coderembassy-product-info-icons-images-text'); ?></p>
@@ -164,7 +167,7 @@ if ($enable_meta !== '1') {
                                     <div class="cmfw-field">
                                         <label><?php echo esc_html__('Icon', 'coderembassy-product-info-icons-images-text'); ?><br>
                                             <div class="cmfw-icon-picker-container">
-                                                <input type="hidden" name="cmfw_groups[0][items][<?php echo $i; ?>][icon]" class="cmfw-icon-value" value="<?php echo esc_attr($item['icon']); ?>" />
+                                                <input type="hidden" name="cmfw_groups[0][items][<?php echo esc_html($i); ?>][icon]" class="cmfw-icon-value" value="<?php echo esc_attr($item['icon']); ?>" />
                                                 <div class="cmfw-icon-preview cmfw-clickable" style="display: inline-block; margin-right: 10px;">
                                                     <span class="dashicons <?php echo !empty($item['icon']) ? 'dashicons-' . esc_attr($item['icon']) : ''; ?>" style="<?php echo !empty($item['icon']) ? 'font-size: 24px; width: 24px; height: 24px;' : 'display:none; font-size: 24px; width: 24px; height: 24px;'; ?>"></span>
                                                     <div class="cmfw-no-icon" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: <?php echo !empty($item['icon']) ? 'none' : 'flex'; ?>; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
@@ -180,9 +183,16 @@ if ($enable_meta !== '1') {
                                     <div class="cmfw-field">
                                         <label><?php echo esc_html__('Image', 'coderembassy-product-info-icons-images-text'); ?><br>
                                             <div class="cmfw-image-picker-container" data-image-id="<?php echo esc_attr($item['image_id']); ?>">
-                                                <input type="hidden" name="cmfw_groups[0][items][<?php echo $i; ?>][image_id]" class="cmfw-image-value" value="<?php echo esc_attr($item['image_id']); ?>" />
+                                                <input type="hidden" name="cmfw_groups[0][items][<?php echo esc_html($i); ?>][image_id]" class="cmfw-image-value" value="<?php echo esc_attr($item['image_id']); ?>" />
                                                 <div class="cmfw-image-preview cmfw-clickable" style="display: inline-block; margin-right: 10px; vertical-align: top;">
-                                                    <img src="<?php echo !empty($item['image_id']) ? wp_get_attachment_image_url($item['image_id'], 'thumbnail') : ''; ?>" alt="Preview" style="max-width: 100px; max-height: 100px; border: 1px solid #ddd; border-radius: 4px; <?php echo !empty($item['image_id']) ? '' : 'display: none;'; ?>" />
+                                                    <?php
+                                                    if ( ! empty( $item['image_id'] ) ) {
+                                                        echo wp_get_attachment_image( $item['image_id'], 'thumbnail', false, [
+                                                            'alt'   => esc_attr__('Preview', 'coderembassy-product-info-icons-images-text'),
+                                                            'style' => 'max-width: 100px; max-height: 100px; border: 1px solid #ddd; border-radius: 4px;',
+                                                        ] );
+                                                    }
+                                                    ?>
                                                     <div class="cmfw-no-image" style="width: 100px; height: 100px; border: 2px dashed #ddd; display: <?php echo !empty($item['image_id']) ? 'none' : 'flex'; ?>; align-items: center; justify-content: center; color: #666; font-size: 12px; text-align: center; border-radius: 4px;">
                                                         <?php echo esc_html__('No image selected', 'coderembassy-product-info-icons-images-text'); ?>
                                                     </div>
