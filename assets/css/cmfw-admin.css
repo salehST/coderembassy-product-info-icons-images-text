@@ -5,7 +5,7 @@ button.faq-add-question.button.button-primary {
   }
 
   /* Free version specific styles */
-  .cmfw-free-version-group {
+  .cmfw-group-wrap {
     border: 2px solid #e1e1e1;
     border-radius: 8px;
     padding: 20px;
@@ -13,12 +13,12 @@ button.faq-add-question.button.button-primary {
     background: #f9f9f9;
   }
 
-  .cmfw-free-version-group h2 {
+  .cmfw-group-wrap h2 {
     color: #0073aa;
     margin-top: 0;
   }
 
-  .cmfw-free-item {
+  .cmfw-item-wrap {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
@@ -30,20 +30,20 @@ button.faq-add-question.button.button-primary {
     box-sizing: border-box;
   }
 
-  .cmfw-free-item:nth-child(odd) {
+  .cmfw-item-wrap:nth-child(odd) {
     margin-right: 15px;
   }
 
-  .cmfw-free-item:nth-child(even) {
+  .cmfw-item-wrap:nth-child(even) {
     margin-right: 0;
   }
 
-  .cmfw-free-item h4 {
+  .cmfw-item-wrap h4 {
     margin-top: 0;
     color: #333;
   }
 
-  .cmfw-item.cmfw-free-item .cmfw-fields{
+  .cmfw-item.cmfw-item-wrap .cmfw-fields{
     display: grid;
     grid-template-columns: repeat(2, minmax(220px, 1fr));
     gap: 16px;

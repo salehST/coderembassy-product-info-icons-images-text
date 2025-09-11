@@ -99,7 +99,7 @@ if ($enable_meta !== '1') {
             <?php wp_nonce_field('save_cmfw_data', 'cmfw_nonce'); ?>
             <div id="cmfw-groups-container">
                 <!-- Free version: Fixed structure with 1 group and 3 items -->
-                <div class="cmfw-group cmfw-free-version-group" data-group-index="0">
+                <div class="cmfw-group cmfw-group-wrap" data-group-index="0">
                     <h2><?php echo esc_html__('PRODUCT INFO Group', 'coderembassy-product-info-icons-images-text'); ?></h2>
                     <?php
                     // Allow pro version to add content before the group
@@ -149,7 +149,7 @@ if ($enable_meta !== '1') {
                             for ($i = 0; $i < 3; $i++):
                                 $item = $items[$i] ?? ['title' => '', 'icon' => '', 'image_id' => 0];
                             ?>
-                            <div class="cmfw-item cmfw-free-item">
+                            <div class="cmfw-item cmfw-item-wrap">
                             <h4>
                                 <?php echo esc_html__('Product Info Item', 'coderembassy-product-info-icons-images-text'); ?>
                                 <?php echo esc_html($i + 1); ?>
