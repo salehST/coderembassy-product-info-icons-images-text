@@ -618,7 +618,7 @@
     // Add visual feedback for empty title fields
     $('input[name*="[title]"]').on('blur', function() {
         var $input = $(this);
-        var $item = $input.closest('.cmfw-item, .cmfw-free-item');
+        var $item = $input.closest('.cmfw-item, .cmfw-item-wrap');
         
         if ($input.val().trim() === '') {
             $item.addClass('cmfw-item-empty');
