@@ -63,12 +63,12 @@ register_deactivation_hook(__FILE__, 'deactivate_cmfw');
 add_action('before_woocommerce_init', function () {
 	if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
-			'custom_orders_table',
+			'custom_order_tables',
 			CMFW_FILE,
 			true
 		);
 	}
-});
+}, 10);
 
 /**
  * This is the pluign main class, We will active or deactive all class from here
@@ -85,5 +85,7 @@ function cmfw_plugin_instance()
 		// Load extra functions file
 		require_once CMFW_DIR_PATH . '/functions.php';
 	}
+
+	
 }
 add_action('plugins_loaded', 'cmfw_plugin_instance');
