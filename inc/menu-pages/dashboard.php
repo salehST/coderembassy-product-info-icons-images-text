@@ -83,7 +83,7 @@ if ($enable_meta !== '1') {
 
 <div class="wrap">
     <div class="cmfw-groups">
-        <h1><?php echo esc_html__('PRODUCT INFO Group', 'coderembassy-product-info-icons-images-text'); ?></h1>
+        <h1><?php echo esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text'); ?></h1>
 
         <?php
         // Get saved groups or create default structure
@@ -100,7 +100,7 @@ if ($enable_meta !== '1') {
             <div id="cmfw-groups-container">
                 <!-- Free version: Fixed structure with 1 group and 3 items -->
                 <div class="cmfw-group cmfw-group-wrap" data-group-index="0">
-                    <h2><?php echo esc_html__('PRODUCT INFO Group', 'coderembassy-product-info-icons-images-text'); ?></h2>
+                    <h2><?php echo esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text'); ?></h2>
                     <?php
                     // Allow pro version to add content before the group
                     $first_group = $saved_groups[0] ?? [];
@@ -109,7 +109,7 @@ if ($enable_meta !== '1') {
                         
                         <table class="form-table">
                             <tr>
-                                <th scope="row"><label><?php echo esc_html__('Taxonomy', 'coderembassy-product-info-icons-images-text'); ?></label></th>
+                                <th scope="row"><label><?php echo esc_html__('Select Taxonomy Type', 'coderembassy-product-info-icons-images-text'); ?></label></th>
                                 <td>
                                     <select class="taxonomy-select" name="cmfw_groups[0][taxonomy]">
                                         <option value=""><?php echo esc_html__('Select taxonomy', 'coderembassy-product-info-icons-images-text'); ?></option>
@@ -119,7 +119,7 @@ if ($enable_meta !== '1') {
                                 </td>
                             </tr>
                             <tr class="term-row" style="<?php echo !empty($first_group['taxonomy']) ? '' : 'display:none;'; ?>">
-                                <th scope="row"><label><?php echo esc_html__('Terms', 'coderembassy-product-info-icons-images-text'); ?></label></th>
+                                <th scope="row"><label><?php echo esc_html__('Select category/tags', 'coderembassy-product-info-icons-images-text'); ?></label></th>
                                 <td>
                                     <input type="text" class="term-search regular-text" name="" placeholder="<?php echo esc_attr__('Search terms...', 'coderembassy-product-info-icons-images-text'); ?>" />
                                     <div class="selected-terms">
@@ -156,7 +156,7 @@ if ($enable_meta !== '1') {
                             </h4>
                                 <div class="cmfw-excl-note"><?php echo esc_html__('Tip: Choose either an icon or an image (not both).', 'coderembassy-product-info-icons-images-text'); ?></div>
                                 <p>
-                                    <label><?php echo esc_html__('Title', 'coderembassy-product-info-icons-images-text'); ?><br>
+                                    <label><?php echo esc_html__('Product Info Text', 'coderembassy-product-info-icons-images-text'); ?><br>
                                         <input type="text" name="cmfw_groups[0][items][<?php echo esc_html($i); ?>][title]" class="regular-text" value="<?php echo esc_attr($item['title']); ?>" />
                                     </label>
                                 </p>
