@@ -155,12 +155,14 @@ function cmfw_is_pro_active()
 }
 
 /**
- * Apply free version structure - 1 group with 3 items maximum
+ * Apply version-specific structure - free version: 1 group with 3 items, pro version: unlimited groups
  * @param array $groups
  * @return array
  */
 function cmfw_apply_free_version_structure($groups) {
-    // Ensure we have exactly 1 group
+    // Check if PRO version is active
+    $is_pro_active = function_exists('cmfw_pro_is_active') && cmfw_pro_is_active();
+    
     if (empty($groups)) {
         // Create default group with 3 empty items
         $groups = [[
@@ -173,20 +175,35 @@ function cmfw_apply_free_version_structure($groups) {
             ]
         ]];
     } else {
-        // Take only the first group and ensure it has exactly 3 items
-        $first_group = $groups[0];
-        
-        // Ensure we have exactly 3 items (maintain structure even if some are empty)
-        $items = $first_group['items'] ?? [];
-        $items = array_slice($items, 0, 3); // Take first 3 items
-        
-        // Fill up to 3 items if needed
-        while (count($items) < 3) {
-            $items[] = ['title' => '', 'icon' => '', 'image_id' => 0];
+        if ($is_pro_active) {
+            // PRO version: Allow multiple groups, but ensure each has proper structure
+            foreach ($groups as &$group) {
+                $items = $group['items'] ?? [];
+                
+                // Ensure we have at least 1 item (PRO version allows unlimited)
+                if (empty($items)) {
+                    $items = [['title' => '', 'icon' => '', 'image_id' => 0]];
+                }
+                
+                $group['items'] = $items;
+            }
+            unset($group);
+        } else {
+            // Free version: Take only the first group and ensure it has exactly 3 items
+            $first_group = $groups[0];
+            
+            // Ensure we have exactly 3 items (maintain structure even if some are empty)
+            $items = $first_group['items'] ?? [];
+            $items = array_slice($items, 0, 3); // Take first 3 items
+            
+            // Fill up to 3 items if needed
+            while (count($items) < 3) {
+                $items[] = ['title' => '', 'icon' => '', 'image_id' => 0];
+            }
+            
+            $first_group['items'] = $items;
+            $groups = [$first_group];
         }
-        
-        $first_group['items'] = $items;
-        $groups = [$first_group];
     }
     
     return $groups;

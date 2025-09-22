@@ -23,12 +23,16 @@
       const currentGroups = $('#cmfw-groups-container .cmfw-group').length;
       
       const groupIndex = currentGroups;
-      let groupHtml = $('#cmfw-group-template').html().replace(/_INDEX_/g, groupIndex);
-      $('#cmfw-groups-container').append(groupHtml);
-      reindexAll();
-      
-      // Update button state after adding group
-      updateAddGroupButtonState();
+      // Try both template IDs - free version and pro version
+      let groupHtml = $('#cmfw-group-template').html() || $('#cmfw-pro-group-template').html();
+      if (groupHtml) {
+        groupHtml = groupHtml.replace(/_INDEX_/g, groupIndex);
+        $('#cmfw-groups-container').append(groupHtml);
+        reindexAll();
+        
+        // Update button state after adding group
+        updateAddGroupButtonState();
+      }
     });
 
     $('#cmfw-groups-container').on('click', '.cmfw-remove-group', function () {
@@ -46,14 +50,18 @@
       const currentItems = $group.find('.cmfw-item').length;
       
       const itemIndex = currentItems;
-      let itemHtml = $('#cmfw-item-template').html()
-        .replace(/_GROUP_INDEX_/g, groupIndex)
-        .replace(/_ITEM_INDEX_/g, itemIndex);
-      $group.find('.cmfw-items').append(itemHtml);
-      reindexAll();
-      
-      // Update button state after adding item
-      updateAddItemButtonStates();
+      // Try both template IDs - free version and pro version
+      let itemHtml = $('#cmfw-item-template').html() || $('#cmfw-pro-item-template').html();
+      if (itemHtml) {
+        itemHtml = itemHtml
+          .replace(/_GROUP_INDEX_/g, groupIndex)
+          .replace(/_ITEM_INDEX_/g, itemIndex);
+        $group.find('.cmfw-items').append(itemHtml);
+        reindexAll();
+        
+        // Update button state after adding item
+        updateAddItemButtonStates();
+      }
     });
 
     $('#cmfw-groups-container').on('click', '.cmfw-remove-item', function () {
@@ -458,109 +466,10 @@
       updateAddGroupButtonState();
       updateAddItemButtonStates();
       
-      // Initialize form validation
-      initializeFormValidation();
+      // No validation initialization needed
     });
     
-    // Form validation function
-    function initializeFormValidation() {
-      // Form validation function
-      function validateForm() {
-        var errors = [];
-        var groups = $("#cmfw-groups-container .cmfw-group");
-        
-        // Check if any groups exist
-        if (groups.length === 0) {
-          errors.push("Please add at least one Product Info group before saving.");
-          return errors;
-        }
-        
-        // Validate each group
-        groups.each(function(groupIndex) {
-          var $group = $(this);
-          var groupNumber = groupIndex + 1;
-          
-          // Check taxonomy selection
-          var taxonomy = $group.find(".taxonomy-select").val();
-          if (!taxonomy) {
-            errors.push("Group " + groupNumber + ": Please select a taxonomy (Category or Tag).");
-          }
-          
-          // Check terms selection
-          var terms = $group.find(".selected-terms input[type=\"hidden\"]");
-          if (terms.length === 0) {
-            errors.push("Group " + groupNumber + ": Please select at least one term (category or tag).");
-          }
-          
-          // Check if items exist
-          var items = $group.find(".cmfw-item");
-          if (items.length === 0) {
-            errors.push("Group " + groupNumber + ": Please add at least one Product Info item.");
-          } else {
-            // Check if at least one item has a title
-            var hasValidTitle = false;
-            items.each(function(itemIndex) {
-              var $item = $(this);
-              var title = $item.find("input[name$=\"[title]\"]").val().trim();
-              
-              if (title) {
-                hasValidTitle = true;
-              }
-            });
-            
-            if (!hasValidTitle) {
-              errors.push("Group " + groupNumber + ": Please enter at least one title.");
-            }
-          }
-        });
-        
-        return errors;
-      }
-      
-      // Handle form submission
-      $("#cmfw-save-form").on("submit", function(e) {
-        var errors = validateForm();
-        
-        if (errors.length > 0) {
-          e.preventDefault();
-          
-          // Hide any existing error messages
-          $("#cmfw-validation-errors").hide();
-          
-          // Display errors
-          var $errorList = $("#cmfw-error-list");
-          $errorList.empty();
-          
-          errors.forEach(function(error) {
-            $errorList.append("<li>" + error + "</li>");
-          });
-          
-          // Show error container
-          $("#cmfw-validation-errors").show();
-          
-          // Scroll to top to show errors
-          $("html, body").animate({
-            scrollTop: $("#cmfw-validation-errors").offset().top - 50
-          }, 500);
-          
-          return false;
-        }
-        
-        // If validation passes, allow form submission
-        return true;
-      });
-      
-      // Hide validation errors when user starts fixing them
-      $(document).on("change", ".taxonomy-select, input[name$=\"[title]\"]", function() {
-        $("#cmfw-validation-errors").hide();
-      });
-      
-      $(document).on("click", ".remove-term", function() {
-        setTimeout(function() {
-          $("#cmfw-validation-errors").hide();
-        }, 100);
-      });
-    }
+    // No form validation - removed for free version
     
     // Function to update Add Group button state
     function updateAddGroupButtonState() {
@@ -593,27 +502,7 @@
       });
     }
 
-    // Dashboard validation and visual feedback
-    // Add validation before form submission
-    $('#cmfw-save-form').on('submit', function(e) {
-        var hasValidItems = false;
-        
-        // Check all title inputs - at least one must have a title
-        $('input[name*="[title]"]').each(function() {
-            var title = $(this).val().trim();
-            if (title !== '') {
-                hasValidItems = true;
-            }
-        });
-        
-        if (!hasValidItems) {
-            e.preventDefault();
-            alert('Please enter at least one title before saving.');
-            return false;
-        }
-        
-        return true;
-    });
+    // No validation - allow all form submissions
     
     // Add visual feedback for empty title fields
     $('input[name*="[title]"]').on('blur', function() {
