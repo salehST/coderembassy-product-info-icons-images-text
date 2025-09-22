@@ -19,21 +19,7 @@
       });
     }
 
-    $(document.body).on('click', '.cmfw-add-group', function () {
-      const currentGroups = $('#cmfw-groups-container .cmfw-group').length;
-      
-      const groupIndex = currentGroups;
-      // Try both template IDs - free version and pro version
-      let groupHtml = $('#cmfw-group-template').html() || $('#cmfw-pro-group-template').html();
-      if (groupHtml) {
-        groupHtml = groupHtml.replace(/_INDEX_/g, groupIndex);
-        $('#cmfw-groups-container').append(groupHtml);
-        reindexAll();
-        
-        // Update button state after adding group
-        updateAddGroupButtonState();
-      }
-    });
+    // Group addition is handled by PRO version JavaScript
 
     // Group removal is handled by PRO version JavaScript
 

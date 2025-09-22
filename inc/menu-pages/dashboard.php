@@ -277,11 +277,6 @@ if ($enable_meta !== '1') {
                         do_action('cmfw_after_group_content', $group_index, $group_data);
                         
                         echo '</div>';
-                        
-                        // Add "Add New Group" button after each group when PRO is active
-                        if ($is_pro_active) {
-                            do_action('cmfw_pro_group_actions', $group_index, $group_data);
-                        }
                     }
                 } else {
                     // Free version: Fixed structure with 1 group and 3 items
@@ -299,11 +294,11 @@ if ($enable_meta !== '1') {
                     do_action('cmfw_after_group_content', 0, $first_group);
                     
                     echo '</div>';
-                    
-                    // Add "Add New Group" button after free version group when PRO is active
-                    if ($is_pro_active) {
-                        do_action('cmfw_pro_group_actions', 0, $first_group);
-                    }
+                }
+                
+                // Add "Add New Group" button after all groups when PRO is active
+                if ($is_pro_active) {
+                    do_action('cmfw_pro_group_actions', 0, []);
                 }
             ?>
             </div>
