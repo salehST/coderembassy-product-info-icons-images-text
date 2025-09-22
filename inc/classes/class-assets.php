@@ -130,6 +130,7 @@ class Assets
 			'nonce'        => wp_create_nonce('cmfw_ajax_nonce'),
 			'media_title'  => __('Select Image', 'coderembassy-product-info-icons-images-text'),
 			'media_button' => __('Use This Image', 'coderembassy-product-info-icons-images-text'),
+			'pro_active'   => function_exists('cmfw_pro_is_active') && cmfw_pro_is_active() ? '1' : '0',
 		]);
 
 		// Add inline script for dashboard functionality

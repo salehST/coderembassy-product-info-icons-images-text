@@ -469,10 +469,15 @@
       const currentGroups = $('#cmfw-groups-container .cmfw-group').length;
       const $addGroupBtn = $('.cmfw-add-group');
       
-      if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentGroups >= 2) {
+      // Check if PRO version is active
+      const isProActive = typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active === '1';
+      
+      if (!isProActive && currentGroups >= 2) {
+        // Free version: disable after 2 groups
         $addGroupBtn.prop('disabled', true).addClass('disabled');
         $addGroupBtn.attr('title', 'Free version limit: Maximum 2 groups allowed. Upgrade to PRO version to add more groups.');
       } else {
+        // PRO version: never disable, or free version with less than 2 groups
         $addGroupBtn.prop('disabled', false).removeClass('disabled');
         $addGroupBtn.attr('title', '');
       }
