@@ -242,7 +242,7 @@ if ($enable_meta !== '1') {
         <?php
         // Get saved groups or create default structure
         $saved_groups = cmfw_get_groups();
-
+        
         // Ensure we have at least one group for free version
         if (empty($saved_groups)) {
             $saved_groups = cmfw_apply_free_version_structure([]);
