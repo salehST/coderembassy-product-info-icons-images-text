@@ -13,7 +13,7 @@ function cmfw_render_group_content($group_index, $group_data) {
     <?php if ($is_pro_group): ?>
     <div style="text-align: right; margin-bottom: 10px;">
         <button type="button" class="button cmfw-remove-group" title="<?php echo esc_attr__('Remove Group', 'coderembassy-product-info-icons-images-text'); ?>" style="color: #a00; border-color: #a00;">
-            <span class="dashicons dashicons-no-alt"></span> <?php echo esc_html__('Remove Group', 'coderembassy-product-info-icons-images-text'); ?>
+            <span class="dashicons dashicons-no-alt"></span>
         </button>
     </div>
     <?php endif; ?>
@@ -62,6 +62,9 @@ function cmfw_render_group_content($group_index, $group_data) {
             $item = $items[$i] ?? ['title' => '', 'icon' => '', 'image_id' => 0];
         ?>
         <div class="cmfw-item cmfw-item-wrap">
+        <button type="button" class="button cmfw-remove-item" title="<?php echo esc_attr__('Remove Item', 'coderembassy-product-info-icons-images-text'); ?>" style="color: #a00; border-color: #a00;">
+            <span class="dashicons dashicons-no-alt"></span>
+        </button>
         <h4>
             <?php echo esc_html__('Product Info Item', 'coderembassy-product-info-icons-images-text'); ?>
             <?php echo esc_html($i + 1); ?>

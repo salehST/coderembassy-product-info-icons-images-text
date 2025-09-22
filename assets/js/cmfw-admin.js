@@ -26,7 +26,17 @@
     // Add item functionality is handled by PRO version JavaScript
 
     $('#cmfw-groups-container').on('click', '.cmfw-remove-item', function () {
-      $(this).closest('.cmfw-item').remove();
+      const $item = $(this).closest('.cmfw-item');
+      const $group = $item.closest('.cmfw-group');
+      const currentItems = $group.find('.cmfw-item').length;
+      
+      // Check if this is the free version and we're trying to remove the last item
+      if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentItems <= 1) {
+        alert('Cannot remove the last item. At least one Product Info item is required.');
+        return;
+      }
+      
+      $item.remove();
       reindexAll();
       
       // Update button states after removing item
