@@ -23,25 +23,7 @@
 
     // Group removal is handled by PRO version JavaScript
 
-    $('#cmfw-groups-container').on('click', '.cmfw-add-item', function () {
-      const $group = $(this).closest('.cmfw-group');
-      const groupIndex = $('#cmfw-groups-container .cmfw-group').index($group);
-      const currentItems = $group.find('.cmfw-item').length;
-      
-      const itemIndex = currentItems;
-      // Try both template IDs - free version and pro version
-      let itemHtml = $('#cmfw-item-template').html() || $('#cmfw-pro-item-template').html();
-      if (itemHtml) {
-        itemHtml = itemHtml
-          .replace(/_GROUP_INDEX_/g, groupIndex)
-          .replace(/_ITEM_INDEX_/g, itemIndex);
-        $group.find('.cmfw-items').append(itemHtml);
-        reindexAll();
-        
-        // Update button state after adding item
-        updateAddItemButtonStates();
-      }
-    });
+    // Add item functionality is handled by PRO version JavaScript
 
     $('#cmfw-groups-container').on('click', '.cmfw-remove-item', function () {
       $(this).closest('.cmfw-item').remove();
@@ -149,11 +131,7 @@
       }
     }
 
-    // After adding item, ensure exclusivity state
-    $('#cmfw-groups-container').on('click', '.cmfw-add-item', function(){
-      const $item = $(this).closest('.cmfw-group').find('.cmfw-item').last();
-      updateExclusivity($item);
-    });
+    // Add item functionality is handled by PRO version JavaScript
 
     // Click icon area to open picker
     $("#cmfw-groups-container").on('click', '.cmfw-icon-preview.cmfw-clickable', function(e){
