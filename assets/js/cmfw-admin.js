@@ -35,14 +35,7 @@
       }
     });
 
-    $('#cmfw-groups-container').on('click', '.cmfw-remove-group', function () {
-      $(this).closest('.cmfw-group').remove();
-      reindexAll();
-      
-      // Update button states after removing group
-      updateAddGroupButtonState();
-      updateAddItemButtonStates();
-    });
+    // Group removal is handled by PRO version JavaScript
 
     $('#cmfw-groups-container').on('click', '.cmfw-add-item', function () {
       const $group = $(this).closest('.cmfw-group');

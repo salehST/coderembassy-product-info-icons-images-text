@@ -7,7 +7,16 @@ defined('ABSPATH') or die('Nice Try!');
  * @param array $group_data
  */
 function cmfw_render_group_content($group_index, $group_data) {
+    // Check if this is a PRO group (not the first group)
+    $is_pro_group = $group_index > 0;
     ?>
+    <?php if ($is_pro_group): ?>
+    <div style="text-align: right; margin-bottom: 10px;">
+        <button type="button" class="button cmfw-remove-group" title="<?php echo esc_attr__('Remove Group', 'coderembassy-product-info-icons-images-text'); ?>" style="color: #a00; border-color: #a00;">
+            <span class="dashicons dashicons-no-alt"></span> <?php echo esc_html__('Remove Group', 'coderembassy-product-info-icons-images-text'); ?>
+        </button>
+    </div>
+    <?php endif; ?>
     <table class="form-table">
         <tr>
             <th scope="row"><label><?php echo esc_html__('Select Taxonomy Type', 'coderembassy-product-info-icons-images-text'); ?></label></th>
@@ -233,15 +242,7 @@ if ($enable_meta !== '1') {
         <?php
         // Get saved groups or create default structure
         $saved_groups = cmfw_get_groups();
-        
-        // Debug: Show what data we have
-        if (current_user_can('manage_options') && !empty($saved_groups)) {
-            echo '<div style="background: #f0f0f0; padding: 10px; margin: 10px 0; border: 1px solid #ccc;">';
-            echo '<h4>Debug: Current saved data</h4>';
-            echo '<pre>' . print_r($saved_groups, true) . '</pre>';
-            echo '</div>';
-        }
-        
+
         // Ensure we have at least one group for free version
         if (empty($saved_groups)) {
             $saved_groups = cmfw_apply_free_version_structure([]);
@@ -260,7 +261,11 @@ if ($enable_meta !== '1') {
                     // PRO version: Display all groups
                     foreach ($saved_groups as $group_index => $group_data) {
                         echo '<div class="cmfw-group cmfw-group-wrap" data-group-index="' . esc_attr($group_index) . '">';
-                        echo '<h2>' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' ' . ($group_index + 1) . '</h2>';
+                        if ($group_index === 0) {
+                            echo '<h2>' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' ' . ($group_index + 1) . ' <span style="color: #666; font-size: 0.8em;">(' . esc_html__('Free Version - Required', 'coderembassy-product-info-icons-images-text') . ')</span></h2>';
+                        } else {
+                            echo '<h2>' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' ' . ($group_index + 1) . ' <span style="color: #0073aa; font-size: 0.8em;">(' . esc_html__('PRO Version', 'coderembassy-product-info-icons-images-text') . ')</span></h2>';
+                        }
                         
                     // Allow pro version to add content before the group
                         do_action('cmfw_before_group_content', $group_index, $group_data);
@@ -277,7 +282,7 @@ if ($enable_meta !== '1') {
                     // Free version: Fixed structure with 1 group and 3 items
                     $first_group = $saved_groups[0] ?? [];
                     echo '<div class="cmfw-group cmfw-group-wrap" data-group-index="0">';
-                    echo '<h2>' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . '</h2>';
+                    echo '<h2>' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' <span style="color: #666; font-size: 0.8em;">(' . esc_html__('Free Version', 'coderembassy-product-info-icons-images-text') . ')</span></h2>';
                     
                     // Allow pro version to add content before the group
                     do_action('cmfw_before_group_content', 0, $first_group);
