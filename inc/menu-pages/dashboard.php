@@ -269,7 +269,7 @@ if ($enable_meta !== '1') {
                         if ($group_index === 0) {
                             echo '<h2 class="header_sction">' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' ' . ($group_index + 1) . ' <span style="color: #666; font-size: 0.8em;">' . esc_html__('', 'coderembassy-product-info-icons-images-text') . '</span></h2>';
                         } else {
-                            echo '<h2 class="header_sction">' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' ' . ($group_index + 1) . ' <span style="color: #0073aa; font-size: 0.8em;">(' . esc_html__('PRO Version', 'coderembassy-product-info-icons-images-text') . ')</span></h2>';
+                            echo '<h2 class="header_sction">' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' ' . ($group_index + 1) . ' <span style="color: #0073aa; font-size: 0.8em;">' . esc_html__('', 'coderembassy-product-info-icons-images-text') . '</span></h2>';
                         }
                         
                         // Allow pro version to add content before the group
