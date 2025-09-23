@@ -19,7 +19,7 @@ function cmfw_render_group_content($group_index, $group_data) {
     <?php endif; ?>
     <table class="form-table">
         <tr>
-            <th scope="row"><label><?php echo esc_html__('Select Taxonomy Type', 'coderembassy-product-info-icons-images-text'); ?></label></th>
+            <th scope="row" class="taxonomy-type"><label><?php echo esc_html__('Select Taxonomy Type', 'coderembassy-product-info-icons-images-text'); ?></label></th>
             <td>
                 <select class="taxonomy-select" name="cmfw_groups[<?php echo esc_attr($group_index); ?>][taxonomy]">
                     <option value=""><?php echo esc_html__('Select taxonomy', 'coderembassy-product-info-icons-images-text'); ?></option>
@@ -29,7 +29,7 @@ function cmfw_render_group_content($group_index, $group_data) {
             </td>
         </tr>
         <tr class="term-row" style="<?php echo !empty($group_data['taxonomy']) ? '' : 'display:none;'; ?>">
-            <th scope="row"><label><?php echo esc_html__('Select category/tags', 'coderembassy-product-info-icons-images-text'); ?></label></th>
+            <th scope="row" class="terms-type"><label><?php echo esc_html__('Select category/tags', 'coderembassy-product-info-icons-images-text'); ?></label></th>
             <td>
                 <input type="text" class="term-search regular-text" name="" placeholder="<?php echo esc_attr__('Search terms...', 'coderembassy-product-info-icons-images-text'); ?>" />
                 <div class="selected-terms">
@@ -62,13 +62,13 @@ function cmfw_render_group_content($group_index, $group_data) {
             $item = $items[$i] ?? ['title' => '', 'icon' => '', 'image_id' => 0];
         ?>
         <div class="cmfw-item cmfw-item-wrap">
-        <button type="button" class="button cmfw-remove-item" title="<?php echo esc_attr__('Remove Item', 'coderembassy-product-info-icons-images-text'); ?>" style="color: #a00; border-color: #a00;">
-            <span class="dashicons dashicons-no-alt"></span>
-        </button>
-        <h4>
-            <?php echo esc_html__('Product Info Item', 'coderembassy-product-info-icons-images-text'); ?>
-            <?php echo esc_html($i + 1); ?>
-        </h4>
+            <button type="button" class="button cmfw-remove-item" title="<?php echo esc_attr__('Remove Item', 'coderembassy-product-info-icons-images-text'); ?>" style="color: #a00; border-color: #a00;">
+                <span class="dashicons dashicons-no-alt"></span>
+            </button>
+            <h4>
+                <?php echo esc_html__('Product Info Item', 'coderembassy-product-info-icons-images-text'); ?>
+                <?php echo esc_html($i + 1); ?>
+            </h4>
             <div class="cmfw-excl-note"><?php echo esc_html__('Tip: Choose either an icon or an image (not both).', 'coderembassy-product-info-icons-images-text'); ?></div>
             <p>
                 <label><?php echo esc_html__('Product Info Text', 'coderembassy-product-info-icons-images-text'); ?><br>
@@ -240,7 +240,9 @@ if ($enable_meta !== '1') {
 
 <div class="wrap">
     <div class="cmfw-groups">
-        <h1><?php echo esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text'); ?></h1>
+       <header>
+           <h1><?php echo esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text'); ?></h1>
+       </header>
 
         <?php
         // Get saved groups or create default structure
@@ -265,12 +267,12 @@ if ($enable_meta !== '1') {
                     foreach ($saved_groups as $group_index => $group_data) {
                         echo '<div class="cmfw-group cmfw-group-wrap" data-group-index="' . esc_attr($group_index) . '">';
                         if ($group_index === 0) {
-                            echo '<h2>' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' ' . ($group_index + 1) . ' <span style="color: #666; font-size: 0.8em;">(' . esc_html__('Free Version - Required', 'coderembassy-product-info-icons-images-text') . ')</span></h2>';
+                            echo '<h2 class="header_sction">' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' ' . ($group_index + 1) . ' <span style="color: #666; font-size: 0.8em;">(' . esc_html__('Free Version - Required', 'coderembassy-product-info-icons-images-text') . ')</span></h2>';
                         } else {
-                            echo '<h2>' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' ' . ($group_index + 1) . ' <span style="color: #0073aa; font-size: 0.8em;">(' . esc_html__('PRO Version', 'coderembassy-product-info-icons-images-text') . ')</span></h2>';
+                            echo '<h2 class="header_sction">' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' ' . ($group_index + 1) . ' <span style="color: #0073aa; font-size: 0.8em;">(' . esc_html__('PRO Version', 'coderembassy-product-info-icons-images-text') . ')</span></h2>';
                         }
                         
-                    // Allow pro version to add content before the group
+                        // Allow pro version to add content before the group
                         do_action('cmfw_before_group_content', $group_index, $group_data);
                         
                         // Display group content

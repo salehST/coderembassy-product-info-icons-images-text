@@ -10,13 +10,153 @@ button.faq-add-question.button.button-primary {
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
-    background: #f9f9f9;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   }
 
   .cmfw-group-wrap h2 {
-    color: #0073aa;
+    color: #fff;
     margin-top: 0;
+    font-size: 21px;
+    font-weight: 700;
   }
+
+  .header_sction{
+    background: linear-gradient(135deg, #2D3748 0%, #4A5568 100%);
+    color: white;
+    padding: 32px;
+    position: relative;
+  }
+
+  .button.button-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+    padding: 7px 50px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  /*specific styles */
+
+  .select-taxonomy{
+    .taxonomy-select {
+      width: 100% !important;
+      padding: 16px !important;
+      border: 2px solid #E2E8F0 !important;
+      border-radius: 12px !important;
+      font-size: 16px !important;
+      transition: all 0.3s ease !important;
+      background: white !important;
+    }
+  }
+
+
+  
+.button.cmfw-remove-item {
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #FF2E2E;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.button.cmfw-remove-item :hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  .cmfw-remove-group{
+    background: #FF2E2E;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .cmfw-remove-group :hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  .dashicons.dashicons-plus-alt {
+    padding-top:7px
+  }
+
+  .button.cmfw-add-item {
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea !important;;
+  }
+  .button.cmfw-add-item {
+    padding: 10px 32px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .button.cmfw-add-item:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+  }
+
+  /* upload image & icon section*/
+  .cmfw-no-image {
+    border: 2px dashed #CBD5E0;
+    border-radius: 16px;
+    padding: 20px 50px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    background: #F7FAFC;
+  }
+  
+  .cmfw-no-image:hover {
+    border-color: #667eea !important;;
+    background: rgba(102, 126, 234, 0.05) !important;
+    transform: translateY(-2px);
+  }
+
+  .cmfw-no-icon {
+    border: 2px dashed #CBD5E0;
+    border-radius: 16px;
+    padding: 20px 50px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    background: #F7FAFC;
+  }
+
+  .cmfw-no-icon:hover {
+    border-color: #667eea !important;;
+    background: rgba(102, 126, 234, 0.05) !important;
+    transform: translateY(-2px);
+  }
+
+    /* upload image & icon section end*/
+
+  
+  /*specific styles  end*/
+
 
   .cmfw-item-wrap {
     border: 1px solid #ddd;
