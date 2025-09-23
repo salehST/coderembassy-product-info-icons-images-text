@@ -70,6 +70,7 @@ button.faq-add-question.button.button-primary {
   justify-content: center;
   transition: all 0.3s ease;
   margin-top: -13px;
+  float: right;
 }
 
 .button.cmfw-remove-item :hover {
@@ -1021,18 +1022,42 @@ button.faq-add-question.button.button-primary:hover {
   display: block;
 }
 
-/* Fixed Taxonomy Select */
+/* Fixed Taxonomy Select with Dropdown Arrow */
 .cmfw-group-wrap select.taxonomy-select {
   width: 100%;
-  padding: 12px;
+  padding: 12px 40px 12px 12px;
   border: 2px solid #E2E8F0;
   border-radius: 8px;
   font-size: 14px;
   background: white;
   transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
 }
 
 .cmfw-group-wrap select.taxonomy-select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23667eea' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+}
+
+/* Fixed Term Search Input - Same width as category */
+.cmfw-group-wrap .term-search {
+  width: 100%;
+  max-width: 100%;
+  padding: 12px;
+  border: 2px solid #E2E8F0;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.cmfw-group-wrap .term-search:focus {
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -1150,38 +1175,6 @@ button.faq-add-question.button.button-primary:hover {
   box-shadow: 0 2px 8px rgba(245, 101, 101, 0.3);
 }
 
-/* Fixed Taxonomy Pills */
-.term-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin: 4px;
-  padding: 6px 12px;
-  background: linear-gradient(135deg, #48BB78 0%, #38A169 100%);
-  color: white;
-  border: none;
-  border-radius: 16px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.term-pill .remove-term {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-}
-
-.term-pill .remove-term:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
 
 /* Fixed Form Table Layout */
 .cmfw-group-wrap .form-table {
@@ -1192,26 +1185,18 @@ button.faq-add-question.button.button-primary:hover {
 .cmfw-group-wrap .form-table th {
   padding: 12px 10px 12px 0;
   width: 200px;
+  vertical-align: top;
 }
 
 .cmfw-group-wrap .form-table td {
   padding: 12px 0;
+  vertical-align: top;
 }
 
-/* Fixed Term Search Input */
-.term-search {
-  width: 100%;
-  padding: 10px;
-  border: 2px solid #E2E8F0;
-  border-radius: 6px;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-.term-search:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+/* Ensure term search input matches category select width */
+.cmfw-group-wrap .form-table td input.term-search {
+  width: 38%;
+  max-width: 100%;
 }
 
 /* Fixed Save Button */
@@ -1265,6 +1250,11 @@ input[type="submit"].button-primary:hover {
   .cmfw-item-wrap h4 {
       margin: -16px -16px 12px -16px;
       padding: 10px 16px;
+  }
+  
+  .cmfw-group-wrap select.taxonomy-select,
+  .cmfw-group-wrap .term-search {
+      width: 100%;
   }
 }
 
@@ -1322,4 +1312,38 @@ input[type="submit"].button-primary:hover {
   background: #667eea;
   color: white;
   transform: translateY(-1px);
+}
+
+/* Custom dropdown arrow for better browser compatibility */
+.cmfw-group-wrap select.taxonomy-select::-ms-expand {
+  display: none;
+}
+
+/* Internet Explorer 10+ */
+.cmfw-group-wrap select.taxonomy-select::-ms-expand {
+  display: none;
+}
+
+/* Firefox */
+.cmfw-group-wrap select.taxonomy-select {
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  text-overflow: '';
+}
+
+/* Chrome, Safari, Edge */
+.cmfw-group-wrap select.taxonomy-select {
+  -webkit-appearance: none;
+}
+
+/* Better dropdown arrow for modern browsers */
+.cmfw-group-wrap select.taxonomy-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8.825L1.75 4.575 2.575 3.75 6 7.175 9.425 3.75l.825.825z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+}
+
+.cmfw-group-wrap select.taxonomy-select:focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 8.825L1.75 4.575 2.575 3.75 6 7.175 9.425 3.75l.825.825z'/%3E%3C/svg%3E");
 }
