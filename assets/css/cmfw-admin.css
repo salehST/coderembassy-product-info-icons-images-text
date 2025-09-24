@@ -78,9 +78,15 @@ button.faq-add-question.button.button-primary {
     transform: scale(1.05);
   }
 
-  .cmfw-remove-group{
-    background: #FF2E2E;
-    color: white;
+  .button.cmfw-remove-group {
+    position: absolute !important;
+    top: 15px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white !important;;
     border-radius: 12px;
     cursor: pointer;
     display: flex;
@@ -88,8 +94,8 @@ button.faq-add-question.button.button-primary {
     justify-content: center;
     transition: all 0.3s ease;
   }
-
-  .cmfw-remove-group :hover {
+  
+  .button.cmfw-remove-group:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: scale(1.05);
   }
