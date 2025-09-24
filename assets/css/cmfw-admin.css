@@ -933,6 +933,7 @@ button.faq-add-question.button.button-primary:hover {
   margin-bottom: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   position: relative;
+  margin-top: 81px;
 }
 
 .cmfw-group-wrap::before {
