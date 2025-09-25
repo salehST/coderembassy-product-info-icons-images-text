@@ -137,12 +137,6 @@ button.faq-add-question.button.button-primary {
     background: #F7FAFC;
   }
   
-  .cmfw-no-image:hover {
-    border-color: #667eea !important;;
-    background: rgba(102, 126, 234, 0.05) !important;
-    transform: translateY(-2px);
-  }
-
   .cmfw-no-icon {
     border: 2px dashed #CBD5E0;
     border-radius: 16px;
@@ -152,12 +146,6 @@ button.faq-add-question.button.button-primary {
     cursor: pointer;
     position: relative;
     background: #F7FAFC;
-  }
-
-  .cmfw-no-icon:hover {
-    border-color: #667eea !important;;
-    background: rgba(102, 126, 234, 0.05) !important;
-    transform: translateY(-2px);
   }
 
     /* upload image & icon section end*/
@@ -1092,7 +1080,7 @@ button.faq-add-question.button.button-primary:hover {
 .cmfw-image-preview.cmfw-clickable {
   border: 2px dashed #CBD5E0;
   border-radius: 8px;
-  padding: 20px;
+  padding: 12px;
   text-align: center;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -1109,7 +1097,7 @@ button.faq-add-question.button.button-primary:hover {
 
 .cmfw-no-icon,
 .cmfw-no-image {
-  width: 100px;
+  width: 70px;
   height: 100px;
   border: 2px dashed #CBD5E0;
   display: flex;
@@ -1124,10 +1112,10 @@ button.faq-add-question.button.button-primary:hover {
   transition: all 0.3s ease;
 }
 
-.cmfw-clickable:hover .cmfw-no-icon,
+/* .cmfw-clickable:hover .cmfw-no-icon,
 .cmfw-clickable:hover .cmfw-no-image {
   border-color: #667eea;
-}
+} */
 
 /* Fixed Image Preview Display */
 .cmfw-image-preview img {
@@ -1172,6 +1160,10 @@ button.faq-add-question.button.button-primary:hover {
 .cmfw-remove-icon:hover {
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(245, 101, 101, 0.3);
+}
+
+.button.cmfw-remove-image {
+	margin-left: -21px !important;
 }
 
 
