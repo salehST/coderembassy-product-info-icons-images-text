@@ -5,7 +5,7 @@ Requires at least: 5.0
 Tested up to: 6.8
 WC tested up to: 10.1
 Requires PHP: 7.3
-Stable Tag: 1.0.0
+Stable Tag: 1.0.1
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,11 @@ Yes, the plugin is fully translation-ready and includes .pot files for easy loca
 6. Styling customization options
 
 == Changelog ==
+
+= 1.0.1 =
+* Fixed icon/image preview size
+* Fixed icon/image preview display
+* Update Dashboard style
 
 = 1.0.0 =
 * Initial release
