@@ -1078,6 +1078,7 @@ button.faq-add-question.button.button-primary:hover {
 /* Fixed Icon/Image Preview */
 .cmfw-icon-preview.cmfw-clickable,
 .cmfw-image-preview.cmfw-clickable {
+  height: 80px !important;
   border: 2px dashed #CBD5E0;
   border-radius: 8px;
   padding: 12px;
@@ -1098,7 +1099,7 @@ button.faq-add-question.button.button-primary:hover {
 .cmfw-no-icon,
 .cmfw-no-image {
   width: 70px;
-  height: 100px;
+  height: 40px !important;
   border: 2px dashed #CBD5E0;
   display: flex;
   align-items: center;
@@ -1119,6 +1120,7 @@ button.faq-add-question.button.button-primary:hover {
 
 /* Fixed Image Preview Display */
 .cmfw-image-preview img {
+  height: 80px !important;
   max-width: 100px;
   max-height: 100px;
   border: 1px solid #ddd;
@@ -1285,7 +1287,7 @@ input[type="submit"].button-primary:hover {
 
 .cmfw-modal-header {
   background: linear-gradient(135deg, #2D3748 0%, #4A5568 100%);
-  color: white;
+  color: white !important;
   padding: 20px;
 }
 

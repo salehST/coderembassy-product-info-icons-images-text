@@ -289,7 +289,7 @@ if ($enable_meta !== '1') {
                     // Free version: Fixed structure with 1 group and 3 items
                     $first_group = $saved_groups[0] ?? [];
                     echo '<div class="cmfw-group cmfw-group-wrap" data-group-index="0">';
-                    echo '<h2>' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' <span style="color: #666; font-size: 0.8em;">(' . esc_html__('Free Version', 'coderembassy-product-info-icons-images-text') . ')</span></h2>';
+                    echo '<h2>' . esc_html__('Product Info Group', 'coderembassy-product-info-icons-images-text') . ' <span style="color: #666; font-size: 0.8em;">(' . esc_html__('', 'coderembassy-product-info-icons-images-text') . ')</span></h2>';
                     
                     // Allow pro version to add content before the group
                     do_action('cmfw_before_group_content', 0, $first_group);
