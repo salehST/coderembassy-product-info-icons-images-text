@@ -120,7 +120,9 @@ function cmfw_render_group_content($group_index, $group_data) {
             </div>
         </div>
         <?php endfor; ?>
+        
     </div>
+    
     <?php
 }
 
