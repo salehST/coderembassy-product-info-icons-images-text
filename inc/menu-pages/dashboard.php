@@ -310,7 +310,7 @@ if ($enable_meta !== '1') {
             ?>
             </div>
             <hr>
-            <input type="submit" name="save_cmfw" class="button button-primary" value="<?php echo esc_attr__('Save', 'coderembassy-product-info-icons-images-text'); ?>">
+            <input type="submit" name="save_cmfw" class="button button-primary cmfw-save-button" value="<?php echo esc_attr__('Save', 'coderembassy-product-info-icons-images-text'); ?>">
             <p class="description"><?php //echo esc_html__('Click Save to save your Product Info data. No validation required.', 'coderembassy-product-info-icons-images-text'); ?></p>
         </form>
         

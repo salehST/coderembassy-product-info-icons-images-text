@@ -27,7 +27,7 @@ button.faq-add-question.button.button-primary {
     position: relative;
   }
 
-  .button.button-primary {
+  .cmfw-pro-group-actions .button.button-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
     padding: 7px 50px;
@@ -1065,8 +1065,8 @@ button.faq-add-question.button.button-primary:hover {
 }
 
 .cmfw-excl-note {
-  background: linear-gradient(135deg, #FFF5F5 0%, #FED7D7 100%);
-  border: 1px solid #FEB2B2;
+  background: linear-gradient(99deg, #ffeb97 0%, #fffaa9 100%);
+  border: 1px solid #fefdd7;
   border-radius: 6px;
   padding: 10px;
   margin: 0 0 12px;
@@ -1193,7 +1193,7 @@ button.faq-add-question.button.button-primary:hover {
 }
 
 /* Fixed Save Button */
-input[type="submit"].button-primary {
+ input[type="submit"].cmfw-save-button {
   background: linear-gradient(135deg, #48BB78 0%, #38A169 100%);
   border: none;
   border-radius: 8px;
