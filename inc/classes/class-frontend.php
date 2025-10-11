@@ -264,11 +264,14 @@ class Frontend
         }
 
         .cmfw-meta-item {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             margin-bottom: 10px;
-            padding: 8px 0;
-        }
+            padding: 8px 10px;
+            border: 1px solid #959292;
+            margin-right: 9px;
+            border-radius: 9%;
+            }
 
         .cmfw-meta-icon {
             color: " . esc_attr($meta_text_color) . ";
