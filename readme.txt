@@ -5,7 +5,7 @@ Requires at least: 5.0
 Tested up to: 6.8
 WC tested up to: 10.1
 Requires PHP: 7.3
-Stable Tag: 1.0.1
+Stable Tag: 1.0.2
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,12 +92,15 @@ Yes, the plugin is fully translation-ready and includes .pot files for easy loca
 
 == Changelog ==
 
-= 1.0.1 =
+= 1.0.2 - 2025-12-04 =
+* Fixed Frontend Default style
+
+= 1.0.1 - 2025-12-04 =
 * Fixed icon/image preview size
 * Fixed icon/image preview display
 * Update Dashboard style
 
-= 1.0.0 =
+= 1.0.0 - 2025-12-04 =
 * Initial release
 * Add custom icons to product pages
 * Insert custom images with flexible sizing
