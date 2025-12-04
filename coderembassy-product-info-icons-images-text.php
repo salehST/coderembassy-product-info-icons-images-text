@@ -13,8 +13,8 @@
  * Requires at least: 5.0
  * Requires PHP:      7.3
  * Requires Plugins:  woocommerce
- * Tested up to:      6.8
- * WC tested up to:	  10.1
+ * Tested up to:      6.9
+ * WC tested up to:	  10.2
  *
  * @package           cmfw
  */

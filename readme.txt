@@ -2,8 +2,8 @@
 Contributors: codersaleh, phpcoderhannan, fazlebari
 Tags: product-info, icons, images, text
 Requires at least: 5.0
-Tested up to: 6.8
-WC tested up to: 10.1
+Tested up to: 6.9
+WC tested up to: 10.2
 Requires PHP: 7.3
 Stable Tag: 1.0.2
 License: GPL v2 or later
