@@ -239,9 +239,12 @@ class Frontend
         .cmfw-custom-meta-section {
             background-color: " . esc_attr($meta_bg_color) . ";
             padding: 20px;
-            margin: 20px 0;
+            margin: 50px 0px 30px;
             border-radius: 5px;
             border: 1px solid #e0e0e0;
+            display: block;
+            width: 100%;
+        
         }
 
         .cmfw-meta-heading {
@@ -267,11 +270,11 @@ class Frontend
             display: inline-flex;
             align-items: center;
             margin-bottom: 10px;
-            padding: 8px 10px;
-            border: 1px solid #959292;
-            margin-right: 9px;
-            border-radius: 9%;
-            }
+            padding: 5px 10px 5px 0;
+            flex-direction: column;
+            gap: 5px;
+
+        }
 
         .cmfw-meta-icon {
             color: " . esc_attr($meta_text_color) . ";
@@ -279,7 +282,7 @@ class Frontend
             margin-right: 10px;
             width: 24px;
             height: 24px;
-            flex-shrink: 0;
+
         }
 
         .cmfw-meta-image {
