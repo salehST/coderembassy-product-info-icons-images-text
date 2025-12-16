@@ -178,6 +178,36 @@ class Menu
             ? sanitize_hex_color($input['meta_bg_color']) 
             : '#ffffff';
 
+        // Sanitize flex_direction
+        $sanitized['flex_direction'] = isset($input['flex_direction']) && in_array($input['flex_direction'], ['row', 'column']) 
+            ? $input['flex_direction'] 
+            : 'column';
+
+        // Sanitize gap
+        $sanitized['gap'] = isset($input['gap']) 
+            ? sanitize_text_field($input['gap']) 
+            : '15px';
+
+        // Sanitize padding
+        $sanitized['padding'] = isset($input['padding']) 
+            ? sanitize_text_field($input['padding']) 
+            : '20px';
+
+        // Sanitize text_align
+        $sanitized['text_align'] = isset($input['text_align']) && in_array($input['text_align'], ['left', 'center', 'right', 'justify']) 
+            ? $input['text_align'] 
+            : 'left';
+
+        // Sanitize align_items
+        $sanitized['align_items'] = isset($input['align_items']) && in_array($input['align_items'], ['stretch', 'center', 'flex-start', 'flex-end', 'baseline']) 
+            ? $input['align_items'] 
+            : 'center';
+
+        // Sanitize margin
+        $sanitized['margin'] = isset($input['margin']) 
+            ? sanitize_text_field($input['margin']) 
+            : '50px 0 30px';
+
         return $sanitized;
     }
 

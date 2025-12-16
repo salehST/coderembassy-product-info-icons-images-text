@@ -13,6 +13,13 @@ $cmfw_heading_size = isset($cmfw_settings['heading_size']) ? $cmfw_settings['hea
 $cmfw_meta_font_size = isset($cmfw_settings['meta_font_size']) ? $cmfw_settings['meta_font_size'] : '14';
 $cmfw_meta_text_color = isset($cmfw_settings['meta_text_color']) ? $cmfw_settings['meta_text_color'] : '#666666';
 $cmfw_meta_bg_color = isset($cmfw_settings['meta_bg_color']) ? $cmfw_settings['meta_bg_color'] : '#ffffff';
+
+$cmfw_flex_direction = isset($cmfw_settings['flex_direction']) ? $cmfw_settings['flex_direction'] : 'column';
+$cmfw_gap = isset($cmfw_settings['gap']) ? $cmfw_settings['gap'] : '15px';
+$cmfw_padding = isset($cmfw_settings['padding']) ? $cmfw_settings['padding'] : '20px';
+$cmfw_text_align = isset($cmfw_settings['text_align']) ? $cmfw_settings['text_align'] : 'left';
+$cmfw_align_items = isset($cmfw_settings['align_items']) ? $cmfw_settings['align_items'] : 'center';
+$cmfw_margin = isset($cmfw_settings['margin']) ? $cmfw_settings['margin'] : '50px 0 30px';
 ?>
 
 <div class="wrap cmfw-admin">
@@ -95,6 +102,62 @@ $cmfw_meta_bg_color = isset($cmfw_settings['meta_bg_color']) ? $cmfw_settings['m
                             <td>
                                 <input type="text" name="cmfw_settings[meta_bg_color]" value="<?php echo esc_attr($cmfw_meta_bg_color); ?>" class="cmfw-color-picker" />
                                 <p class="description"><?php echo esc_html(__('Choose the background color for the product info section.', 'coderembassy-product-info-icons-images-text')); ?></p>
+                            </td>
+                        </tr>
+                    <tr valign="top">
+                            <th scope="row"><?php echo esc_html(__('Padding', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <td>
+                                <input type="text" name="cmfw_settings[padding]" value="<?php echo esc_attr($cmfw_padding); ?>" class="regular-text" />
+                                <p class="description"><?php echo esc_html(__('Set the padding for the product info section (e.g., 20px).', 'coderembassy-product-info-icons-images-text')); ?></p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><?php echo esc_html(__('Margin', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <td>
+                                <input type="text" name="cmfw_settings[margin]" value="<?php echo esc_attr($cmfw_margin); ?>" class="regular-text" />
+                                <p class="description"><?php echo esc_html(__('Set the margin for the product info section (e.g., 50px 0 30px).', 'coderembassy-product-info-icons-images-text')); ?></p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><?php echo esc_html(__('Text Align', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <td>
+                                <select name="cmfw_settings[text_align]">
+                                    <option value="left" <?php selected($cmfw_text_align, 'left'); ?>><?php echo esc_html(__('Left', 'coderembassy-product-info-icons-images-text')); ?></option>
+                                    <option value="center" <?php selected($cmfw_text_align, 'center'); ?>><?php echo esc_html(__('Center', 'coderembassy-product-info-icons-images-text')); ?></option>
+                                    <option value="right" <?php selected($cmfw_text_align, 'right'); ?>><?php echo esc_html(__('Right', 'coderembassy-product-info-icons-images-text')); ?></option>
+                                    <option value="justify" <?php selected($cmfw_text_align, 'justify'); ?>><?php echo esc_html(__('Justify', 'coderembassy-product-info-icons-images-text')); ?></option>
+                                </select>
+                                <p class="description"><?php echo esc_html(__('Alignment of the content.', 'coderembassy-product-info-icons-images-text')); ?></p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><?php echo esc_html(__('Gap', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <td>
+                                <input type="text" name="cmfw_settings[gap]" value="<?php echo esc_attr($cmfw_gap); ?>" class="small-text" />
+                                <p class="description"><?php echo esc_html(__('Gap between items (e.g., 15px).', 'coderembassy-product-info-icons-images-text')); ?></p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><?php echo esc_html(__('Flex Direction', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <td>
+                                <select name="cmfw_settings[flex_direction]">
+                                    <option value="row" <?php selected($cmfw_flex_direction, 'row'); ?>><?php echo esc_html(__('Row', 'coderembassy-product-info-icons-images-text')); ?></option>
+                                    <option value="column" <?php selected($cmfw_flex_direction, 'column'); ?>><?php echo esc_html(__('Column', 'coderembassy-product-info-icons-images-text')); ?></option>
+                                </select>
+                                <p class="description"><?php echo esc_html(__('Direction of the items inside each group.', 'coderembassy-product-info-icons-images-text')); ?></p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><?php echo esc_html(__('Align Items', 'coderembassy-product-info-icons-images-text')); ?></th>
+                            <td>
+                                <select name="cmfw_settings[align_items]">
+                                    <option value="stretch" <?php selected($cmfw_align_items, 'stretch'); ?>><?php echo esc_html(__('Stretch', 'coderembassy-product-info-icons-images-text')); ?></option>
+                                    <option value="center" <?php selected($cmfw_align_items, 'center'); ?>><?php echo esc_html(__('Center', 'coderembassy-product-info-icons-images-text')); ?></option>
+                                    <option value="flex-start" <?php selected($cmfw_align_items, 'flex-start'); ?>><?php echo esc_html(__('Flex Start', 'coderembassy-product-info-icons-images-text')); ?></option>
+                                    <option value="flex-end" <?php selected($cmfw_align_items, 'flex-end'); ?>><?php echo esc_html(__('Flex End', 'coderembassy-product-info-icons-images-text')); ?></option>
+                                    <option value="baseline" <?php selected($cmfw_align_items, 'baseline'); ?>><?php echo esc_html(__('Baseline', 'coderembassy-product-info-icons-images-text')); ?></option>
+                                </select>
+                                <p class="description"><?php echo esc_html(__('Vertical alignment of items.', 'coderembassy-product-info-icons-images-text')); ?></p>
                             </td>
                         </tr>
                     </table>

@@ -4,7 +4,6 @@
     background: #fff;
     border: 1px solid #ddd;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    height: 600px;
     min-height: 400px;
     /* max-height: 80vh; */
 }
@@ -47,9 +46,6 @@
 .cmfw-admin .woo-cmfw-settings-content {
     flex-grow: 1;
     padding: 20px;
-    overflow-y: auto;
-    height: 100%;
-    max-height: 100%;
 }
 
 .cmfw-admin .woo-cmfw-settings-content .tab-content {

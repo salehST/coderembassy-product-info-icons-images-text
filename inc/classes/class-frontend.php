@@ -235,15 +235,23 @@ class Frontend
         $meta_text_color = isset($settings['meta_text_color']) ? sanitize_hex_color($settings['meta_text_color']) : '#666666';
         $meta_bg_color   = isset($settings['meta_bg_color'])   ? sanitize_hex_color($settings['meta_bg_color'])   : '#ffffff';
 
+        $cmfw_flex_direction = isset($settings['flex_direction']) ? $settings['flex_direction'] : 'column';
+        $cmfw_gap = isset($settings['gap']) ? $settings['gap'] : '15px';
+        $cmfw_padding = isset($settings['padding']) ? $settings['padding'] : '20px';
+        $cmfw_text_align = isset($settings['text_align']) ? $settings['text_align'] : 'left';
+        $cmfw_align_items = isset($settings['align_items']) ? $settings['align_items'] : 'center';
+        $cmfw_margin = isset($settings['margin']) ? $settings['margin'] : '50px 0 30px';
+
         $custom_css = "
         .cmfw-custom-meta-section {
             background-color: " . esc_attr($meta_bg_color) . ";
-            padding: 20px;
-            margin: 50px 0px 30px;
+            padding: " . esc_attr($cmfw_padding) . ";
+            margin: " . esc_attr($cmfw_margin) . ";
+            text-align: " . esc_attr($cmfw_text_align) . ";
             border-radius: 5px;
             border: 1px solid #e0e0e0;
             display: block;
-            width: 100%;
+            width:100%;
         
         }
 
@@ -258,7 +266,7 @@ class Frontend
         .cmfw-meta-groups {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: " . esc_attr($cmfw_gap) . ";
         }
 
         .cmfw-meta-group {
@@ -268,10 +276,10 @@ class Frontend
 
         .cmfw-meta-item {
             display: inline-flex;
-            align-items: center;
+            align-items: " . esc_attr($cmfw_align_items) . ";
             margin-bottom: 10px;
             padding: 5px 10px 5px 0;
-            flex-direction: column;
+            flex-direction: " . esc_attr($cmfw_flex_direction) . ";
             gap: 5px;
 
         }
