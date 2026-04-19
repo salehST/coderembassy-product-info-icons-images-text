@@ -5,7 +5,7 @@ Requires at least: 5.0
 Tested up to: 6.9
 WC tested up to: 10.2
 Requires PHP: 7.3
-Stable Tag: 1.0.3
+Stable Tag: 1.0.4
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,11 @@ Yes, the plugin is fully translation-ready and includes .pot files for easy loca
 5. Frontend Output
 
 == Changelog ==
+
+= 1.0.4 - 2026-04-20 =
+* Fixed conflict with pro version layouts.
+* Update items design.
+* Add HPOS compatibility.   
 
 = 1.0.3 - 2026-24-02 =
 * Add Mordern Clean Admin UI
