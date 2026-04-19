@@ -93,6 +93,12 @@ Yes, the plugin is fully translation-ready and includes .pot files for easy loca
 
 == Changelog ==
 
+= 1.0.4 - 2026-04-19 =
+* fixed confiltect with pro version layouts.
+* Update items design.
+* Add HPOS compatibility.       
+  
+
 = 1.0.3 - 2026-24-02 =
 * Add Mordern Clean Admin UI
 * Update Frontend Design.
