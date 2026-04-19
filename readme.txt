@@ -1,19 +1,21 @@
-=== CodersEmbassy Product Info Icons Images Text ===
+=== CoderEmbassy Product Info Icons Images Text ===
 Contributors: codersaleh, phpcoderhannan, fazlebari
-Donate link: https://coderembassy.com/donate
-Tags: ecommerce, product-info, icons, images, text
+Tags: product-info, icons, images, text
 Requires at least: 5.0
-Tested up to: 6.8
-Requires PHP: 7.4
-Stable tag: 1.0.0
-License: GPLv2 or later
+Tested up to: 6.9
+WC tested up to: 10.2
+Requires PHP: 7.3
+Stable Tag: 1.0.4
+License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Add custom icons, images and text to WooCommerce product pages. Enhance product information display with flexible positioning options.
 
 == Description ==
 
-CodersEmbassy Product Info Icons Images Text is a powerful WordPress plugin that allows you to enhance your WooCommerce product pages by adding custom icons, images, and text blocks. Create engaging product presentations that highlight key features, specifications, benefits, or any additional information you want to showcase.
+CoderEmbassy Product Info Icons Images Text is a powerful WordPress plugin that allows you to enhance your WooCommerce product pages by adding custom icons, images, and text blocks. Create engaging product presentations that highlight key features, specifications, benefits, or any additional information you want to showcase.
+
+https://www.youtube.com/watch?v=l_hLSI94se8
 
 = Key Features =
 
@@ -29,7 +31,7 @@ CodersEmbassy Product Info Icons Images Text is a powerful WordPress plugin that
 
 = Perfect For =
 
-* Add unlimited product info group 
+* Add product info group 
 * Highlighting product features and benefits
 * Displaying technical specifications
 * Adding warranty information
@@ -83,16 +85,33 @@ Yes, the plugin is fully translation-ready and includes .pot files for easy loca
 
 == Screenshots ==
 
-1. Plugin settings page showing configuration options
-2. Product edit page with CodersEmbassy Product Info elements
-3. Frontend product page displaying custom icons and text
-4. Mobile responsive view of enhanced product page
-5. Icon library selection interface
-6. Styling customization options
+1. Plugin Admin Dashboard 
+2. Product Info Items
+3. Settings
+4. Dark Theme
+5. Frontend Output
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.4 - 2026-04-20 =
+* Fixed conflict with pro version layouts.
+* Update items design.
+* Add HPOS compatibility.   
+
+= 1.0.3 - 2026-24-02 =
+* Add Mordern Clean Admin UI
+* Update Frontend Design.
+* Add light and dark theme at Admin Dashboard.
+
+= 1.0.2 - 2025-12-04 =
+* Fixed Frontend Default style
+
+= 1.0.1 - 2025-12-04 =
+* Fixed icon/image preview size
+* Fixed icon/image preview display
+* Update Dashboard style
+
+= 1.0.0 - 2025-12-04 =
 * Initial release
 * Add custom icons to product pages
 * Insert custom images with flexible sizing

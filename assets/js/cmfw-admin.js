@@ -19,32 +19,28 @@
       });
     }
 
-    $(document.body).on('click', '.cmfw-add-group', function () {
-      const groupIndex = $('#cmfw-groups-container .cmfw-group').length;
-      let groupHtml = $('#cmfw-group-template').html().replace(/_INDEX_/g, groupIndex);
-      $('#cmfw-groups-container').append(groupHtml);
-      reindexAll();
-    });
+    // Group addition is handled by PRO version JavaScript
 
-    $('#cmfw-groups-container').on('click', '.cmfw-remove-group', function () {
-      $(this).closest('.cmfw-group').remove();
-      reindexAll();
-    });
+    // Group removal is handled by PRO version JavaScript
 
-    $('#cmfw-groups-container').on('click', '.cmfw-add-item', function () {
-      const $group = $(this).closest('.cmfw-group');
-      const groupIndex = $('#cmfw-groups-container .cmfw-group').index($group);
-      const itemIndex = $group.find('.cmfw-item').length;
-      let itemHtml = $('#cmfw-item-template').html()
-        .replace(/_GROUP_INDEX_/g, groupIndex)
-        .replace(/_ITEM_INDEX_/g, itemIndex);
-      $group.find('.cmfw-items').append(itemHtml);
-      reindexAll();
-    });
+    // Add item functionality is handled by PRO version JavaScript
 
     $('#cmfw-groups-container').on('click', '.cmfw-remove-item', function () {
-      $(this).closest('.cmfw-item').remove();
+      const $item = $(this).closest('.cmfw-item');
+      const $group = $item.closest('.cmfw-group');
+      const currentItems = $group.find('.cmfw-item').length;
+      
+      // Check if this is the free version and we're trying to remove the last item
+      if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentItems <= 1) {
+        alert('Cannot remove the last item. At least one Product Info item is required.');
+        return;
+      }
+      
+      $item.remove();
       reindexAll();
+      
+      // Update button states after removing item
+      updateAddItemButtonStates();
     });
 
     // Taxonomy show/hide terms row
@@ -145,11 +141,7 @@
       }
     }
 
-    // After adding item, ensure exclusivity state
-    $('#cmfw-groups-container').on('click', '.cmfw-add-item', function(){
-      const $item = $(this).closest('.cmfw-group').find('.cmfw-item').last();
-      updateExclusivity($item);
-    });
+    // Add item functionality is handled by PRO version JavaScript
 
     // Click icon area to open picker
     $("#cmfw-groups-container").on('click', '.cmfw-icon-preview.cmfw-clickable', function(e){
@@ -308,8 +300,6 @@
     }
 
     // WordPress Media Library Integration for Image Upload
-    var cmfwMediaFrame;
-
     // Click image area to open media frame
     $("#cmfw-groups-container").on("click", ".cmfw-image-preview.cmfw-clickable", function(e) {
       e.preventDefault();
@@ -321,14 +311,8 @@
       const $noImage = $container.find('.cmfw-no-image');
       const $img = $preview.find('img');
 
-      // If the media frame already exists, reopen it
-      if (cmfwMediaFrame) {
-        cmfwMediaFrame.open();
-        return;
-      }
-
-      // Create the media frame
-      cmfwMediaFrame = wp.media({
+      // Create a new media frame for this specific picker
+      const mediaFrame = wp.media({
         title: cmfwAjax.media_title,
         button: {
           text: cmfwAjax.media_button
@@ -340,8 +324,8 @@
       });
 
       // When an image is selected, run a callback
-      cmfwMediaFrame.on('select', function() {
-        const attachment = cmfwMediaFrame.state().get('selection').first().toJSON();
+      mediaFrame.on('select', function() {
+        const attachment = mediaFrame.state().get('selection').first().toJSON();
         
         // Set the attachment ID
         $input.val(attachment.id);
@@ -351,9 +335,13 @@
           ? attachment.sizes.thumbnail.url
           : attachment.url;
         
+        // Update the image source and show it
         $img.attr('src', imageUrl).show();
         $noImage.hide();
         $removeBtn.show();
+        
+        // Update the container's data attribute
+        $container.attr('data-image-id', attachment.id);
         // Clear icon and update exclusivity
         const $item = $container.closest('.cmfw-item');
         $item.find('.cmfw-icon-value').val('');
@@ -362,7 +350,7 @@
       });
 
       // Open the media frame
-      cmfwMediaFrame.open();
+      mediaFrame.open();
     });
 
     // Handle image removal
@@ -383,6 +371,9 @@
       $img.hide().attr('src', '');
       $noImage.show();
       $button.hide();
+      
+      // Clear the container's data attribute
+      $container.attr('data-image-id', '');
       const $item = $button.closest('.cmfw-item');
       updateExclusivity($item);
     });
@@ -437,6 +428,64 @@
       setTimeout(loadExistingImages, 500); // Small delay to ensure DOM is fully ready
       // Initialize exclusivity for existing items
       $('#cmfw-groups-container .cmfw-item').each(function(){ updateExclusivity($(this)); });
+      
+      // Initialize button states
+      updateAddGroupButtonState();
+      updateAddItemButtonStates();
+      
+      // No validation initialization needed
+    });
+    
+    // No form validation - removed for free version
+    
+    // Function to update Add Group button state
+    function updateAddGroupButtonState() {
+      const currentGroups = $('#cmfw-groups-container .cmfw-group').length;
+      const $addGroupBtn = $('.cmfw-add-group');
+      
+      // Check if PRO version is active
+      const isProActive = typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active === '1';
+      
+      if (!isProActive && currentGroups >= 2) {
+        // Free version: disable after 2 groups
+        $addGroupBtn.prop('disabled', true).addClass('disabled');
+        $addGroupBtn.attr('title', 'Free version limit: Maximum 2 groups allowed. Upgrade to PRO version to add more groups.');
+      } else {
+        // PRO version: never disable, or free version with less than 2 groups
+        $addGroupBtn.prop('disabled', false).removeClass('disabled');
+        $addGroupBtn.attr('title', '');
+      }
+    }
+    
+    // Function to update Add Item button states
+    function updateAddItemButtonStates() {
+      $('#cmfw-groups-container .cmfw-group').each(function() {
+        const $group = $(this);
+        const currentItems = $group.find('.cmfw-item').length;
+        const $addItemBtn = $group.find('.cmfw-add-item');
+        
+        if (typeof cmfwAjax !== 'undefined' && cmfwAjax.pro_active !== '1' && currentItems >= 3) {
+          $addItemBtn.prop('disabled', true).addClass('disabled');
+          $addItemBtn.attr('title', 'Free version limit: Maximum 3 Product Info items per group. Upgrade to PRO version to add more items.');
+        } else {
+          $addItemBtn.prop('disabled', false).removeClass('disabled');
+          $addItemBtn.attr('title', '');
+        }
+      });
+    }
+
+    // No validation - allow all form submissions
+    
+    // Add visual feedback for empty title fields
+    $('input[name*="[title]"]').on('blur', function() {
+        var $input = $(this);
+        var $item = $input.closest('.cmfw-item, .cmfw-item-wrap');
+        
+        if ($input.val().trim() === '') {
+            $item.addClass('cmfw-item-empty');
+        } else {
+            $item.removeClass('cmfw-item-empty');
+        }
     });
 
   });

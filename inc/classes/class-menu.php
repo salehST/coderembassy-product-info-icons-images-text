@@ -34,13 +34,17 @@ class Menu
     {
         // Add menu
         add_action('admin_menu', [$this, 'adminMenu'], 20);
+        add_action('admin_menu', [$this, 'hideSubmenuItems'], 1000);
 
         // Register settings
         add_action('admin_init', [$this, 'registerSettings']);
 
         // add settings link 
-        add_filter('plugin_action_links_' . plugin_basename(CMFW_BASENAME), [$this, 'addSettingsLink']);
+        add_filter('plugin_action_links_'.CMFW_BASENAME, [$this, 'addSettingsLink']);
 
+        // SPA AJAX calls
+        add_action('wp_ajax_cmfw_save_spa_data', [$this, 'ajax_save_spa_data']);
+        add_action('wp_ajax_cmfw_search_terms', [$this, 'ajax_search_terms']);
     }
 
     /**
@@ -50,9 +54,44 @@ class Menu
      */
     public function adminMenu()
     {
-        add_menu_page(__('Product Info', 'coderembassy-product-info-icons-images-text'), __('PRODUCT INFO', 'coderembassy-product-info-icons-images-text'), 'manage_options', 'coderembassy-product-info-icons-images-text', [$this, 'adminPage'], 'dashicons-admin-generic',55);
-        add_submenu_page('coderembassy-product-info-icons-images-text', __('Settings', 'coderembassy-product-info-icons-images-text'), __('Settings', 'coderembassy-product-info-icons-images-text'), 'manage_options', 'custom-meta-settings', [$this, 'settingsPage']);
+        add_menu_page(
+            __('Product Info', 'coderembassy-product-info-icons-images-text'),
+            __('Product Info', 'coderembassy-product-info-icons-images-text'),
+            'manage_options',
+            'coderembassy-product-info-icons-images-text',
+            [$this, 'adminPage'],
+            'dashicons-cart',
+            55
+        );
 
+        // Add a hidden submenu page to handle the settings URL on refresh
+        add_submenu_page(
+            'coderembassy-product-info-icons-images-text',
+            __('Settings', 'coderembassy-product-info-icons-images-text'),
+            __('Settings', 'coderembassy-product-info-icons-images-text'),
+            'manage_options',
+            'coderembassy-meta-settings',
+            [$this, 'adminPage']
+        );
+    }
+
+    /**
+     * Keep sidebar clean: only show dashboard menu item.
+     *
+     * We keep hidden SPA routes registered so direct URLs continue to work:
+     * - coderembassy-meta-settings
+     * - coderembassy-design
+     */
+    public function hideSubmenuItems()
+    {
+        $parent_slug = 'coderembassy-product-info-icons-images-text';
+
+        // Remove default duplicate submenu generated from add_menu_page().
+        remove_submenu_page($parent_slug, $parent_slug);
+
+        // Hide SPA route slugs from sidebar while keeping route handlers active.
+        remove_submenu_page($parent_slug, 'coderembassy-meta-settings');
+        remove_submenu_page($parent_slug, 'coderembassy-design');
     }
 
     /**
@@ -66,9 +105,9 @@ class Menu
             return;
         }
 
-        include_once CMFW_DIR_PATH . '/inc/menu-pages/dashboard.php';
+        echo '<div id="dpp-root"></div>';
     }
-
+    
     /*
         *Add settigns link to plugin intallation page
         * @since 1.0.0
@@ -136,18 +175,24 @@ class Menu
         $sanitized = array();
 
         // Sanitize enable_meta
-        $sanitized['enable_meta'] = isset($input['enable_meta']) ? '1' : '0';
+        $sanitized['enable_meta'] = (isset($input['enable_meta']) && $input['enable_meta'] === '1') ? '1' : '0';
+
+        // Sanitize show_heading
+        $sanitized['show_heading'] = (isset($input['show_heading']) && $input['show_heading'] === '1') ? '1' : '0';
 
         // Sanitize meta_position
-        $allowed_positions = array(
-            'woocommerce_after_add_to_cart_button',
-            'woocommerce_product_meta_end',
-            'woocommerce_after_single_product_summary',
-            'woocommerce_after_single_product'
-        );
-        $sanitized['meta_position'] = isset($input['meta_position']) && in_array($input['meta_position'], $allowed_positions) 
-            ? $input['meta_position'] 
-            : 'woocommerce_after_add_to_cart_button';
+        $allowed_positions_map = apply_filters('cmfw_allowed_positions', [
+            'woocommerce_product_meta_end' => __('After Product Meta Section', 'coderembassy-product-info-icons-images-text')
+        ]);
+        $allowed_positions = array_keys($allowed_positions_map);
+        
+        // Default position
+        $sanitized['meta_position'] = 'woocommerce_product_meta_end';
+        
+        // Allow selection from allowed positions
+        if (isset($input['meta_position']) && in_array($input['meta_position'], $allowed_positions)) {
+            $sanitized['meta_position'] = $input['meta_position'];
+        }
 
         // Sanitize meta_heading
         $sanitized['meta_heading'] = isset($input['meta_heading']) 
@@ -177,6 +222,10 @@ class Menu
             ? sanitize_hex_color($input['meta_bg_color']) 
             : '#ffffff';
 
+        // Sanitize image dimensions
+        $sanitized['image_width']  = isset($input['image_width']) ? absint($input['image_width']) : 24;
+        $sanitized['image_height'] = isset($input['image_height']) ? absint($input['image_height']) : 24;
+
         return $sanitized;
     }
 
@@ -185,10 +234,76 @@ class Menu
      * @since 1.0.0
      * Fazle Bari <fazlebarisn@gmail.com>
     */
+    public function ajax_save_spa_data() {
+        check_ajax_referer('cmfw_ajax_nonce', 'nonce');
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error('Unauthorized');
+        }
+
+        if (isset($_POST['groups'])) {
+            $groups_json = wp_unslash($_POST['groups']);
+            $groups = json_decode($groups_json, true);
+            if (is_array($groups)) {
+                $success = cmfw_save_groups($groups);
+                if ($success !== false) {
+                    wp_send_json_success('Groups saved');
+                } else {
+                    wp_send_json_error('Failed to save groups');
+                }
+            } else {
+                wp_send_json_error('Invalid payload');
+            }
+        } elseif (isset($_POST['settings'])) {
+            $settings_json = wp_unslash($_POST['settings']);
+            $settings_raw = json_decode($settings_json, true);
+            if (is_array($settings_raw)) {
+                $sanitized = $this->sanitizeSettings($settings_raw);
+                update_option('cmfw_settings', $sanitized);
+                wp_send_json_success('Settings saved');
+            } else {
+                wp_send_json_error('Invalid payload');
+            }
+        } else {
+            wp_send_json_error('Nothing to save');
+        }
+    }
+
+    public function ajax_search_terms() {
+        check_ajax_referer('cmfw_ajax_nonce', 'nonce');
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error('Unauthorized');
+        }
+        
+        $q = isset($_POST['q']) ? sanitize_text_field(wp_unslash($_POST['q'])) : '';
+        $taxonomy = isset($_POST['taxonomy']) ? sanitize_key($_POST['taxonomy']) : '';
+        
+        if (empty($q) || empty($taxonomy) || !taxonomy_exists($taxonomy)) {
+            wp_send_json_success([]);
+        }
+
+        $terms = get_terms([
+            'taxonomy' => $taxonomy,
+            'name__like' => $q,
+            'hide_empty' => false,
+            'number' => 20
+        ]);
+
+        $results = [];
+        if (!is_wp_error($terms) && !empty($terms)) {
+            foreach ($terms as $term) {
+                $results[] = [
+                    'id' => $term->term_id,
+                    'name' => html_entity_decode($term->name)
+                ];
+            }
+        }
+        wp_send_json_success($results);
+    }
+
     public function settingsPage(){
         if( !current_user_can('manage_options')){
             return;
         }
-        include_once CMFW_DIR_PATH . '/inc/menu-pages/settings.php';
+        echo '<div id="dpp-root"></div>';
     }
 }

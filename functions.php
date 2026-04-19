@@ -2,41 +2,20 @@
 defined('ABSPATH') or die('Nice Try!');
 
 /**
- * Only for developer
- * @author Fazle Bari
- */
-if (! function_exists('dd')) {
-    function dd(...$vals)
-    {
-        if (! empty($vals) && is_array($vals)) {
-            ob_start(); // Start output buffering
-            foreach ($vals as $val) {
-                echo "<pre>";
-                var_dump($val);
-                echo "</pre>";
-            }
-            $output = ob_get_clean(); // Get the buffered output and clear the buffer
-            echo $output; // Output the buffered content
-        }
-    }
-}
-
-// Write all your custom codes here if you don't want to use OOP
-
-/**
  * Get CMFW data for display on frontend
  * @param string $archive_type The archive type (product_cat, product_tag)
  * @param array $term_ids Array of term IDs to match
  * @return array Array of custom meta data
  */
-function cmfw_get_custom_meta_data($archive_type = '', $term_ids = []) {
+function cmfw_get_custom_meta_data($archive_type = '', $term_ids = [])
+{
     $saved_data = get_option('woo_afaq_global_groups', []);
     $matching_data = [];
-    
+
     if (empty($saved_data) || empty($archive_type) || empty($term_ids)) {
         return $matching_data;
     }
-    
+
     foreach ($saved_data as $group) {
         if ($group['archive_type'] === $archive_type) {
             $group_terms = $group['archive_terms'] ?? [];
@@ -46,7 +25,7 @@ function cmfw_get_custom_meta_data($archive_type = '', $term_ids = []) {
             }
         }
     }
-    
+
     return $matching_data;
 }
 
@@ -55,11 +34,12 @@ function cmfw_get_custom_meta_data($archive_type = '', $term_ids = []) {
  * @param array $custom_meta_items Array of custom meta items
  * @param array $args Display arguments
  */
-function cmfw_display_custom_meta($custom_meta_items = [], $args = []) {
+function cmfw_display_custom_meta($custom_meta_items = [], $args = [])
+{
     if (empty($custom_meta_items)) {
         return;
     }
-    
+
     $defaults = [
         'container_class' => 'cmfw-custom-meta-container',
         'item_class' => 'cmfw-custom-meta-item',
@@ -70,44 +50,64 @@ function cmfw_display_custom_meta($custom_meta_items = [], $args = []) {
         'show_images' => true,
         'image_size' => 'thumbnail'
     ];
-    
+
     $args = wp_parse_args($args, $defaults);
-    
+
     echo '<div class="' . esc_attr($args['container_class']) . '">';
-    
+
     foreach ($custom_meta_items as $item) {
-        $question = $item['question'] ?? '';
+        $title = $item['title'] ?? $item['question'] ?? '';
         $icon = $item['icon'] ?? '';
-        $image_id = $item['image_id'] ?? 0;
-        
-        if (empty($question)) {
+        $image_id = absint($item['image_id'] ?? 0);
+
+        // Only display items that have a title
+        if (empty($title)) {
             continue;
         }
-        
-        echo '<div class="' . esc_attr($args['item_class']) . '">';
-        
+
+        // Sanitize classes
+        $item_class  = ! empty($args['item_class']) ? sanitize_html_class($args['item_class']) : '';
+        $icon_class  = ! empty($args['icon_class']) ? sanitize_html_class($args['icon_class']) : '';
+        $image_class = ! empty($args['image_class']) ? sanitize_html_class($args['image_class']) : '';
+        $title_class = ! empty($args['title_class']) ? sanitize_html_class($args['title_class']) : '';
+
+        echo '<div class="' . esc_attr($item_class) . '">';
+
         // Display icon if available and enabled
-        if ($args['show_icons'] && !empty($icon)) {
-            echo '<span class="' . esc_attr($args['icon_class']) . ' dashicons dashicons-' . esc_attr($icon) . '"></span>';
-        }
-        
-        // Display image if available and enabled
-        if ($args['show_images'] && $image_id > 0) {
-            $image_html = wp_get_attachment_image($image_id, $args['image_size'], false, [
-                'class' => $args['image_class'],
-                'alt' => esc_attr($question)
-            ]);
-            if ($image_html) {
-                echo $image_html;
+        if (! empty($args['show_icons']) && ! empty($icon)) {
+            if (strpos($icon, 'fa-') !== false) {
+                echo '<i class="' . esc_attr($icon_class) . ' ' . esc_attr($icon) . '"></i>';
+            } else {
+                echo '<span class="' . esc_attr($icon_class) . ' dashicons dashicons-' . esc_attr($icon) . '"></span>';
             }
         }
-        
+
+        // Display image if available and enabled
+        if (! empty($args['show_images']) && $image_id > 0) {
+            $allowed_sizes = ['thumbnail', 'medium', 'large', 'full'];
+            $image_size = in_array($args['image_size'], $allowed_sizes, true) ? $args['image_size'] : 'thumbnail';
+
+            $image_html = wp_get_attachment_image(
+                $image_id,
+                $image_size,
+                false,
+                [
+                    'class' => $image_class,
+                    'alt'   => esc_attr($title),
+                ]
+            );
+
+            if ($image_html) {
+                echo wp_kses_post($image_html);
+            }
+        }
+
         // Display title
-        echo '<span class="' . esc_attr($args['title_class']) . '">' . esc_html($question) . '</span>';
-        
+        echo '<span class="' . esc_attr($title_class) . '">' . esc_html($title) . '</span>';
+
         echo '</div>';
     }
-    
+
     echo '</div>';
 }
 
@@ -115,53 +115,135 @@ function cmfw_display_custom_meta($custom_meta_items = [], $args = []) {
  * Get custom meta for current product categories
  * @return array
  */
-function cmfw_get_current_product_custom_meta() {
+function cmfw_get_current_product_custom_meta()
+{
     if (!is_product()) {
         return [];
     }
-    
+
     global $product;
     if (!$product) {
         return [];
     }
-    
+
     $product_id = $product->get_id();
     $category_ids = wp_get_post_terms($product_id, 'product_cat', ['fields' => 'ids']);
     $tag_ids = wp_get_post_terms($product_id, 'product_tag', ['fields' => 'ids']);
-    
+
     $custom_meta = [];
-    
+
     // Get custom meta for categories
     if (!empty($category_ids)) {
         $cat_meta = cmfw_get_custom_meta_data('product_cat', $category_ids);
         $custom_meta = array_merge($custom_meta, $cat_meta);
     }
-    
+
     // Get custom meta for tags
     if (!empty($tag_ids)) {
         $tag_meta = cmfw_get_custom_meta_data('product_tag', $tag_ids);
         $custom_meta = array_merge($custom_meta, $tag_meta);
     }
-    
+
     return $custom_meta;
 }
 
 /**
- * Auto display custom meta on single product page
- * Hook this function to display custom meta automatically
+ * Check if PRO version is active
+ * @return bool
  */
-function cmfw_auto_display_product_custom_meta() {
-    $custom_meta = cmfw_get_current_product_custom_meta();
-    
-    if (!empty($custom_meta)) {
-        cmfw_display_custom_meta($custom_meta, [
-            'container_class' => 'cmfw-product-custom-meta',
-            'item_class' => 'cmfw-product-meta-item',
-        ]);
-    }
+function cmfw_is_pro_active()
+{
+    $pro_function_exists = function_exists('cmfw_pro_is_active');
+    $pro_is_active = $pro_function_exists ? cmfw_pro_is_active() : false;
+    return $pro_function_exists && $pro_is_active;
 }
 
-// Uncomment the line below to automatically display custom meta on single product pages
-// add_action('woocommerce_single_product_summary', 'cmfw_auto_display_product_custom_meta', 25);
+/**
+ * Apply version-specific structure - free version: 1 group with 3 items, pro version: unlimited groups
+ * @param array $groups
+ * @return array
+ */
+function cmfw_apply_free_version_structure($groups) {
+    // Check if PRO version is active
+    $is_pro_active = function_exists('cmfw_pro_is_active') && cmfw_pro_is_active();
+    
+    if (empty($groups)) {
+        // Create default group with 3 empty items
+        $groups = [[
+            'taxonomy' => '',
+            'terms' => [],
+            'items' => [
+                ['title' => '', 'subtitle' => '', 'icon' => '', 'image_id' => 0],
+                ['title' => '', 'subtitle' => '', 'icon' => '', 'image_id' => 0],
+                ['title' => '', 'subtitle' => '', 'icon' => '', 'image_id' => 0]
+            ]
+        ]];
+    } else {
+        if ($is_pro_active) {
+            // PRO version: Allow multiple groups, but ensure each has proper structure
+            foreach ($groups as &$group) {
+                $items = $group['items'] ?? [];
+                
+                // Ensure we have at least 1 item (PRO version allows unlimited)
+                if (empty($items)) {
+                    $items = [['title' => '', 'subtitle' => '', 'icon' => '', 'image_id' => 0]];
+                }
+                
+                $group['items'] = $items;
+            }
+            unset($group);
+        } else {
+            // Free version: Take only the first group and ensure it has exactly 3 items
+            $first_group = $groups[0];
+            
+            // Ensure we have exactly 3 items (maintain structure even if some are empty)
+            $items = $first_group['items'] ?? [];
+            $items = array_slice($items, 0, 3); // Take first 3 items
+            
+            // Fill up to 3 items if needed
+            while (count($items) < 3) {
+                $items[] = ['title' => '', 'subtitle' => '', 'icon' => '', 'image_id' => 0];
+            }
+            
+            // Ensure subtitle is not available in free version
+            foreach ($items as &$item) {
+                unset($item['subtitle']);
+            }
+            unset($item);
 
-// New comment
+            $first_group['items'] = $items;
+            $groups = [$first_group];
+        }
+    }
+    
+    return $groups;
+}
+
+/**
+ * Get groups with proper structure based on version
+ * @return array
+ */
+function cmfw_get_groups() {
+    $groups = get_option('cmfw_groups', []);
+    
+    // Apply free version structure
+    $groups = cmfw_apply_free_version_structure($groups);
+    
+    // Allow pro version to modify groups
+    return apply_filters('cmfw_get_groups', $groups);
+}
+
+/**
+ * Save groups with proper validation
+ * @param array $groups
+ * @return bool
+ */
+function cmfw_save_groups($groups) {
+    // Apply free version structure
+    $groups = cmfw_apply_free_version_structure($groups);
+    
+    // Allow pro version to modify groups before saving
+    $groups = apply_filters('cmfw_save_groups', $groups);
+    
+    return update_option('cmfw_groups', $groups);
+}

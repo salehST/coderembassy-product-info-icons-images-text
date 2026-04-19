@@ -43,12 +43,14 @@ class CMFW
                add_action('admin_notices', [$this, 'admin_notice_missing_woocommerce_plugin']);
           }
 
-          add_action('before_woocommerce_init', [$this, 'cmfw_hpos']);
           
+
           // AJAX handlers for image functionality
           add_action('wp_ajax_cmfw_get_image_url', [$this, 'ajax_get_image_url']);
           // Term search for taxonomy autocomplete
           add_action('wp_ajax_cmfw_term_search', [$this, 'ajax_term_search']);
+          // Get saved groups for form reload
+          add_action('wp_ajax_cmfw_get_saved_groups', [$this, 'ajax_get_saved_groups']);
      }
 
      /**
@@ -59,22 +61,9 @@ class CMFW
      public function admin_notice_missing_woocommerce_plugin()
      {
           $class = 'notice notice-error';
-          $message = __("Custom Meta for WooCommerce Requires WooCommerce to be Activated", "coderembassy-product-info-icons-images-text");
+          $message = __("CoderEmbassy Product Info Icons Images Text Requires WooCommerce to be Activated", "coderembassy-product-info-icons-images-text");
 
           printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
-     }
-
-     /**
-      * Declare compatibility with custom order tables for WooCommerce.
-      * Support WooCommerce High-performance order storage
-      * @since 1.0.0
-      * @author Fazle Bari <fazlebarisn@gmail.com>
-      */
-     public function cmfw_hpos()
-     {
-          if (class_exists('\Automattic\WooCommerce\Utilities\FeaturesUtil')) {
-               \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
-          }
      }
 
      /**
@@ -84,19 +73,19 @@ class CMFW
      public function ajax_get_image_url()
      {
           // Verify nonce
-          if (!wp_verify_nonce($_POST['nonce'] ?? '', 'cmfw_ajax_nonce')) {
-               wp_die(__('Security check failed', 'coderembassy-product-info-icons-images-text'));
-          }
-
+          if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'cmfw_ajax_nonce' ) ) {
+               wp_die( esc_html__( 'Security check failed', 'coderembassy-product-info-icons-images-text' ) );
+           }
+           
           $image_id = intval($_POST['image_id'] ?? 0);
-          
+
           if ($image_id <= 0) {
                wp_send_json_error(['message' => __('Invalid image ID', 'coderembassy-product-info-icons-images-text')]);
           }
 
           // Get image URL
           $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
-          
+
           if (!$image_url) {
                // Try to get full size if thumbnail doesn't exist
                $image_url = wp_get_attachment_image_url($image_id, 'full');
@@ -119,12 +108,12 @@ class CMFW
      public function ajax_term_search()
      {
           // Verify nonce
-          if (!wp_verify_nonce($_REQUEST['nonce'] ?? '', 'cmfw_ajax_nonce')) {
-               wp_die(__('Security check failed', 'coderembassy-product-info-icons-images-text'));
+          if (!isset($_REQUEST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['nonce'])), 'cmfw_ajax_nonce')) {
+               wp_die( esc_html__( 'Security check failed', 'coderembassy-product-info-icons-images-text' ) );
           }
 
-          $taxonomy = sanitize_text_field($_REQUEST['taxonomy'] ?? '');
-          $search   = sanitize_text_field($_REQUEST['term'] ?? '');
+          $taxonomy = sanitize_text_field(wp_unslash($_REQUEST['taxonomy'] ?? ''));
+          $search   = sanitize_text_field(wp_unslash($_REQUEST['term'] ?? ''));
 
           if (!$taxonomy || !$search || !taxonomy_exists($taxonomy)) {
                wp_send_json([]);
@@ -142,7 +131,7 @@ class CMFW
                wp_send_json([]);
           }
 
-          $results = array_map(function($t){
+          $results = array_map(function ($t) {
                return [
                     'label' => $t->name,
                     'value' => $t->term_id,
@@ -150,5 +139,40 @@ class CMFW
           }, $terms);
 
           wp_send_json($results);
+     }
+
+     /**
+      * AJAX handler to get saved groups for form reload
+      * @since 1.0.0
+      */
+     public function ajax_get_saved_groups()
+     {
+          // Verify nonce
+          if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'cmfw_ajax_nonce')) {
+               wp_die(esc_html__('Security check failed', 'coderembassy-product-info-icons-images-text'));
+          }
+
+          // Get saved groups
+          $saved_groups = cmfw_get_groups();
+
+          // Attach term names for pills
+          if (!empty($saved_groups)) {
+               foreach ($saved_groups as &$group) {
+                    $taxonomy = $group['taxonomy'] ?? '';
+                    $term_names = [];
+                    if (!empty($group['terms']) && taxonomy_exists($taxonomy)) {
+                         foreach ((array) $group['terms'] as $term_id) {
+                              $term_obj = get_term((int) $term_id, $taxonomy);
+                              if ($term_obj && !is_wp_error($term_obj)) {
+                                   $term_names[(int) $term_id] = esc_html($term_obj->name);
+                              }
+                         }
+                    }
+                    $group['term_names'] = $term_names;
+               }
+               unset($group);
+          }
+
+          wp_send_json_success($saved_groups);
      }
 }
