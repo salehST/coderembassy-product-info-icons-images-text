@@ -34,6 +34,7 @@ class Menu
     {
         // Add menu
         add_action('admin_menu', [$this, 'adminMenu'], 20);
+        add_action('admin_menu', [$this, 'hideSubmenuItems'], 1000);
 
         // Register settings
         add_action('admin_init', [$this, 'registerSettings']);
@@ -59,7 +60,7 @@ class Menu
             'manage_options',
             'coderembassy-product-info-icons-images-text',
             [$this, 'adminPage'],
-            'dashicons-admin-generic',
+            'dashicons-cart',
             55
         );
 
@@ -72,6 +73,25 @@ class Menu
             'coderembassy-meta-settings',
             [$this, 'adminPage']
         );
+    }
+
+    /**
+     * Keep sidebar clean: only show dashboard menu item.
+     *
+     * We keep hidden SPA routes registered so direct URLs continue to work:
+     * - coderembassy-meta-settings
+     * - coderembassy-design
+     */
+    public function hideSubmenuItems()
+    {
+        $parent_slug = 'coderembassy-product-info-icons-images-text';
+
+        // Remove default duplicate submenu generated from add_menu_page().
+        remove_submenu_page($parent_slug, $parent_slug);
+
+        // Hide SPA route slugs from sidebar while keeping route handlers active.
+        remove_submenu_page($parent_slug, 'coderembassy-meta-settings');
+        remove_submenu_page($parent_slug, 'coderembassy-design');
     }
 
     /**

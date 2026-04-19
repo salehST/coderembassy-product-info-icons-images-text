@@ -317,7 +317,7 @@ function renderGroup(group, index) {
 
       <div style="font-weight:800; margin-bottom: 12px; color:var(--text); padding-bottom:8px; border-bottom:1px solid var(--border)">Product Info Items</div>
       
-      <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="cmfw-items-grid">
         ${group.items.map((item, iIdx) => renderItem(item, index, iIdx)).join('')}
       </div>
       
@@ -334,7 +334,7 @@ function renderGroup(group, index) {
 
 function renderItem(item, gIdx, iIdx) {
   return `
-    <div style="padding:16px; border:1px solid var(--border); background:var(--card-2); border-radius:8px; position:relative;">
+    <div class="cmfw-item-card">
       ${IS_PRO || iIdx >= 3 ? `<button class="cmfw-remove-item cmfw-item-close" data-group="${gIdx}" data-item="${iIdx}" title="Remove Item">${icons.close}</button>` : ''}
       
       <div style="font-weight:700; margin-bottom:12px;">Item ${iIdx + 1}</div>
